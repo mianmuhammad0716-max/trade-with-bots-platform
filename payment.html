@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Payment - Trade With Bots</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      text-align: center;
+      padding: 50px;
+    }
+    h1 {
+      color: #007bff;
+    }
+    .payment-box {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      display: inline-block;
+    }
+    p {
+      font-size: 1.2em;
+    }
+    .copy-btn {
+      padding: 10px 20px;
+      margin-top: 15px;
+      font-size: 1em;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: linear-gradient(90deg, #007bff, #00ccff);
+      color: #fff;
+    }
+    .copy-btn:hover {
+      background: linear-gradient(90deg, #0056b3, #00aaff);
+    }
+  </style>
+</head>
+<body>
+  <h1>Send Your Investment</h1>
+  <div class="payment-box">
+    <p>Send your investment to the following address:</p>
+    <p id="paymentAddress"><strong>+92 307 6365563</strong></p>
+    <button class="copy-btn" onclick="copyAddress()">Copy Address</button>
+    <p style="margin-top:20px;">After sending, click below to confirm:</p>
+    <button class="copy-btn" onclick="alert('Payment confirmed! $13 added to your portfolio')">Confirm Payment</button>
+  </div>
+
+  <script>
+    function copyAddress() {
+      const address = document.getElementById('paymentAddress').innerText;
+      navigator.clipboard.writeText(address).then(() => {
+        alert('Address copied to clipboard!');
+      });
+    }
+  </script>
+</body>
+</html>
