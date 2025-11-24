@@ -89,6 +89,23 @@
     <button onclick="alert('Trade feature coming soon')">Start Trading</button>
     <button onclick="window.location.href='index.html'">Logout</button>
   </div>
+  <script>
+  let balance = 0;
+  const target = 100; // final portfolio
+  const balanceEl = document.getElementById('balance');
+
+  function animateBalance() {
+    if(balance < target) {
+      balance += 1; // increase by 1$
+      balanceEl.textContent = '$' + balance;
+      setTimeout(animateBalance, 50); // every 50ms
+    } else {
+      balanceEl.textContent = '$' + target;
+    }
+  }
+
+  animateBalance();
+</script>
 </body>
 </html>
 
