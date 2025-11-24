@@ -49,12 +49,12 @@
     <button class="copy-btn" onclick="alert('Payment confirmed! $13 added to your portfolio')">Confirm Payment</button>
   </div>
 
-  <script>
-    function copyAddress() {
+  <script>function copyAddress() {
       const address = document.getElementById('paymentAddress').innerText;
       navigator.clipboard.writeText(address).then(() => {
         alert('Address copied to clipboard!');
       });
+    
     }
   </script>
 </body>
