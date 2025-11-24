@@ -96,14 +96,31 @@
   const target = 100; // final portfolio
   const balanceEl = document.getElementById('balance');
 
+  <script>
+  let balance = 0;
+  let baseAmount = 100;
+  const balanceEl = document.getElementById('balance');
+
+  // Check if payment was made
+  if (localStorage.getItem("paid") === "yes") {
+    baseAmount = 113; // add $13 bonus
+  }
+
+  const target = baseAmount;
+
   function animateBalance() {
     if(balance < target) {
-      balance += 1; // increase by 1$
+      balance += 1;
       balanceEl.textContent = '$' + balance;
-      setTimeout(animateBalance, 50); // every 50ms
+      setTimeout(animateBalance, 30);
     } else {
       balanceEl.textContent = '$' + target;
     }
+  }
+
+  animateBalance();
+</script>
+
   }
 
   animateBalance();
