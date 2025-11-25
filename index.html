@@ -11,7 +11,7 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #000;
+      background: #000; /* black background */
       color: #fff;
     }
 
@@ -32,21 +32,14 @@
 
     .hero h1 {
       font-size: 2.6em;
-      margin-bottom: 10px;
+      margin-bottom: 20px;
       color: #00ccff;
     }
 
     .hero p {
       font-size: 1.2em;
-      margin-bottom: 15px;
+      margin-bottom: 25px;
       color: #bbb;
-    }
-
-    .winrate {
-      font-size: 1.4em;
-      margin-top: 10px;
-      color: #00ff88;
-      font-weight: bold;
     }
 
     .hero button {
@@ -65,24 +58,30 @@
       background: linear-gradient(90deg, #0056b3, #0099cc);
     }
 
-    .chart-box {
-      width: 95%;
-      margin: 20px auto;
-      padding: 14px;
-      background: #111;
+    /* ⭐ 87% WIN RATE BADGE ⭐ */
+    .win-badge {
+      margin: 20px auto 10px auto;
+      padding: 10px 25px;
+      display: inline-block;
+      font-size: 1.3em;
+      font-weight: bold;
+      color: #00ccff;
+      border: 2px solid #00ccff;
       border-radius: 12px;
-      box-shadow: 0 0 12px rgba(0,255,255,0.15);
+      text-shadow: 0 0 8px #00ccff;
+      box-shadow: 0 0 15px #00ccff;
+      animation: pulse 1.7s infinite ease-in-out;
     }
 
-    .half-row {
-      display: flex;
-      gap: 20px;
-      width: 95%;
-      margin: 0 auto 150px auto;
+    @keyframes pulse {
+      0% { box-shadow: 0 0 10px #00ccff; }
+      50% { box-shadow: 0 0 25px #00ccff; }
+      100% { box-shadow: 0 0 10px #00ccff; }
     }
 
-    .half-box {
-      flex: 1;
+    .chart-box {
+      max-width: 1000px;
+      margin: 20px auto 80px auto;
       padding: 14px;
       background: #111;
       border-radius: 12px;
@@ -97,6 +96,16 @@
       font-weight: 600;
     }
 
+    /* Responsive chart sizes */
+    .chart-large { height: 450px; }
+    .chart-small { height: 300px; }
+
+    @media (max-width: 768px) {
+      .chart-large { height: 320px !important; }
+      .chart-small { height: 220px !important; }
+      .chart-box { padding: 10px; }
+    }
+
     footer {
       text-align: center;
       padding: 20px;
@@ -106,10 +115,6 @@
       width: 100%;
       bottom: 0;
       border-top: 2px solid #00ccff;
-    }
-
-    @media (max-width: 850px) {
-      .half-row { flex-direction: column; }
     }
   </style>
 </head>
@@ -122,23 +127,22 @@
     <h1>Invest, Watch, Grow</h1>
     <p>Trade automatically with our intelligent bots and monitor your portfolio.</p>
 
-    <!-- ⭐ NEW WIN RATE SECTION ⭐ -->
-    <div class="winrate">🚀 Our Bots Have <span style="color:#00ffcc;">87% Win-Ratio</span></div>
+    <!-- ⭐ ADDED BADGE ⭐ -->
+    <div class="win-badge">🔥 87% BOT WIN RATIO 🔥</div>
 
     <button onclick="window.location.href='login.html'">Login</button>
     <button onclick="alert('Register feature coming soon')">Register</button>
   </div>
 
-
-  <!-- ⭐ BIG BTC CHART ⭐ -->
+  <!-- ⭐ CHART 1: BTC/USDT ⭐ -->
   <div class="chart-box">
     <div class="chart-title">BTC/USDT Live Chart</div>
-    <div id="btcChart" style="height:520px;"></div>
+    <div id="btcChart" class="chart-large"></div>
 
     <script>
       new TradingView.widget({
         "width": "100%",
-        "height": 520,
+        "height": "100%",
         "symbol": "BINANCE:BTCUSDT",
         "interval": "60",
         "timezone": "Etc/UTC",
@@ -150,55 +154,48 @@
     </script>
   </div>
 
+  <!-- ⭐ CHART 2: ETH/USDT ⭐ -->
+  <div class="chart-box">
+    <div class="chart-title">ETH/USDT Live Chart</div>
+    <div id="ethChart" class="chart-small"></div>
 
-  <!-- ⭐ SMALLER CHARTS ROW ⭐ -->
-  <div class="half-row">
+    <script>
+      new TradingView.widget({
+        "width": "100%",
+        "height": "100%",
+        "symbol": "BINANCE:ETHUSDT",
+        "interval": "60",
+        "timezone": "Etc/UTC",
+        "theme": "dark",
+        "style": "1",
+        "locale": "en",
+        "container_id": "ethChart"
+      });
+    </script>
+  </div>
 
-    <!-- ETH -->
-    <div class="half-box">
-      <div class="chart-title">ETH/USDT Live Chart</div>
-      <div id="ethChart" style="height:320px;"></div>
+  <!-- ⭐ CHART 3: SOL/USDT ⭐ -->
+  <div class="chart-box">
+    <div class="chart-title">SOL/USDT Live Chart</div>
+    <div id="solChart" class="chart-small"></div>
 
-      <script>
-        new TradingView.widget({
-          "width": "100%",
-          "height": 320,
-          "symbol": "BINANCE:ETHUSDT",
-          "interval": "60",
-          "timezone": "Etc/UTC",
-          "theme": "dark",
-          "style": "1",
-          "locale": "en",
-          "container_id": "ethChart"
-        });
-      </script>
-    </div>
-
-    <!-- SOL -->
-    <div class="half-box">
-      <div class="chart-title">SOL/USDT Live Chart</div>
-      <div id="solChart" style="height:320px;"></div>
-
-      <script>
-        new TradingView.widget({
-          "width": "100%",
-          "height": 320,
-          "symbol": "BINANCE:SOLUSDT",
-          "interval": "60",
-          "timezone": "Etc/UTC",
-          "theme": "dark",
-          "style": "1",
-          "locale": "en",
-          "container_id": "solChart"
-        });
-      </script>
-    </div>
-
+    <script>
+      new TradingView.widget({
+        "width": "100%",
+        "height": "100%",
+        "symbol": "BINANCE:SOLUSDT",
+        "interval": "60",
+        "timezone": "Etc/UTC",
+        "theme": "dark",
+        "style": "1",
+        "locale": "en",
+        "container_id": "solChart"
+      });
+    </script>
   </div>
 
   <footer>© 2025 Trade With Bots | All rights reserved</footer>
 
 </body>
 </html>
-
 
