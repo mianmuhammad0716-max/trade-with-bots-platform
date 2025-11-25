@@ -4,7 +4,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Trade With Bots</title>
-  <!-- TradingView Script -->
   <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 
   <style>
@@ -97,10 +96,10 @@
     }
     .big-chart {
       grid-column: span 2;
-      height: 450px;
+      height: 50vh; /* half viewport height on desktop */
     }
     .small-chart {
-      height: 300px;
+      height: 35vh; /* smaller charts smaller height */
     }
 
     /* Mobile adjustments */
@@ -116,9 +115,10 @@
       .hero p { font-size: 0.9em; }
       .hero button { padding: 8px 16px; font-size: 0.9em; }
       .win-badge { font-size: 0.9em; padding: 6px 12px; }
-      .chart-grid { grid-template-columns: 1fr; }
-      .big-chart { height: 300px; }
-      .small-chart { height: 220px; }
+
+      /* Mobile grid: one column, fill viewport */
+      .chart-grid { grid-template-columns: 1fr; gap: 12px; }
+      .big-chart, .small-chart { height: 60vh; } /* charts take more screen height */
     }
 
     footer {
@@ -137,14 +137,10 @@
 </head>
 <body>
 
-  <!-- Header with bot logo -->
-
   <header>
     <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="Bot Logo">
     <span>Trade With Bots</span>
   </header>
-
-  <!-- Hero -->
 
   <div class="hero">
     <h1>Invest, Watch, Grow</h1>
@@ -154,18 +150,13 @@
     <button onclick="alert('Register feature coming soon')">Register</button>
   </div>
 
-  <!-- Charts -->
+  <!-- Chart Grid -->
 
   <div class="chart-grid">
-    <!-- BTC big chart -->
     <div class="chart big-chart" id="btc_chart"></div>
-    <!-- ETH small chart -->
     <div class="chart small-chart" id="eth_chart"></div>
-    <!-- SOL small chart -->
     <div class="chart small-chart" id="sol_chart"></div>
   </div>
-
-  <!-- TradingView Widgets -->
 
   <script>
     new TradingView.widget({
@@ -203,3 +194,4 @@
   <footer>© 2025 Trade With Bots | All rights reserved</footer>
 </body>
 </html>
+
