@@ -4,13 +4,10 @@
 <head>
   <meta charset="UTF-8">
   <title>Trade With Bots</title>
-
   <!-- TradingView Script -->
-
   <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 
   <style>
-    /* ===== GENERAL STYLES ===== */
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -18,249 +15,191 @@
       color: #fff;
     }
 
-    /* ===== HEADER WITH LOGO ===== */
+    /* Header with bot logo */
     header {
       background-color: #111;
       color: #00ccff;
-      padding: 15px;
+      padding: 12px 15px;
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       border-bottom: 2px solid #00ccff;
     }
-
     header img {
-      height: 42px;
-      width: 42px;
+      height: 40px;
+      width: 40px;
       border-radius: 50%;
     }
-
     header span {
       font-size: 1.8em;
       font-weight: bold;
     }
 
-    /* ===== HERO SECTION ===== */
+    /* Hero Section */
     .hero {
       text-align: center;
-      padding: 35px 15px;
+      padding: 30px 15px;
     }
-
     .hero h1 {
-      font-size: 2.2em;
+      font-size: 2em;
       color: #00ccff;
       margin-bottom: 15px;
     }
-
     .hero p {
-      font-size: 1.1em;
+      font-size: 1em;
       color: #bbb;
       margin-bottom: 15px;
     }
-
     .hero button {
-      padding: 11px 22px;
-      margin: 6px;
+      padding: 10px 20px;
+      margin: 5px;
       font-size: 1em;
       border-radius: 8px;
+      border: none;
       background: linear-gradient(90deg, #007bff, #00ccff);
       color: #fff;
-      border: none;
       cursor: pointer;
+      transition: 0.3s;
     }
-
     .hero button:hover {
       background: linear-gradient(90deg, #0056b3, #0099cc);
     }
 
-    /* ===== WIN RATE BADGE ===== */
+    /* Win badge */
     .win-badge {
-      margin: 15px auto;
-      padding: 8px 20px;
-      font-size: 1.1em;
-      font-weight: bold;
+      display: inline-block;
+      margin: 10px auto 20px auto;
+      padding: 8px 18px;
+      font-size: 1em;
       border: 2px solid #00ccff;
       border-radius: 10px;
       color: #00ccff;
-      text-shadow: 0 0 5px #00ccff;
       box-shadow: 0 0 12px #00ccff;
-      display: inline-block;
+      font-weight: bold;
     }
 
-    /* ===== CHART GRID ===== */
+    /* Chart grid */
     .chart-grid {
       max-width: 1200px;
-      margin: 25px auto 120px auto;
+      margin: 0 auto 100px auto;
       padding: 10px;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
+      gap: 15px;
     }
-
     .chart {
       background: #111;
-      padding: 10px;
+      padding: 8px;
       border-radius: 12px;
       box-shadow: 0 0 12px rgba(0,255,255,0.15);
+      height: 100%;
     }
-
     .big-chart {
       grid-column: span 2;
       height: 450px;
     }
-
     .small-chart {
-      height: 280px;
+      height: 300px;
     }
 
-    /* ===== MOBILE RESPONSIVE ===== */
+    /* Mobile adjustments */
     @media (max-width: 768px) {
       header span {
         font-size: 1.4em;
       }
-
       header img {
-        height: 34px;
-        width: 34px;
+        height: 32px;
+        width: 32px;
       }
-
-      .hero h1 {
-        font-size: 1.7em;
-      }
-
-      .hero p {
-        font-size: 0.95em;
-      }
-
-      .hero button {
-        padding: 9px 18px;
-        font-size: 0.9em;
-      }
-
-      .win-badge {
-        font-size: 1em;
-        padding: 6px 16px;
-      }
-
-      .chart-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .big-chart {
-        height: 320px;
-      }
-
-      .small-chart {
-        height: 220px;
-      }
+      .hero h1 { font-size: 1.6em; }
+      .hero p { font-size: 0.9em; }
+      .hero button { padding: 8px 16px; font-size: 0.9em; }
+      .win-badge { font-size: 0.9em; padding: 6px 12px; }
+      .chart-grid { grid-template-columns: 1fr; }
+      .big-chart { height: 300px; }
+      .small-chart { height: 220px; }
     }
 
     footer {
       text-align: center;
-      padding: 18px;
+      padding: 16px;
       background-color: #111;
       color: #00ccff;
       position: fixed;
       width: 100%;
       bottom: 0;
+      border-top: 2px solid #00ccff;
       font-size: 0.9em;
     }
   </style>
 
 </head>
-
 <body>
 
-  <!-- ===== HEADER ===== -->
+  <!-- Header with bot logo -->
 
   <header>
     <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="Bot Logo">
     <span>Trade With Bots</span>
   </header>
 
-  <!-- ===== HERO ===== -->
+  <!-- Hero -->
 
   <div class="hero">
     <h1>Invest, Watch, Grow</h1>
     <p>Trade automatically with our intelligent bots and monitor your portfolio.</p>
-
-```
-<div class="win-badge"> 
-  🔥 87% BOT WIN RATIO 🔥</div>
-
-<button onclick="window.location.href='login.html'">Login</button>
-<button onclick="alert('Register feature coming soon')">Register</button>
-```
-
+    <div class="win-badge">🔥 87% BOT WIN RATIO 🔥</div>
+    <button onclick="window.location.href='login.html'">Login</button>
+    <button onclick="alert('Register feature coming soon')">Register</button>
   </div>
 
-  <!-- ===== CHART GRID ===== -->
+  <!-- Charts -->
 
   <div class="chart-grid">
-
-```
-<!-- BIG BTC CHART -->
-<div class="chart big-chart">
-  <div id="btc_chart"></div>
-</div>
-
-<!-- SMALL ETH CHART -->
-<div class="chart small-chart">
-  <div id="eth_chart"></div>
-</div>
-
-<!-- SMALL SOL CHART -->
-<div class="chart small-chart">
-  <div id="sol_chart"></div>
-</div>
-```
-
+    <!-- BTC big chart -->
+    <div class="chart big-chart" id="btc_chart"></div>
+    <!-- ETH small chart -->
+    <div class="chart small-chart" id="eth_chart"></div>
+    <!-- SOL small chart -->
+    <div class="chart small-chart" id="sol_chart"></div>
   </div>
 
-  <!-- ===== TRADINGVIEW WIDGETS ===== -->
+  <!-- TradingView Widgets -->
 
   <script>
     new TradingView.widget({
-      "width": "100%",
-      "height": "100%",
+      "container_id": "btc_chart",
+      "autosize": true,
       "symbol": "BINANCE:BTCUSDT",
       "interval": "60",
       "timezone": "Etc/UTC",
       "theme": "dark",
       "style": "1",
-      "locale": "en",
-      "container_id": "btc_chart"
+      "locale": "en"
     });
-
     new TradingView.widget({
-      "width": "100%",
-      "height": "100%",
+      "container_id": "eth_chart",
+      "autosize": true,
       "symbol": "BINANCE:ETHUSDT",
       "interval": "60",
       "timezone": "Etc/UTC",
       "theme": "dark",
       "style": "1",
-      "locale": "en",
-      "container_id": "eth_chart"
+      "locale": "en"
     });
-
     new TradingView.widget({
-      "width": "100%",
-      "height": "100%",
+      "container_id": "sol_chart",
+      "autosize": true,
       "symbol": "BINANCE:SOLUSDT",
       "interval": "60",
       "timezone": "Etc/UTC",
       "theme": "dark",
       "style": "1",
-      "locale": "en",
-      "container_id": "sol_chart"
+      "locale": "en"
     });
   </script>
 
   <footer>© 2025 Trade With Bots | All rights reserved</footer>
-
 </body>
 </html>
-
-
