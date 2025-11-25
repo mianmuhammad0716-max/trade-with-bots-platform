@@ -1,83 +1,173 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Login - Trade With Bots</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f5f5f5;
-      color: #333;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #000;
+      color: #fff;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      margin: 0;
+      min-height: 100vh;
+      flex-direction: column;
+      padding: 15px;
     }
-    .login-container {
-      background-color: #ffffff;
-      padding: 40px;
-      border-radius: 12px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.1);
-      width: 350px;
-      text-align: center;
-    }
-    h1 {
-      color: #007bff;
-      margin-bottom: 30px;
-    }
-    input[type="email"], input[type="password"] {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-    }
-    button {
-      width: 100%;
-      padding: 12px;
-      margin-top: 20px;
-      background-color: #007bff;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
-    p {
-      margin-top: 15px;
-    }
+
+```
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+header img {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+header span {
+  font-size: 1.8em;
+  font-weight: bold;
+  color: #00ccff;
+}
+
+.login-container {
+  background: #111;
+  padding: 30px 25px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,255,255,0.2);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.login-container h2 {
+  margin-bottom: 20px;
+  color: #00ccff;
+}
+
+input[type="email"], input[type="password"] {
+  width: 100%;
+  padding: 10px 12px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: 1px solid #555;
+  background: #222;
+  color: #fff;
+  font-size: 1em;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 12px 0;
+  margin-top: 15px;
+  background: linear-gradient(90deg, #00ffcc, #00ccff);
+  border: none;
+  border-radius: 8px;
+  color: #000;
+  font-weight: bold;
+  font-size: 1.1em;
+  cursor: pointer;
+  box-shadow: 0 0 15px #00ffcc;
+  transition: 0.3s;
+}
+.login-btn:hover {
+  transform: scale(1.03);
+  background: linear-gradient(90deg, #00ccff, #00ffcc);
+}
+
+.social-login {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.social-login button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 0;
+  font-size: 1em;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  transition: 0.3s;
+}
+.google-btn {
+  background: #fff;
+  color: #000;
+}
+.google-btn img {
+  height: 20px;
+  width: 20px;
+}
+.google-btn:hover { transform: scale(1.03); }
+
+.apple-btn {
+  background: #000;
+  border: 1px solid #fff;
+  color: #fff;
+}
+.apple-btn img {
+  height: 20px;
+  width: 20px;
+  filter: invert(1);
+}
+.apple-btn:hover { transform: scale(1.03); }
+
+footer {
+  margin-top: 25px;
+  text-align: center;
+  color: #00ccff;
+  font-size: 0.9em;
+}
+
+@media (max-width: 480px) {
+  .login-container { padding: 20px 15px; }
+  input[type="email"], input[type="password"] { font-size: 0.9em; }
+  .login-btn { font-size: 1em; }
+  .social-login button { font-size: 0.9em; padding: 8px 0; }
+}
+```
+
   </style>
 </head>
 <body>
+
+  <header>
+    <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="Bot Logo">
+    <span>Trade With Bots</span>
+  </header>
+
   <div class="login-container">
-    <h1>Login</h1>
-    <form onsubmit="login(event)">
-      <input type="email" id="email" placeholder="Enter your email" required><br>
-      <input type="password" id="password" placeholder="Enter your password" required><br>
-      <button type="submit">Login</button>
-    </form>
-    <p>Don't have an account? <a href="#" onclick="alert('Register feature coming soon')">Register</a></p>
+    <h2>Login to Your Account</h2>
+
+```
+<input type="email" placeholder="Email" required>
+<input type="password" placeholder="Password" required>
+
+<button class="login-btn">Login</button>
+
+<div class="social-login">
+  <button class="google-btn">
+    <img src="https://cdn-icons-png.flaticon.com/512/300/300221.png" alt="Google Logo"> Login with Google
+  </button>
+  <button class="apple-btn">
+    <img src="https://cdn-icons-png.flaticon.com/512/179/179309.png" alt="Apple Logo"> Login with Apple
+  </button>
+</div>
+```
+
   </div>
 
-  <script>
-    function login(event) {
-      event.preventDefault();
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
+  <footer>© 2025 Trade With Bots | All rights reserved</footer>
 
-      if(email && password) {
-        // For demo, any input will "login" successfully
-        alert('Login successful!');
-        window.location.href = 'dashboard.html';
-      } else {
-        alert('Please enter email and password');
-      }
-    }
-  </script>
 </body>
 </html>
