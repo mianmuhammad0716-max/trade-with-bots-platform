@@ -63,10 +63,24 @@ input[type="email"], input[type="password"] {
   font-size: 1em;
 }
 
+.remember-forgot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9em;
+  margin: 8px 0 15px 0;
+}
+.remember-forgot label { cursor: pointer; }
+.remember-forgot a {
+  color: #00ccff;
+  text-decoration: none;
+}
+.remember-forgot a:hover { text-decoration: underline; }
+
 .login-btn {
   width: 100%;
   padding: 12px 0;
-  margin-top: 15px;
+  margin-top: 10px;
   background: linear-gradient(90deg, #00ffcc, #00ccff);
   border: none;
   border-radius: 8px;
@@ -152,6 +166,11 @@ footer {
 ```
 <input type="email" placeholder="Email" required>
 <input type="password" placeholder="Password" required>
+
+<div class="remember-forgot">
+  <label><input type="checkbox"> Remember Me</label>
+  <a href="#">Forgot Password?</a>
+</div>
 
 <button class="login-btn">Login</button>
 
