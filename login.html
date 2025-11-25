@@ -148,17 +148,16 @@ footer {
 
   <div class="login-container">
     <h2>Login to Your Account</h2>
-    <input type="email" placeholder="Email" required>
-    <input type="password" placeholder="Password" required>
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button class="login-btn" onclick="login()">Login</button>
 
 ```
-<button class="login-btn" onclick="window.location.href='dashboard.html'">Login</button>
-
 <div class="social-login">
-  <button class="google-btn" onclick="window.location.href='dashboard.html'">
+  <button class="google-btn" onclick="socialLogin('Google')">
     <img src="https://cdn-icons-png.flaticon.com/512/300/300221.png" alt="Google Logo"> Login with Google
   </button>
-  <button class="apple-btn" onclick="window.location.href='dashboard.html'">
+  <button class="apple-btn" onclick="socialLogin('Apple')">
     <img src="https://cdn-icons-png.flaticon.com/512/179/179309.png" alt="Apple Logo"> Login with Apple
   </button>
 </div>
@@ -167,6 +166,28 @@ footer {
   </div>
 
   <footer>© 2025 Trade With Bots | All rights reserved</footer>
+
+  <script>
+    function login() {
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      if(email === '' || password === '') {
+        alert('Please enter email and password.');
+        return;
+      }
+      // Redirect to dashboard
+      window.location.href = 'dashboard.html';
+    }
+
+    function socialLogin(provider) {
+      let input = prompt(`Enter your ${provider} email/ID to login:`);
+      if(input && input.trim() !== '') {
+        window.location.href = 'dashboard.html';
+      } else {
+        alert('You must enter a valid ID/email to login.');
+      }
+    }
+  </script>
 
 </body>
 </html>
