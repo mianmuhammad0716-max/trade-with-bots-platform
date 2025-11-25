@@ -14,7 +14,7 @@
       color: #fff;
     }
 
-    /* Header with bot logo */
+    /* Header */
     header {
       background-color: #111;
       color: #00ccff;
@@ -40,16 +40,8 @@
       text-align: center;
       padding: 30px 15px;
     }
-    .hero h1 {
-      font-size: 2em;
-      color: #00ccff;
-      margin-bottom: 15px;
-    }
-    .hero p {
-      font-size: 1em;
-      color: #bbb;
-      margin-bottom: 15px;
-    }
+    .hero h1 { font-size: 2em; color: #00ccff; margin-bottom: 15px; }
+    .hero p { font-size: 1em; color: #bbb; margin-bottom: 15px; }
 
     /* Buttons */
     .hero button {
@@ -61,7 +53,6 @@
       cursor: pointer;
       transition: 0.3s;
     }
-
     .hero button.login-btn {
       background: linear-gradient(90deg, #00ffcc, #00ccff);
       color: #000;
@@ -75,13 +66,11 @@
       background: linear-gradient(90deg, #00ccff, #00ffcc);
       transform: scale(1.05);
     }
-
     @keyframes pulse-login {
       0% { box-shadow: 0 0 10px #00ffcc; }
       50% { box-shadow: 0 0 25px #00ffcc; }
       100% { box-shadow: 0 0 10px #00ffcc; }
     }
-
     .hero button.register-btn {
       background: #333;
       color: #888;
@@ -105,7 +94,7 @@
     /* Chart grid */
     .chart-grid {
       max-width: 1200px;
-      margin: 0 auto 100px auto;
+      margin: 0 auto 120px auto;
       padding: 10px;
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -117,31 +106,23 @@
       border-radius: 12px;
       box-shadow: 0 0 12px rgba(0,255,255,0.15);
       height: 100%;
+      min-height: 250px;
     }
-    .big-chart {
-      grid-column: span 2;
-      height: 50vh;
-    }
-    .small-chart {
-      height: 35vh;
-    }
+    .big-chart { grid-column: span 2; height: 50vh; }
+    .small-chart { height: 35vh; }
 
     /* Mobile adjustments */
     @media (max-width: 768px) {
-      header span {
-        font-size: 1.4em;
-      }
-      header img {
-        height: 32px;
-        width: 32px;
-      }
+      header span { font-size: 1.4em; }
+      header img { height: 32px; width: 32px; }
       .hero h1 { font-size: 1.6em; }
       .hero p { font-size: 0.9em; }
       .hero button { padding: 8px 16px; font-size: 0.9em; }
       .win-badge { font-size: 0.9em; padding: 6px 12px; }
 
-      .chart-grid { grid-template-columns: 1fr; gap: 12px; }
-      .big-chart, .small-chart { height: 60vh; }
+      .chart-grid { grid-template-columns: 1fr; gap: 12px; padding-bottom: 50px; }
+      .big-chart { height: 45vh; }  /* smaller to fit mobile view */
+      .small-chart { height: 35vh; }
     }
 
     footer {
@@ -149,18 +130,15 @@
       padding: 16px;
       background-color: #111;
       color: #00ccff;
-      position: fixed;
-      width: 100%;
-      bottom: 0;
       border-top: 2px solid #00ccff;
       font-size: 0.9em;
+      position: relative; /* no fixed to prevent overlapping */
     }
   </style>
 
 </head>
 
 <body>
-
   <header>
     <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="Bot Logo">
     <span>Trade With Bots</span>
@@ -192,7 +170,7 @@
       interval: "60",
       timezone: "Etc/UTC",
       theme: "dark",
-      style: "1",
+      style: symbol === "BTCUSDT" ? 3 : 1, // BTC thicker wick
       locale: "en",
       toolbar_bg: "#111",
       hide_top_toolbar: false,
@@ -200,12 +178,12 @@
       show_popup_button: true,
     });
 
-    new TradingView.widget({ ...chartOptions("BTCUSDT") });
-    new TradingView.widget({ ...chartOptions("ETHUSDT") });
-    new TradingView.widget({ ...chartOptions("SOLUSDT") });
+    new TradingView.widget(chartOptions("BTCUSDT"));
+    new TradingView.widget(chartOptions("ETHUSDT"));
+    new TradingView.widget(chartOptions("SOLUSDT"));
   </script>
 
   <footer>© 2025 Trade With Bots | All rights reserved</footer>
-
 </body>
 </html>
+
