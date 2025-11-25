@@ -45,6 +45,17 @@
     .hero button:hover {
       background: linear-gradient(90deg, #0056b3, #00aaff);
     }
+
+    /* chart container */
+    .chart-box {
+      max-width: 750px;
+      margin: 20px auto 80px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
     footer {
       text-align: center;
       padding: 20px;
@@ -58,13 +69,71 @@
 </head>
 <body>
   <header>Trade With Bots</header>
+
   <div class="hero">
     <h1>Invest, Watch, Grow</h1>
     <p>Trade automatically with our intelligent bots and monitor your portfolio.</p>
     <button onclick="window.location.href='login.html'">Login</button>
     <button onclick="alert('Register feature coming soon')">Register</button>
   </div>
+
+  <!-- ⭐ CRYPTO CHART SECTION ADDED HERE ⭐ -->
+  <div class="chart-box">
+    <h2 style="text-align:center; color:#007bff;">Live Crypto Performance</h2>
+    <canvas id="cryptoChart" style="width:100%; max-height:350px;"></canvas>
+  </div>
+
   <footer>© 2025 Trade With Bots | All rights reserved</footer>
+
+  <!-- ⭐ CHART SCRIPT ADDED BELOW ⭐ -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    const ctx = document.getElementById('cryptoChart').getContext('2d');
+    const data = [];
+    let x = 0;
+
+    function generatePoint() {
+      x += 1;
+      const y = 23000 + Math.sin(x / 5) * 400 + Math.random() * 300;
+      return y;
+    }
+
+    for (let i = 0; i < 30; i++) {
+      data.push(generatePoint());
+    }
+
+    const chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: data.map((_, i) => i),
+        datasets: [{
+          label: 'BTC/USDT',
+          data: data,
+          borderWidth: 3,
+          borderColor: '#007bff',
+          fill: false,
+          tension: 0.3
+        }]
+      },
+      options: {
+        animation: false,
+        scales: {
+          y: { beginAtZero: false }
+        }
+      }
+    });
+
+    setInterval(() => {
+      data.push(generatePoint());
+      data.shift();
+
+      chart.data.labels = data.map((_, i) => i);
+      chart.data.datasets[0].data = data;
+      chart.update();
+    }, 1000);
+  </script>
+
 </body>
 </html>
 
