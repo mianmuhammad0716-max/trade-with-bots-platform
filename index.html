@@ -11,7 +11,7 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #000; /* black background */
+      background: #000;
       color: #fff;
     }
 
@@ -79,31 +79,43 @@
       100% { box-shadow: 0 0 10px #00ccff; }
     }
 
-    .chart-box {
-      max-width: 1000px;
-      margin: 20px auto 80px auto;
-      padding: 14px;
+    /* ⭐ NEW CHART GRID ⭐ */
+    .chart-grid {
+      max-width: 1200px;
+      margin: 30px auto 120px auto;
+      padding: 10px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .chart {
       background: #111;
+      padding: 12px;
       border-radius: 12px;
       box-shadow: 0 0 12px rgba(0,255,255,0.15);
     }
 
-    .chart-title {
-      text-align: center;
-      color: #00ccff;
-      margin-bottom: 10px;
-      font-size: 1.3em;
-      font-weight: 600;
+    .big-chart {
+      grid-column: span 2;
+      height: 450px;
     }
 
-    /* Responsive chart sizes */
-    .chart-large { height: 450px; }
-    .chart-small { height: 300px; }
+    .small-chart {
+      height: 300px;
+    }
 
+    /* ⭐ Mobile Responsive */
     @media (max-width: 768px) {
-      .chart-large { height: 320px !important; }
-      .chart-small { height: 220px !important; }
-      .chart-box { padding: 10px; }
+      .chart-grid {
+        grid-template-columns: 1fr;
+      }
+      .big-chart {
+        height: 340px;
+      }
+      .small-chart {
+        height: 240px;
+      }
     }
 
     footer {
@@ -127,75 +139,72 @@
     <h1>Invest, Watch, Grow</h1>
     <p>Trade automatically with our intelligent bots and monitor your portfolio.</p>
 
-    <!-- ⭐ ADDED BADGE ⭐ -->
     <div class="win-badge">🔥 87% BOT WIN RATIO 🔥</div>
 
     <button onclick="window.location.href='login.html'">Login</button>
     <button onclick="alert('Register feature coming soon')">Register</button>
   </div>
 
-  <!-- ⭐ CHART 1: BTC/USDT ⭐ -->
-  <div class="chart-box">
-    <div class="chart-title">BTC/USDT Live Chart</div>
-    <div id="btcChart" class="chart-large"></div>
+  <!-- ⭐ NEW 1 BIG + 2 SMALL GRID ⭐ -->
+  <div class="chart-grid">
 
-    <script>
-      new TradingView.widget({
-        "width": "100%",
-        "height": "100%",
-        "symbol": "BINANCE:BTCUSDT",
-        "interval": "60",
-        "timezone": "Etc/UTC",
-        "theme": "dark",
-        "style": "1",
-        "locale": "en",
-        "container_id": "btcChart"
-      });
-    </script>
+    <!-- BIG BTC CHART -->
+    <div class="chart big-chart">
+      <div id="btc_chart"></div>
+    </div>
+
+    <!-- SMALL ETH -->
+    <div class="chart small-chart">
+      <div id="eth_chart"></div>
+    </div>
+
+    <!-- SMALL SOL -->
+    <div class="chart small-chart">
+      <div id="sol_chart"></div>
+    </div>
+
   </div>
 
-  <!-- ⭐ CHART 2: ETH/USDT ⭐ -->
-  <div class="chart-box">
-    <div class="chart-title">ETH/USDT Live Chart</div>
-    <div id="ethChart" class="chart-small"></div>
+  <!-- TradingView Widgets -->
+  <script>
+    new TradingView.widget({
+      "width": "100%",
+      "height": "100%",
+      "symbol": "BINANCE:BTCUSDT",
+      "interval": "60",
+      "timezone": "Etc/UTC",
+      "theme": "dark",
+      "style": "1",
+      "locale": "en",
+      "container_id": "btc_chart"
+    });
 
-    <script>
-      new TradingView.widget({
-        "width": "100%",
-        "height": "100%",
-        "symbol": "BINANCE:ETHUSDT",
-        "interval": "60",
-        "timezone": "Etc/UTC",
-        "theme": "dark",
-        "style": "1",
-        "locale": "en",
-        "container_id": "ethChart"
-      });
-    </script>
-  </div>
+    new TradingView.widget({
+      "width": "100%",
+      "height": "100%",
+      "symbol": "BINANCE:ETHUSDT",
+      "interval": "60",
+      "timezone": "Etc/UTC",
+      "theme": "dark",
+      "style": "1",
+      "locale": "en",
+      "container_id": "eth_chart"
+    });
 
-  <!-- ⭐ CHART 3: SOL/USDT ⭐ -->
-  <div class="chart-box">
-    <div class="chart-title">SOL/USDT Live Chart</div>
-    <div id="solChart" class="chart-small"></div>
-
-    <script>
-      new TradingView.widget({
-        "width": "100%",
-        "height": "100%",
-        "symbol": "BINANCE:SOLUSDT",
-        "interval": "60",
-        "timezone": "Etc/UTC",
-        "theme": "dark",
-        "style": "1",
-        "locale": "en",
-        "container_id": "solChart"
-      });
-    </script>
-  </div>
+    new TradingView.widget({
+      "width": "100%",
+      "height": "100%",
+      "symbol": "BINANCE:SOLUSDT",
+      "interval": "60",
+      "timezone": "Etc/UTC",
+      "theme": "dark",
+      "style": "1",
+      "locale": "en",
+      "container_id": "sol_chart"
+    });
+  </script>
 
   <footer>© 2025 Trade With Bots | All rights reserved</footer>
 
 </body>
 </html>
-
