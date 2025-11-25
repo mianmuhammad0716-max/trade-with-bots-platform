@@ -3,80 +3,106 @@
 <head>
   <meta charset="UTF-8">
   <title>Dashboard - Trade With Bots</title>
+
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #0f0f0f;
-      color: #00ff00;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #ffffff;
+      color: #333;
       text-align: center;
-      padding: 50px;
     }
-    .card {
-      background-color: #111;
+
+    header {
+      background: #0a84ff;
       padding: 20px;
-      margin: 20px auto;
-      border-radius: 12px;
-      width: 300px;
-      box-shadow: 0 0 15px rgba(0,255,0,0.3);
-    }
-    button {
-      padding: 10px 20px;
-      margin: 10px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      background: linear-gradient(90deg,#00ff00,#00aa00);
-      color: #000;
+      color: white;
+      font-size: 22px;
       font-weight: bold;
     }
+
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    .card {
+      background: #f7f7f7;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+
+    .balance {
+      font-size: 40px;
+      font-weight: bold;
+      color: #0a84ff;
+    }
+
+    button {
+      width: 200px;
+      padding: 12px;
+      background: #0a84ff;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
     button:hover {
-      background: linear-gradient(90deg,#00aa00,#007700);
+      background: #0066d4;
     }
   </style>
+
 </head>
 <body>
 
-  <h1>Welcome to Your Dashboard</h1>
+<header>
+  Trade With Bots – Dashboard
+</header>
+
+<div class="container">
 
   <div class="card">
-    <h2>Portfolio Balance</h2>
-    <p id="balance">$0</p>
+    <h2>Your Portfolio Balance</h2>
+    <div class="balance" id="balance">$0</div>
   </div>
 
-  <div>
-    <button onclick="alert('Trading feature coming soon')">Start Trading</button>
-    <button onclick="window.location.href='payment.html'">Send Investment</button>
-    <button onclick="window.location.href='index.html'">Logout</button>
-  </div>
+  <button onclick="window.location.href='payment.html'">Send Investment</button>
+  <button onclick="alert('Trading bots module coming soon!')">Open Trading Bots</button>
+  <button onclick="window.location.href='index.html'">Logout</button>
 
-  <!-- Portfolio Animation Script -->
-  <script>
-    const balanceEl = document.getElementById('balance');
-    let balance = 0;
+</div>
 
-    // Default portfolio
-    let baseAmount = 100;
+<script>
+  const balanceEl = document.getElementById('balance');
+  let balance = 0;
+  let baseAmount = 100;
 
-    // Check if payment was made
-    if (localStorage.getItem("paid") === "yes") {
-      baseAmount = 113; // add $13
-      localStorage.removeItem("paid"); // reset for next refresh
+  if (localStorage.getItem("paid") === "yes") {
+    baseAmount = 113;
+    localStorage.removeItem("paid");
+  }
+
+  const target = baseAmount;
+
+  function animateBalance() {
+    if (balance < target) {
+      balance += 1;
+      balanceEl.textContent = "$" + balance;
+      setTimeout(animateBalance, 20);
+    } else {
+      balanceEl.textContent = "$" + target;
     }
+  }
 
-    const target = baseAmount;
-
-    function animateBalance() {
-      if(balance < target) {
-        balance += 1;
-        balanceEl.textContent = '$' + balance;
-        setTimeout(animateBalance, 30);
-      } else {
-        balanceEl.textContent = '$' + target;
-      }
-    }
-
-    animateBalance();
-  </script>
+  animateBalance();
+</script>
 
 </body>
 </html>
