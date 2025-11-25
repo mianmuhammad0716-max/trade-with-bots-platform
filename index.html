@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <title>Trade With Bots</title>
 
-  <!-- Lightweight Charts (candlestick) -->
-  <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+  <!-- TradingView Widget Script -->
+  <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 
   <style>
     body {
@@ -50,7 +50,6 @@
       background: linear-gradient(90deg, #0056b3, #00aaff);
     }
 
-    /* chart container */
     .chart-box {
       max-width: 950px;
       margin: 20px auto 120px auto;
@@ -76,14 +75,10 @@
       width: 100%;
       bottom: 0;
     }
-
-    /* responsive fix for chart container height on small screens */
-    @media (max-width: 600px) {
-      .chart-box { padding: 10px; max-width: 95%; }
-    }
   </style>
 </head>
 <body>
+
   <header>Trade With Bots</header>
 
   <div class="hero">
@@ -93,89 +88,33 @@
     <button onclick="alert('Register feature coming soon')">Register</button>
   </div>
 
-  <!-- CANDLESTICK CHART SECTION -->
+  <!-- TradingView Chart -->
   <div class="chart-box">
-    <div class="chart-title">Live BTC/USDT Candlestick (Demo)</div>
-    <div id="candlestickChart" style="height:420px;"></div>
+    <div class="chart-title">Live BTC/USDT Chart (TradingView)</div>
+
+    <!-- TradingView Container -->
+    <div id="tvchart" style="height:450px;"></div>
+
+    <script>
+      new TradingView.widget({
+        "width": "100%",
+        "height": 450,
+        "symbol": "BINANCE:BTCUSDT",
+        "interval": "60",
+        "timezone": "Etc/UTC",
+        "theme": "light",
+        "style": "1",
+        "locale": "en",
+        "toolbar_bg": "#f1f3f6",
+        "enable_publishing": false,
+        "container_id": "tvchart"
+      });
+    </script>
+
   </div>
 
   <footer>© 2025 Trade With Bots | All rights reserved</footer>
 
-  <!-- Candlestick setup script -->
-  <script>
-    // get chart container
-    const chartElement = document.getElementById('candlestickChart');
-
-    // create chart
-    const chart = LightweightCharts.createChart(chartElement, {
-      width: chartElement.clientWidth,
-      height: 420,
-      layout: {
-        background: { color: '#ffffff' },
-        textColor: '#333',
-      },
-      grid: {
-        vertLines: { color: '#f0f0f0' },
-        horzLines: { color: '#f0f0f0' },
-      },
-      rightPriceScale: { borderVisible: false },
-      timeScale: { borderVisible: false },
-    });
-
-    // candlestick series style
-    const candleSeries = chart.addCandlestickSeries({
-      upColor: '#0a84ff',
-      downColor: '#ff4d4d',
-      borderDownColor: '#ff4d4d',
-      borderUpColor: '#0a84ff',
-      wickDownColor: '#ff4d4d',
-      wickUpColor: '#0a84ff',
-    });
-
-    // DEMO candle data (dates + OHLC)
-    const demoData = [
-      { time: '2025-11-01', open: 43000, high: 43250, low: 42800, close: 43100 },
-      { time: '2025-11-02', open: 43100, high: 43400, low: 43000, close: 43350 },
-      { time: '2025-11-03', open: 43350, high: 43700, low: 43200, close: 43600 },
-      { time: '2025-11-04', open: 43600, high: 43800, low: 43500, close: 43700 },
-      { time: '2025-11-05', open: 43700, high: 43950, low: 43600, close: 43850 },
-      { time: '2025-11-06', open: 43850, high: 44100, low: 43700, close: 44000 },
-      { time: '2025-11-07', open: 44000, high: 44200, low: 43850, close: 44150 },
-      { time: '2025-11-08', open: 44150, high: 44400, low: 44000, close: 44300 },
-      { time: '2025-11-09', open: 44300, high: 44500, low: 44100, close: 44450 },
-      { time: '2025-11-10', open: 44450, high: 44700, low: 44300, close: 44600 }
-    ];
-
-    candleSeries.setData(demoData);
-
-    // function to auto-generate next candle (simple demo logic)
-    function nextCandle() {
-      const last = demoData[demoData.length - 1];
-      // calculate next date
-      const next = new Date(last.time + 'T00:00:00');
-      next.setDate(next.getDate() + 1);
-      const nextTime = next.toISOString().slice(0,10);
-
-      const open = last.close;
-      // random small movement
-      const close = Math.round(open + (Math.random() - 0.45) * 800);
-      const high = Math.max(open, close) + Math.round(Math.random() * 300);
-      const low  = Math.min(open, close) - Math.round(Math.random() * 300);
-
-      const candle = { time: nextTime, open, high, low, close };
-      demoData.push(candle);
-      if (demoData.length > 50) demoData.shift();
-      candleSeries.setData(demoData);
-    }
-
-    // add a new demo candle every 2 seconds to simulate live data
-    setInterval(nextCandle, 2000);
-
-    // responsive resize
-    window.addEventListener('resize', () => {
-      chart.applyOptions({ width: chartElement.clientWidth });
-    });
-  </script>
-
 </body>
 </html>
+
