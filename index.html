@@ -4,41 +4,48 @@
   <meta charset="UTF-8">
   <title>Trade With Bots</title>
 
-  <!-- TradingView Widget Script -->
+  <!-- TradingView Script -->
   <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
-      color: #333;
-    }
-    header {
-      background-color: #007bff;
+      background: #000; /* black background */
       color: #fff;
+    }
+
+    header {
+      background-color: #111;
+      color: #00ccff;
       padding: 20px;
       text-align: center;
       font-size: 2em;
       font-weight: bold;
+      border-bottom: 2px solid #00ccff;
     }
+
     .hero {
       text-align: center;
-      padding: 50px 20px;
+      padding: 40px 20px;
     }
+
     .hero h1 {
-      font-size: 2.5em;
+      font-size: 2.6em;
       margin-bottom: 20px;
-      color: #007bff;
+      color: #00ccff;
     }
+
     .hero p {
       font-size: 1.2em;
       margin-bottom: 30px;
+      color: #bbb;
     }
+
     .hero button {
-      padding: 15px 30px;
+      padding: 13px 28px;
       margin: 10px;
-      font-size: 1.2em;
+      font-size: 1.1em;
       border: none;
       border-radius: 8px;
       cursor: pointer;
@@ -46,37 +53,41 @@
       color: #fff;
       transition: 0.3s;
     }
+
     .hero button:hover {
-      background: linear-gradient(90deg, #0056b3, #00aaff);
+      background: linear-gradient(90deg, #0056b3, #0099cc);
     }
 
     .chart-box {
-      max-width: 950px;
-      margin: 20px auto 120px auto;
+      max-width: 1000px;
+      margin: 20px auto 80px auto;
       padding: 14px;
-      background: #fff;
+      background: #111; /* dark chart wrapper */
       border-radius: 12px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+      box-shadow: 0 0 12px rgba(0,255,255,0.15);
     }
 
     .chart-title {
       text-align: center;
-      color: #007bff;
-      margin: 6px 0 12px 0;
+      color: #00ccff;
+      margin-bottom: 10px;
+      font-size: 1.3em;
       font-weight: 600;
     }
 
     footer {
       text-align: center;
       padding: 20px;
-      background-color: #222;
-      color: #fff;
+      background-color: #111;
+      color: #00ccff;
       position: fixed;
       width: 100%;
       bottom: 0;
+      border-top: 2px solid #00ccff;
     }
   </style>
 </head>
+
 <body>
 
   <header>Trade With Bots</header>
@@ -88,12 +99,11 @@
     <button onclick="alert('Register feature coming soon')">Register</button>
   </div>
 
-  <!-- TradingView Chart -->
-  <div class="chart-box">
-    <div class="chart-title">Live BTC/USDT Chart (TradingView)</div>
 
-    <!-- TradingView Container -->
-    <div id="tvchart" style="height:450px;"></div>
+  <!-- ⭐ CHART 1: BTC/USDT ⭐ -->
+  <div class="chart-box">
+    <div class="chart-title">BTC/USDT Live Chart</div>
+    <div id="btcChart" style="height:450px;"></div>
 
     <script>
       new TradingView.widget({
@@ -102,16 +112,56 @@
         "symbol": "BINANCE:BTCUSDT",
         "interval": "60",
         "timezone": "Etc/UTC",
-        "theme": "light",
+        "theme": "dark",
         "style": "1",
         "locale": "en",
-        "toolbar_bg": "#f1f3f6",
-        "enable_publishing": false,
-        "container_id": "tvchart"
+        "container_id": "btcChart"
       });
     </script>
-
   </div>
+
+
+  <!-- ⭐ CHART 2: ETH/USDT ⭐ -->
+  <div class="chart-box">
+    <div class="chart-title">ETH/USDT Live Chart</div>
+    <div id="ethChart" style="height:450px;"></div>
+
+    <script>
+      new TradingView.widget({
+        "width": "100%",
+        "height": 450,
+        "symbol": "BINANCE:ETHUSDT",
+        "interval": "60",
+        "timezone": "Etc/UTC",
+        "theme": "dark",
+        "style": "1",
+        "locale": "en",
+        "container_id": "ethChart"
+      });
+    </script>
+  </div>
+
+
+  <!-- ⭐ CHART 3: SOL/USDT ⭐ -->
+  <div class="chart-box">
+    <div class="chart-title">SOL/USDT Live Chart</div>
+    <div id="solChart" style="height:450px;"></div>
+
+    <script>
+      new TradingView.widget({
+        "width": "100%",
+        "height": 450,
+        "symbol": "BINANCE:SOLUSDT",
+        "interval": "60",
+        "timezone": "Etc/UTC",
+        "theme": "dark",
+        "style": "1",
+        "locale": "en",
+        "container_id": "solChart"
+      });
+    </script>
+  </div>
+
 
   <footer>© 2025 Trade With Bots | All rights reserved</footer>
 
