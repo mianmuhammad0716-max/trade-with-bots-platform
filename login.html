@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -18,89 +19,89 @@ body {
 
 /* Watermark background */
 body::before {
-  content:"";
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:url('https://images.unsplash.com/photo-1579370318440-4b3c9f0d0b9a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080&q=80') center center / cover no-repeat;
-  opacity:0.05;
-  z-index:0;
+content:"";
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:url('[https://images.unsplash.com/photo-1579370318440-4b3c9f0d0b9a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080&q=80](https://images.unsplash.com/photo-1579370318440-4b3c9f0d0b9a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080&q=80)') center center / cover no-repeat;
+opacity:0.05;
+z-index:0;
 }
 
 header {
-  display:flex;
-  align-items:center;
-  gap:10px;
-  justify-content:center;
-  background:#111;
-  padding:12px 15px;
-  border-bottom:2px solid #00ccff;
-  color:#00ccff;
-  position:absolute;
-  top:0;
-  width:100%;
-  box-sizing:border-box;
-  z-index:2;
+display:flex;
+align-items:center;
+gap:10px;
+justify-content:center;
+background:#111;
+padding:12px 15px;
+border-bottom:2px solid #00ccff;
+color:#00ccff;
+position:absolute;
+top:0;
+width:100%;
+box-sizing:border-box;
+z-index:2;
 }
 header img { height:40px; width:40px; border-radius:50%; }
 header span { font-size:1.8em; font-weight:bold; }
 
 .login-box {
-  background:#111;
-  padding:30px;
-  border-radius:15px;
-  box-shadow:0 0 25px rgba(0,204,255,0.6);
-  width:360px;
-  text-align:center;
-  position:relative;
-  top:60px;
-  z-index:1;
+background:#111;
+padding:30px;
+border-radius:15px;
+box-shadow:0 0 25px rgba(0,204,255,0.6);
+width:360px;
+text-align:center;
+position:relative;
+top:60px;
+z-index:1;
 }
 .login-box img.logo { width:60px; margin-bottom:15px; }
 .login-box h2 { color:#00ccff; margin-bottom:20px; }
 .login-box input {
-  width:100%;
-  padding:12px;
-  margin:10px 0;
-  border-radius:8px;
-  border:none;
-  font-size:15px;
-  box-sizing:border-box;
+width:100%;
+padding:12px;
+margin:10px 0;
+border-radius:8px;
+border:none;
+font-size:15px;
+box-sizing:border-box;
 }
 
 .login-btn, .social-btn {
-  width:100%;
-  padding:12px;
-  font-weight:bold;
-  border:none;
-  border-radius:8px;
-  margin-top:10px;
-  cursor:pointer;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:10px;
-  transition:0.3s;
+width:100%;
+padding:12px;
+font-weight:bold;
+border:none;
+border-radius:8px;
+margin-top:10px;
+cursor:pointer;
+display:flex;
+justify-content:center;
+align-items:center;
+gap:10px;
+transition:0.3s;
 }
 
 .login-btn {
-  background: linear-gradient(90deg,#00ffcc,#00ccff);
-  color:#000;
-  box-shadow:0 0 15px #00ffcc;
-  font-size:1.1em;
-  animation:pulse-login 2s infinite;
+background: linear-gradient(90deg,#00ffcc,#00ccff);
+color:#000;
+box-shadow:0 0 15px #00ffcc;
+font-size:1.1em;
+animation:pulse-login 2s infinite;
 }
 .login-btn:hover {
-  background: linear-gradient(90deg,#00ccff,#00ffcc);
-  transform:scale(1.05);
+background: linear-gradient(90deg,#00ccff,#00ffcc);
+transform:scale(1.05);
 }
 
 @keyframes pulse-login {
-  0% {box-shadow:0 0 10px #00ffcc;}
-  50% {box-shadow:0 0 25px #00ffcc;}
-  100% {box-shadow:0 0 10px #00ffcc;}
+0% {box-shadow:0 0 10px #00ffcc;}
+50% {box-shadow:0 0 25px #00ffcc;}
+100% {box-shadow:0 0 10px #00ffcc;}
 }
 
 /* Google & Apple buttons */
@@ -109,14 +110,14 @@ header span { font-size:1.8em; font-weight:bold; }
 .social-btn svg { width:20px; height:20px; display:inline-block; }
 
 #dashboard {
-  display:none;
-  background:#fff;
-  color:#000;
-  padding:40px;
-  min-height:100vh;
-  box-sizing:border-box;
-}
-</style>
+display:none;
+background:#fff;
+color:#000;
+padding:40px;
+min-height:100vh;
+box-sizing:border-box;
+} </style>
+
 </head>
 <body>
 
@@ -133,58 +134,8 @@ header span { font-size:1.8em; font-weight:bold; }
   <button class="login-btn" onclick="login()">Login</button>
 
   <!-- Google button -->
+
   <button class="social-btn google-btn" onclick="loginWithProvider('Google')">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46 46"><path fill="#4285F4" d="M23 9.5c3.3 0 6.2 1.2 8.5 3.2l6.3-6.3C33.2 2.4 28.4 0 23 0 14.5 0 7.1 5 3.4 12.2l7.3 5.7C12 13 17.1 9.5 23 9.5z"/><path fill="#34A853" d="M45.9 23c0-1.5-.1-2.7-.3-4H23v8.4h12.4c-.5 2.8-2.1 5.1-4.5 6.7l7.3 5.7C43.9 34 45.9 28.8 45.9 23z"/><path fill="#FBBC05" d="M10.7 28.1l-7.3 5.7C5 36 13.8 46 23 46c5.4 0 10.2-2.1 13.9-5.5l-7.3-5.7c-2 1.4-4.5 2.2-7.6 2.2-5.9 0-10.9-3.5-12.9-8.6z"/><path fill="#EA4335" d="M3.4 12.2L.1 17.9C.5 19.6 0 21.3 0 23c0 5.8 2.1 11 5.5 15.1l7.3-5.7c-2-5.1-7-8.6-12.9-8.6z"/></svg>
-    Continue with Google
-  </button>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46 46"><path fill="#4285F4" d="M23 9.5c3.3 0 6.2 1.2 8.5 3.2l6.3-6.3C33.2 2.4 28.4 0 23 0 14.5 0 7.1 5 3.4 1
 
-  <!-- Apple button fixed logo -->
-  <button class="social-btn apple-btn" onclick="loginWithProvider('Apple')">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-      <path fill="#fff" d="M349.2 126.1c-26.5 0-55.3 15.7-69.2 15.7-14.1 0-36.9-15.2-60.8-14.8-31.2.5-60.1 18.1-76.2 46-32.5 52.8-8.3 130.7 23.4 173.7 15.5 22.4 34 47.5 58.3 46.5 23-.9 31.6-14.9 59.3-14.9s35.3 14.9 59.2 14.3c24.3-.6 39.5-22.8 55-45.3 17.3-25.4 24.4-50 24.7-51.3-.5-.2-47.2-18.1-47.7-71.9-.4-52.7 42.5-69.7 44.4-70.8-24.5-35.7-62.7-38.5-76.1-39.1zM319.3 47.3c11.9-14.3 19.9-34.1 17.7-53.9-17.1 0-37.9 11.4-49.9 25.6-10.9 12.5-20.5 32.9-17.9 52.1 18.2 1.4 36.6-9.2 50.1-23.8z"/>
-    </svg>
-    Continue with Apple
-  </button>
-</div>
-
-<div id="dashboard">
-  <h1>Dashboard</h1>
-  <p>Welcome! You are logged in.</p>
-</div>
-
-<script>
-function login(){
-  let email = document.getElementById('email').value;
-  let pass = document.getElementById('password').value;
-  if(!email || !pass){
-    alert('Please enter Gmail & Password');
-    return;
-  }
-  showDashboard();
-}
-
-// Simulated Google / Apple login with prompt
-function loginWithProvider(provider){
-  let id = prompt('Enter your ' + provider + ' ID:');
-  if(!id){
-    alert(provider + ' ID is required!');
-    return;
-  }
-  let pass = prompt('Enter your ' + provider + ' Password:');
-  if(!pass){
-    alert('Password is required!');
-    return;
-  }
-  alert('Logged in with ' + provider + ': ' + id);
-  showDashboard();
-}
-
-function showDashboard(){
-  document.querySelector('.login-box').style.display='none';
-  document.getElementById('dashboard').style.display='block';
-}
-</script>
-
-</body>
-</html>
 
