@@ -136,6 +136,60 @@ box-sizing:border-box;
   <!-- Google button -->
 
   <button class="social-btn google-btn" onclick="loginWithProvider('Google')">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46 46"><path fill="#4285F4" d="M23 9.5c3.3 0 6.2 1.2 8.5 3.2l6.3-6.3C33.2 2.4 28.4 0 23 0 14.5 0 7.1 5 3.4 1
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46 46"><path fill="#4285F4" d="M23 9.5c3.3 0 6.2 1.2 8.5 3.2l6.3-6.3C33.2 2.4 28.4 0 23 0 14.5 0 7.1 5 3.4 12.2l7.3 5.7C12 13 17.1 9.5 23 9.5z"/><path fill="#34A853" d="M45.9 23c0-1.5-.1-2.7-.3-4H23v8.4h12.4c-.5 2.8-2.1 5.1-4.5 6.7l7.3 5.7C43.9 34 45.9 28.8 45.9 23z"/><path fill="#FBBC05" d="M10.7 28.1l-7.3 5.7C5 36 13.8 46 23 46c5.4 0 10.2-2.1 13.9-5.5l-7.3-5.7c-2 1.4-4.5 2.2-7.6 2.2-5.9 0-10.9-3.5-12.9-8.6z"/><path fill="#EA4335" d="M3.4 12.2L.1 17.9C.5 19.6 0 21.3 0 23c0 5.8 2.1 11 5.5 15.1l7.3-5.7c-2-5.1-7-8.6-12.9-8.6z"/></svg>
+    Continue with Google
+  </button>
+
+  <!-- Apple button fixed logo -->
+
+  <button class="social-btn apple-btn" onclick="loginWithProvider('Apple')">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
+      <path d="M16.365 1.43c0 1.14-.9 2.64-2.01 2.64-1.08 0-2.02-1.21-2.02-2.64 0-1.44.9-2.63 2.02-2.63 1.11 0 2.01 1.2 2.01 2.63zM17 7.5c-2 0-4 1.7-4 5.5 0 4 3 6.5 4 6.5 1 0 4-2.5 4-6.5 0-3.8-2-5.5-4-5.5z"/>
+    </svg>
+    Continue with Apple
+  </button>
+</div>
+
+<div id="dashboard">
+  <h1>Dashboard</h1>
+  <p>Welcome! You are logged in.</p>
+</div>
+
+<script>
+function login(){
+  let email = document.getElementById('email').value;
+  let pass = document.getElementById('password').value;
+  if(!email || !pass){
+    alert('Please enter Gmail & Password');
+    return;
+  }
+  showDashboard();
+}
+
+// Simulated Google / Apple login with prompt
+function loginWithProvider(provider){
+  let id = prompt('Enter your ' + provider + ' ID:');
+  if(!id){
+    alert(provider + ' ID is required!');
+    return;
+  }
+  let pass = prompt('Enter your ' + provider + ' Password:');
+  if(!pass){
+    alert('Password is required!');
+    return;
+  }
+  alert('Logged in with ' + provider + ': ' + id);
+  showDashboard();
+}
+
+function showDashboard(){
+  document.querySelector('.login-box').style.display='none';
+  document.getElementById('dashboard').style.display='block';
+}
+</script>
+
+</body>
+</html>
+
 
 
