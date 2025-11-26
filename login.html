@@ -2,240 +2,147 @@
 
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Login - Trade With Bots</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #000;
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 15px;
-      position: relative;
-      overflow: hidden;
-    }
+<meta charset="UTF-8">
+<title>Dashboard - Trade With Bots</title>
+<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #000;
+    color: #fff;
+  }
 
-```
-/* Watermark */
-body::before {
-  content: "TRADE WITH BOTS";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  font-size: 5em;
-  color: rgba(255,255,255,0.05);
-  transform: translate(-50%, -50%) rotate(-30deg);
-  white-space: nowrap;
-  pointer-events: none;
-  z-index: 0;
-}
-
+/* Header */
 header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 25px;
-  z-index: 1;
-  position: relative;
+background-color: #111;
+color: #00ccff;
+padding: 12px 15px;
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 10px;
+border-bottom: 2px solid #00ccff;
 }
 header img {
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
+height: 40px;
+width: 40px;
+border-radius: 50%;
 }
 header span {
-  font-size: 1.8em;
-  font-weight: bold;
-  color: #00ccff;
+font-size: 1.8em;
+font-weight: bold;
 }
 
-.login-container {
-  background: #111;
-  padding: 30px 25px;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(0,255,255,0.2);
-  width: 100%;
-  max-width: 400px;
-  text-align: center;
-  z-index: 1;
-  position: relative;
+/* Welcome message */
+.welcome {
+text-align: center;
+padding: 30px 15px;
+}
+.welcome h1 {
+font-size: 2em;
+color: #00ccff;
+margin-bottom: 10px;
+}
+.welcome p {
+font-size: 1.1em;
+color: #bbb;
 }
 
-.login-container h2 {
-  margin-bottom: 20px;
-  color: #00ccff;
+/* Chart Grid */
+.chart-grid {
+max-width: 1200px;
+margin: 30px auto 100px auto;
+padding: 10px;
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 18px;
+}
+.chart {
+background: #111;
+padding: 12px;
+border-radius: 12px;
+box-shadow: 0 0 12px rgba(0,255,255,0.15);
+}
+.big-chart {
+grid-column: span 2;
+height: 450px;
+}
+.small-chart {
+height: 300px;
 }
 
-input[type="email"], input[type="password"] {
-  width: 100%;
-  padding: 10px 12px;
-  margin: 8px 0;
-  border-radius: 8px;
-  border: 1px solid #555;
-  background: #222;
-  color: #fff;
-  font-size: 1em;
-}
-
-.login-btn {
-  width: 100%;
-  padding: 12px 0;
-  margin-top: 15px;
-  background: linear-gradient(90deg, #00ffcc, #00ccff);
-  border: none;
-  border-radius: 8px;
-  color: #000;
-  font-weight: bold;
-  font-size: 1.1em;
-  cursor: pointer;
-  box-shadow: 0 0 15px #00ffcc;
-  transition: 0.3s;
-}
-.login-btn:hover {
-  transform: scale(1.03);
-  background: linear-gradient(90deg, #00ccff, #00ffcc);
-}
-
-.social-login {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.social-login button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 10px 0;
-  font-size: 1em;
-  border-radius: 8px;
-  cursor: pointer;
-  border: none;
-  transition: 0.3s;
-}
-.google-btn {
-  background: #fff;
-  color: #000;
-}
-.google-btn img {
-  height: 20px;
-  width: 20px;
-}
-.google-btn:hover { transform: scale(1.03); }
-
-.apple-btn {
-  background: #000;
-  border: 1px solid #fff;
-  color: #fff;
-}
-.apple-btn img {
-  height: 20px;
-  width: 20px;
-  filter: invert(1);
-}
-.apple-btn:hover { transform: scale(1.03); }
-
-.forgot-pass {
-  margin-top: 12px;
-  color: #00ccff;
-  font-size: 0.9em;
-  cursor: pointer;
-  text-decoration: underline;
+/* Mobile responsive */
+@media (max-width: 768px) {
+.chart-grid { grid-template-columns: 1fr; gap: 12px; }
+.big-chart { height: 340px; }
+.small-chart { height: 240px; }
+.welcome h1 { font-size: 1.6em; }
+.welcome p { font-size: 0.95em; }
 }
 
 footer {
-  margin-top: 25px;
-  text-align: center;
-  color: #00ccff;
-  font-size: 0.9em;
-  z-index: 1;
-  position: relative;
+text-align: center;
+padding: 20px;
+background-color: #111;
+color: #00ccff;
+border-top: 2px solid #00ccff;
 }
 
-@media (max-width: 480px) {
-  .login-container { padding: 20px 15px; }
-  input[type="email"], input[type="password"] { font-size: 0.9em; }
-  .login-btn { font-size: 1em; }
-  .social-login button { font-size: 0.9em; padding: 8px 0; }
-}
-```
+/* Watermark */
+body::before {
+content: "TRADE WITH BOTS";
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%) rotate(-30deg);
+font-size: 6em;
+color: rgba(255, 255, 255, 0.03);
+pointer-events: none;
+z-index: 0;
+white-space: nowrap;
+} </style>
 
-  </style>
 </head>
 <body>
+<header>
+  <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="Bot Logo">
+  <span>Trade With Bots</span>
+</header>
 
-  <header>
-    <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="Bot Logo">
-    <span>Trade With Bots</span>
-  </header>
-
-  <div class="login-container">
-    <h2>Login to Your Account</h2>
-    <form id="loginForm">
-      <input type="email" id="email" placeholder="Email" required>
-      <input type="password" id="password" placeholder="Password" required>
-      <button type="submit" class="login-btn">Login</button>
-    </form>
-
-```
-<div class="social-login">
-  <button class="google-btn" id="googleLogin">
-    <img src="https://cdn-icons-png.flaticon.com/512/300/300221.png" alt="Google Logo"> Login with Google
-  </button>
-  <button class="apple-btn" id="appleLogin">
-    <img src="https://cdn-icons-png.flaticon.com/512/179/179309.png" alt="Apple Logo"> Login with Apple
-  </button>
+<div class="welcome">
+  <h1>Welcome, You Are Logged In!</h1>
+  <p>Monitor your trades and portfolio below.</p>
 </div>
 
-<div class="forgot-pass" onclick="alert('Password reset is not implemented yet.')">
-  Forgot Password?
+<div class="chart-grid">
+  <div class="chart big-chart" id="btc_chart"></div>
+  <div class="chart small-chart" id="eth_chart"></div>
+  <div class="chart small-chart" id="sol_chart"></div>
 </div>
-```
 
-  </div>
+<script>
+  const chartOptions = (symbol) => ({
+    container_id: symbol + "_chart",
+    autosize: true,
+    symbol: "BINANCE:" + symbol,
+    interval: "60",
+    timezone: "Etc/UTC",
+    theme: "dark",
+    style: "1",
+    locale: "en",
+    toolbar_bg: "#111",
+    hide_top_toolbar: false,
+    hide_legend: false,
+    show_popup_button: true,
+  });
 
-  <footer>© 2025 Trade With Bots | All rights reserved</footer>
+  new TradingView.widget({ ...chartOptions("BTCUSDT") });
+  new TradingView.widget({ ...chartOptions("ETHUSDT") });
+  new TradingView.widget({ ...chartOptions("SOLUSDT") });
+</script>
 
-  <script>
-    // Normal login
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value.trim();
-      if(email === "" || password === "") {
-        alert("Please enter email and password.");
-        return;
-      }
-      // Redirect to dashboard after "login"
-      window.location.href = "dashboard.html";
-    });
-
-    // Simulated Google login
-    document.getElementById('googleLogin').addEventListener('click', function() {
-      const email = prompt("Enter your Google email:");
-      if(email && email.trim() !== "") {
-        window.location.href = "dashboard.html";
-      } else {
-        alert("Email required to login with Google.");
-      }
-    });
-
-    // Simulated Apple login
-    document.getElementById('appleLogin').addEventListener('click', function() {
-      const email = prompt("Enter your Apple ID:");
-      if(email && email.trim() !== "") {
-        window.location.href = "dashboard.html";
-      } else {
-        alert("Apple ID required to login.");
-      }
-    });
-  </script>
-
+<footer>© 2025 Trade With Bots | All rights reserved</footer>
 </body>
 </html>
+
