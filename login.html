@@ -10,8 +10,6 @@
         padding: 0;
         height: 100vh;
         font-family: Arial, sans-serif;
-
-        /* FINAL TRADING CHART WATERMARK BACKGROUND (never breaks) */
         background: url('https://images.unsplash.com/photo-1641312300980-6cbab5434523?auto=format&fit=crop&w=1500&q=80')
             no-repeat center center fixed;
         background-size: cover;
@@ -20,21 +18,20 @@
     .overlay {
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.55);
+        background: rgba(0,0,0,0.55);
         display: flex;
         justify-content: center;
         align-items: center;
     }
 
     .login-box {
-        background: rgba(255, 255, 255, 0.12);
+        background: rgba(255,255,255,0.12);
         padding: 30px;
         width: 330px;
         backdrop-filter: blur(8px);
         border-radius: 12px;
         text-align: center;
         color: white;
-        box-shadow: 0 0 15px rgba(0,0,0,0.4);
     }
 
     input {
@@ -55,13 +52,57 @@
         border-radius: 6px;
         font-size: 16px;
         cursor: pointer;
-
         opacity: 0.5;
         pointer-events: none;
     }
 
     button.enabled {
         opacity: 1;
-        pointer-events:
+        pointer-events: auto;
+    }
+</style>
+
+</head>
+<body>
+
+<div class="overlay">
+    <div class="login-box">
+        <h2>Login</h2>
+
+        <input type="email" id="email" placeholder="Enter Gmail">
+
+        <button id="loginBtn" type="button">Login</button>
+        <button id="googleBtn" type="button">Login with Google</button>
+        <button id="appleBtn" type="button">Login with Apple</button>
+    </div>
+</div>
+
+<script>
+    const email = document.getElementById("email");
+    const loginBtn = document.getElementById("loginBtn");
+
+    const buttons = [
+        loginBtn,
+        document.getElementById("googleBtn"),
+        document.getElementById("appleBtn")
+    ];
+
+    // enable buttons only when Gmail typed
+    email.addEventListener("input", () => {
+        if (email.value.trim() !== "") {
+            buttons.forEach(btn => btn.classList.add("enabled"));
+        } else {
+            buttons.forEach(btn => btn.classList.remove("enabled"));
+        }
+    });
+
+    // prevent white screen / page reload
+    loginBtn.addEventListener("click", () => {
+        alert("Login button clicked — page will NOT refresh!");
+    });
+</script>
+
+</body>
+</html>
 
 
