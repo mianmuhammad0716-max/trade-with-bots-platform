@@ -24,7 +24,7 @@
     left:0;
     width:100%;
     height:100%;
-    background: url('https://images.unsplash.com/photo-1579370318440-4b3c9f0d0b9a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dHJhZGluZyUyMGNoYXJ0fGVufDB8fDB8fA%3D%3D&w=1080&q=80') center center / cover no-repeat;
+    background: url('https://images.unsplash.com/photo-1579370318440-4b3c9f0d0b9a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080&q=80') center center / cover no-repeat;
     opacity:0.05;
     z-index:0;
   }
@@ -131,6 +131,13 @@
     min-height:100vh;
     box-sizing:border-box;
   }
+
+  /* Logos inside buttons */
+  .social-btn img {
+    display:inline-block;
+    width:20px;
+    height:20px;
+  }
 </style>
 </head>
 <body>
@@ -146,11 +153,11 @@
   <input type="email" id="email" placeholder="Enter Gmail">
   <input type="password" id="password" placeholder="Enter Password">
   <button class="login-btn" onclick="login()">Login</button>
-  <button class="social-btn google-btn">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" width="18"> Continue with Google
+  <button class="social-btn google-btn" onclick="socialLogin('Google')">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Logo_2013_Google.png" alt="Google Logo"> Continue with Google
   </button>
-  <button class="social-btn apple-btn">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" width="18"> Continue with Apple
+  <button class="social-btn apple-btn" onclick="socialLogin('Apple')">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple Logo"> Continue with Apple
   </button>
 </div>
 
@@ -167,10 +174,13 @@ function login(){
     alert('Please enter Gmail & Password');
     return;
   }
-  document.querySelector('.login-box').style.display='none';
-  document.getElementById('dashboard').style.display='block';
+  showDashboard();
 }
-</script>
 
-</body>
-</html>
+// Simulated Google / Apple login
+function socialLogin(provider){
+  alert('Logged in with ' + provider);
+  showDashboard();
+}
+
+function
