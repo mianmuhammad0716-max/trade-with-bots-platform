@@ -15,9 +15,10 @@ body {
   align-items:flex-start;
   min-height:100vh;
   position:relative;
+  overflow-x:hidden;
 }
 
-/* Watermark background */
+/* Watermark */
 body::before {
 content:"";
 position:fixed;
@@ -48,11 +49,6 @@ z-index:2;
 header img { height:40px; width:40px; border-radius:50%; }
 header span { font-size:1.8em; font-weight:bold; }
 
-.login-box, #dashboard {
-position:relative;
-z-index:1;
-}
-
 .login-box {
 background:#111;
 padding:30px;
@@ -61,6 +57,9 @@ box-shadow:0 0 25px rgba(0,204,255,0.6);
 width:360px;
 text-align:center;
 margin-top:100px;
+position:relative;
+z-index:1;
+transition: transform 0.6s ease, opacity 0.6s ease;
 }
 .login-box img.logo { width:60px; margin-bottom:15px; }
 .login-box h2 { color:#00ccff; margin-bottom:20px; }
@@ -100,7 +99,6 @@ animation:pulse-login 2s infinite;
 background: linear-gradient(90deg,#00ccff,#00ffcc);
 transform:scale(1.05);
 }
-
 @keyframes pulse-login {
 0% {box-shadow:0 0 10px #00ffcc;}
 50% {box-shadow:0 0 25px #00ffcc;}
@@ -112,7 +110,7 @@ transform:scale(1.05);
 .social-btn svg { width:20px; height:20px; display:inline-block; }
 
 #dashboard {
-display:none;
+display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:flex-start;
@@ -120,6 +118,12 @@ padding-top:100px;
 gap:30px;
 width:100%;
 box-sizing:border-box;
+position:absolute;
+top:0;
+left:100%;
+opacity:0;
+transition: left 0.8s ease, opacity 0.8s ease;
+z-index:1;
 }
 
 .card {
@@ -129,8 +133,7 @@ border-radius:15px;
 box-shadow:0 0 20px rgba(0,204,255,0.5);
 width:300px;
 text-align:center;
-transition:0.3s;
-margin-bottom:20px;
+transition:0.3s transform, 0.3s box-shadow;
 }
 .card:hover {
 transform:scale(1.03);
@@ -202,18 +205,6 @@ border-top:2px solid #00ccff;
     <p>You are logged in successfully.</p>
     <button class="dashboard-btn" onclick="logout()">Logout</button>
   </div>
-  <div class="card">
-    <h3>Trading Stats</h3>
-    <p>Account Balance: $10,000</p>
-    <p>Open Trades: 5</p>
-    <button class="dashboard-btn">View Details</button>
-  </div>
-  <div class="card">
-    <h3>Market Info</h3>
-    <p>BTC: $28,000</p>
-    <p>ETH: $1,800</p>
-    <button class="dashboard-btn">Check Market</button>
-  </div>
 </div>
 
 <footer>
@@ -221,28 +212,52 @@ border-top:2px solid #00ccff;
 </footer>
 
 <script>
+function checkLoginState() {
+  const loggedIn = localStorage.getItem('loggedIn');
+  if(loggedIn === 'true'){
+    document.getElementById('login-box').style.display = 'none';
+    const dashboard = document.getElementById('dashboard');
+    dashboard.style.left = '0';
+    dashboard.style.opacity = '1';
+  }
+}
+
 function login(){
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
   if(email && password){
-    document.getElementById('login-box').style.display='none';
-    document.getElementById('dashboard').style.display='flex';
+    localStorage.setItem('loggedIn', 'true');
+    document.getElementById('login-box').style.transform='translateX(-100%)';
+    document.getElementById('login-box').style.opacity='0';
+    setTimeout(()=>{
+      document.getElementById('login-box').style.display='none';
+      const dashboard = document.getElementById('dashboard');
+      dashboard.style.left='0';
+      dashboard.style.opacity='1';
+    },600);
   } else {
     alert('Please enter Gmail and Password!');
   }
 }
 
 function logout(){
+  localStorage.removeItem('loggedIn');
   document.getElementById('login-box').style.display='block';
-  document.getElementById('dashboard').style.display='none';
+  document.getElementById('login-box').style.transform='translateX(0)';
+  document.getElementById('login-box').style.opacity='1';
+  const dashboard = document.getElementById('dashboard');
+  dashboard.style.left='100%';
+  dashboard.style.opacity='0';
 }
 
 function loginWithProvider(provider){
   alert('Login with ' + provider + ' is simulated.');
-  document.getElementById('login-box').style.display='none';
-  document.getElementById('dashboard').style.display='flex';
+  login();
 }
+
+window.onload = checkLoginState;
 </script>
 
 </body>
 </html>
+
