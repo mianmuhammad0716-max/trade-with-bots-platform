@@ -1,260 +1,46 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Login — Trading Watermark</title>
-<style>
-  :root{
-    --glass-bg: rgba(255,255,255,0.10);
-    --overlay-dark: rgba(0,0,0,0.42);
-    --btn-color: #0ea5e9;
-    --btn-radius: 8px;
-  }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
 
-html,body{
-height:100%;
-margin:0;
-font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
--webkit-font-smoothing:antialiased;
--moz-osx-font-smoothing:grayscale;
-color:#fff;
-background-color:#000;
-}
-
-/* Main fixed trading background (always visible) */
-body{
-background-image: url("[https://images.unsplash.com/photo-1641312300980-6cbab5434523?auto=format&fit=crop&w=1600&q=80](https://images.unsplash.com/photo-1641312300980-6cbab5434523?auto=format&fit=crop&w=1600&q=80)");
-background-position:center;
-background-repeat:no-repeat;
-background-attachment:fixed;
-background-size:cover;
-position:relative;
-transition: background 350ms ease, background-color 350ms ease;
-overflow:hidden;
-}
-
-/* Watermark layer (low-opacity big image) */
-body::after{
-content:"";
-position:fixed;
-inset:0;
-z-index:0;                     /* behind overlay and content */
-pointer-events:none;
-background-image: url("[https://images.unsplash.com/photo-1605902711622-cfb43c44367e?auto=format&fit=crop&w=1400&q=60](https://images.unsplash.com/photo-1605902711622-cfb43c44367e?auto=format&fit=crop&w=1400&q=60)");
-background-position:center;
-background-repeat:no-repeat;
-background-size:cover;
-opacity:0.06;                  /* adjust watermark visibility */
-filter:grayscale(30%) contrast(90%);
-}
-
-/* When page becomes white after login, we use a class to hide bg and watermark */
-body.white {
-background-image: none !important;
-background-color: #ffffff !important;
-color: #111 !important;
-}
-body.white::after { opacity: 0 !important; }
-
-/* page overlay (allows watermark to still be visible) */
-.overlay{
-z-index:2;
-position:fixed;
-inset:0;
-display:flex;
-align-items:center;
-justify-content:center;
-background: var(--overlay-dark); /* not fully opaque so watermark shows */
-}
-
-.login-card{
-width: 360px;
-max-width: calc(100% - 40px);
-padding: 28px;
-border-radius: 12px;
-background: var(--glass-bg);
-backdrop-filter: blur(8px) saturate(120%);
-box-shadow: 0 8px 30px rgba(0,0,0,0.45);
-text-align:center;
-z-index:3;
-}
-
-.login-card h1{
-margin: 0 0 12px;
-font-size:20px;
-letter-spacing:0.2px;
-}
-
-.hint{
-margin:0 0 16px;
-font-size:13px;
-opacity:0.9;
-}
-
-input[type="email"]{
-width:100%;
-box-sizing:border-box;
-padding:12px 14px;
-border-radius:8px;
-border:1px solid rgba(255,255,255,0.08);
-background: rgba(255,255,255,0.04);
-color: #fff;
-font-size:14px;
-outline:none;
-}
-input[type="email"]::placeholder{ color: rgba(255,255,255,0.6); }
-
-.buttons{
-margin-top:14px;
-display:flex;
-flex-direction:column;
-gap:10px;
-}
-
-.btn{
-padding:11px 12px;
-border-radius: var(--btn-radius);
-border: none;
-font-size:15px;
-cursor: pointer;
-background: var(--btn-color);
-color: white;
-width:100%;
-opacity:0.5;
-pointer-events:none;
-transition:opacity 160ms ease, transform 120ms ease;
-}
-.btn:active{ transform: translateY(1px); }
-
-.btn.enabled{
-opacity:1;
-pointer-events:auto;
-}
-
-/* Secondary style */
-.btn.secondary{
-background: transparent;
-border: 1px solid rgba(255,255,255,0.12);
-}
-
-/* White-screen transition element (hidden initially) */
-.white-screen{
-position:fixed;
-inset:0;
-background:#fff;
-z-index:9999;
-opacity:0;
-pointer-events:none;
-transition: opacity 350ms ease;
-}
-.white-screen.visible{
-opacity:1;
-pointer-events:auto;
-}
-
-/* small responsive tweaks */
-@media (max-width:420px){
-.login-card{ padding:20px; width:92%; }
-} </style>
-
-</head>
-<body>
-
-  <!-- White-screen overlay used for clean transition after login -->
-
-  <div id="whiteScreen" class="white-screen" role="status" aria-hidden="true"></div>
-
-  <div class="overlay" id="overlay">
-    <div class="login-card" role="form" aria-labelledby="loginTitle">
-      <h1 id="loginTitle">Welcome — Login</h1>
-      <p class="hint">Enter your <strong>Gmail</strong> (example: you@gmail.com) to enable buttons</p>
-
-```
-  <label for="email" style="display:none">Email</label>
-  <input id="email" type="email" placeholder="you@gmail.com" autocomplete="email" />
-
-  <div class="buttons">
-    <button id="loginBtn" class="btn" type="button" disabled aria-disabled="true">Login</button>
-    <button id="googleBtn" class="btn secondary" type="button" disabled aria-disabled="true">Login with Google</button>
-    <button id="appleBtn" class="btn secondary" type="button" disabled aria-disabled="true">Login with Apple</button>
-  </div>
-</div>
-```
-
-  </div>
-
-<script>
-  (function(){
-    const email = document.getElementById("email");
-    const loginBtn = document.getElementById("loginBtn");
-    const googleBtn = document.getElementById("googleBtn");
-    const appleBtn = document.getElementById("appleBtn");
-    const whiteScreen = document.getElementById("whiteScreen");
-    const overlay = document.getElementById("overlay");
-    const btns = [loginBtn, googleBtn, appleBtn];
-
-    // Helper: enable/disable buttons (uses disabled attribute + class for visuals)
-    function setButtonsEnabled(enabled){
-      btns.forEach(b=>{
-        b.disabled = !enabled;
-        b.setAttribute("aria-disabled", String(!enabled));
-        if(enabled){
-          b.classList.add("enabled");
-        } else {
-          b.classList.remove("enabled");
+    <style>
+        /* PAGE BACKGROUND WITH TRADING WATERMARK */
+        body {
+            margin: 0;
+            font-family: "Poppins", sans-serif;
+            background: url("https://images.unsplash.com/photo-1569025690938-a00729c9e1c0?auto=format&fit=crop&w=1600&q=60")
+                no-repeat center center fixed;
+            background-size: cover;
         }
-      });
-    }
 
-    // Validate Gmail specifically (require '@' and '.com' and contains 'gmail')
-    function isValidGmail(val){
-      if(!val) return false;
-      val = val.trim().toLowerCase();
-      // simple check: contains '@', 'gmail.' and a TLD
-      return val.includes("@") && val.includes("gmail") && /\.[a-z]{2,}$/.test(val);
-    }
+        /* Transparent black overlay */
+        .overlay {
+            width: 100%;
+            height: 100vh;
+            background: rgba(0,0,0,0.55);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-    // input handler
-    email.addEventListener("input", ()=>{
-      const ok = isValidGmail(email.value);
-      setButtonsEnabled(ok);
-    });
+        /* LOGIN CARD */
+        .login-card {
+            width: 350px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 25px rgba(0,0,0,0.3);
+            animation: fadeIn 0.7s ease-in-out;
+        }
 
-    // Prevent accidental submit/reload — these are type="button" already.
-    // login click: show white-screen with fade, then set body.white class (to be fully white)
-    function goWhiteAndStop(ev){
-      // Accessibility: mark busy
-      document.body.setAttribute("aria-busy","true");
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
 
-      // Show the white-screen (fade-in)
-      whiteScreen.classList.add("visible");
-      whiteScreen.setAttribute("aria-hidden","false");
-
-      // After transition completes, add body.white to ensure background removed on all browsers
-      setTimeout(()=>{
-        document.body.classList.add("white");
-        // hide the login overlay to reveal white background cleanly
-        overlay.style.display = "none";
-        document.body.removeAttribute("aria-busy");
-      }, 420); // slightly longer than CSS transition (350ms) to be safe
-    }
-
-    // Attach handlers to each real button (they all do the white transition for now)
-    loginBtn.addEventListener("click", goWhiteAndStop);
-    googleBtn.addEventListener("click", goWhiteAndStop);
-    appleBtn.addEventListener("click", goWhiteAndStop);
-
-    // initial state: buttons disabled
-    setButtonsEnabled(false);
-
-    // small UX: focus email on load
-    email.focus();
-  })();
-</script>
-
-</body>
-</html>
+        h2 {
+            text-align: center;
 
 
