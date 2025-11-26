@@ -3,36 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfect Login Page</title>
+    <title>Login Page Clean</title>
 
     <style>
         body {
             margin: 0;
             font-family: "Poppins", sans-serif;
-
-            /* TRADING WATERMARK */
-            background: url("https://images.unsplash.com/photo-1569025690938-a00729c9e1c0?auto=format&fit=crop&w=1600&q=60")
-                no-repeat center center fixed;
-            background-size: cover;
-        }
-
-        /* DARK OVERLAY */
-        #loginPage {
-            width: 100%;
+            background: #000; /* BLACK BACKGROUND */
             height: 100vh;
-            background: rgba(0,0,0,0.55);
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        /* LOGIN CARD */
+        /* Login card */
         .login-box {
-            width: 360px;
-            background: white;
-            padding: 35px;
-            border-radius: 18px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+            width: 350px;
+            background: #fff;
+            padding: 30px;
+            border-radius: 14px;
+            box-shadow: 0 10px 35px rgba(255,255,255,0.15);
+        }
+
+        .login-box h2 {
+            text-align: center;
+            margin-bottom: 25px;
         }
 
         input {
@@ -40,35 +35,56 @@
             padding: 14px;
             margin: 10px 0;
             border-radius: 8px;
-            border: 1px solid #bbb;
+            border: 1px solid #ccc;
             font-size: 15px;
         }
 
-        button {
+        .btn {
             width: 100%;
             padding: 14px;
-            background: #005cff;
-            color: white;
             border: none;
             border-radius: 8px;
-            font-size: 17px;
+            font-size: 16px;
             font-weight: bold;
+            margin-top: 10px;
+            cursor: pointer;
             transition: 0.3s;
         }
 
-        button:hover {
-            background: #003fb3;
-            cursor: pointer;
+        .login-btn {
+            background: #0066ff;
+            color: white;
+        }
+        .login-btn:hover {
+            background: #004bbb;
         }
 
-        /* DASHBOARD FIX (VISIBLE, NOT WHITE SCREEN) */
+        /* Google button */
+        .google-btn {
+            background: white;
+            border: 1px solid #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        /* Apple button */
+        .apple-btn {
+            background: black;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        /* Dashboard hidden initially */
         #dashboard {
             display: none;
-            width: 100%;
+            padding: 40px;
+            background: white;
             height: 100vh;
-            background: white;      /* white background */
-            color: black;           /* FIX: visible text */
-            padding: 30px;
         }
     </style>
 </head>
@@ -78,35 +94,40 @@
     <!-- LOGIN PAGE -->
     <div id="loginPage">
         <div class="login-box">
-            <h2 style="text-align:center;">Login</h2>
-            <input type="email" id="email" placeholder="Enter your Gmail">
-            <button onclick="login()">Login</button>
+            <h2>Login</h2>
+
+            <input type="email" id="email" placeholder="Enter Gmail">
+            <input type="password" id="password" placeholder="Enter Password">
+
+            <button class="btn login-btn" onclick="login()">Login</button>
+
+            <button class="btn google-btn">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" width="18">
+                Continue with Google
+            </button>
+
+            <button class="btn apple-btn">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" width="18">
+                Continue with Apple
+            </button>
         </div>
     </div>
 
     <!-- DASHBOARD -->
     <div id="dashboard">
         <h1>Dashboard</h1>
-        <p>You are logged in successfully.</p>
+        <p>Login successful!</p>
     </div>
 
     <script>
         function login() {
             let email = document.getElementById("email").value;
+            let pass = document.getElementById("password").value;
 
-            if (email.trim() === "") {
-                alert("Please enter your Gmail.");
+            if (email.trim() === "" || pass.trim() === "") {
+                alert("Please enter Gmail & Password");
                 return;
             }
 
-            // HIDE LOGIN PAGE
-            document.getElementById("loginPage").style.display = "none";
-
-            // SHOW DASHBOARD
-            document.getElementById("dashboard").style.display = "block";
-        }
-    </script>
-
-</body>
-</html>
-
+            // Hide login, show dashboard
+            document.getE
