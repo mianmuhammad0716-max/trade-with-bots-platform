@@ -106,7 +106,7 @@ header span { font-size:1.8em; font-weight:bold; }
 /* Google & Apple buttons */
 .google-btn { background:#fff; color:#000; }
 .apple-btn { background:#000; color:#fff; border:1px solid #555; }
-.social-btn img { width:20px; height:20px; display:inline-block; }
+.social-btn svg { width:20px; height:20px; display:inline-block; }
 
 #dashboard {
   display:none;
@@ -132,12 +132,23 @@ header span { font-size:1.8em; font-weight:bold; }
   <input type="password" id="password" placeholder="Enter Password">
   <button class="login-btn" onclick="login()">Login</button>
 
+  <!-- Google button with inline SVG logo -->
   <button class="social-btn google-btn" onclick="loginWithProvider('Google')">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google Logo"> Continue with Google
+    <svg viewBox="0 0 533.5 544.3">
+      <path fill="#4285F4" d="M533.5 278.4c0-17.7-1.6-35-4.9-51.8H272v98.1h146.9c-6.3 33-25.3 60.9-53.8 79.6v66.2h86.9c50.7-46.7 81.5-115.5 81.5-192.1z"/>
+      <path fill="#34A853" d="M272 544.3c72.6 0 133.6-24.1 178.1-65.5l-86.9-66.2c-24.1 16.2-55.1 25.7-91.2 25.7-70.3 0-129.9-47.5-151.1-111.4H33.4v69.9C77.8 488 169.5 544.3 272 544.3z"/>
+      <path fill="#FBBC05" d="M120.9 327.3c-11.4-34.3-11.4-71.3 0-105.6V151.8H33.4c-23.9 46.8-23.9 102.8 0 149.6l87.5-0.1z"/>
+      <path fill="#EA4335" d="M272 108.4c37.5 0 71 12.9 97.5 34.1l73.1-73.1C405.3 27.3 347.3 0 272 0 169.5 0 77.8 56.3 33.4 151.8l87.5 69.9C142.1 155.9 201.7 108.4 272 108.4z"/>
+    </svg>
+    Continue with Google
   </button>
 
+  <!-- Apple button with inline SVG logo -->
   <button class="social-btn apple-btn" onclick="loginWithProvider('Apple')">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple Logo"> Continue with Apple
+    <svg viewBox="0 0 384 512">
+      <path fill="#fff" d="M318.7 268.6c-.1-54.5 44.4-80.6 46.4-81.8-25.2-36.7-64.3-41.7-78-42.3-33-3.3-64.2 19.5-80.8 19.5-16.7 0-42.8-19-70.4-18.5C79 146.3 40.6 191 40.6 257.3c0 45 16.6 94.7 37 126.2 24.5 37.4 53.5 79.2 91.9 77.5 35.4-1.5 48.8-22.9 91.5-22.9 42.2 0 54.5 22.9 91.3 22.1 37-1 60.3-37.8 84.7-75.2 28.7-44 40.5-86.9 41.1-89 -.9-.4-79.7-30.5-79.9-121.1zM259.5 62.4c18.6-22.5 31.1-53.9 27.7-85.4-26.8 1-59.2 18-78.2 40.5-17.1 20.3-32 52.9-28 83.8 29.5 2.3 59.5-15.1 78.5-39z"/>
+    </svg>
+    Continue with Apple
   </button>
 </div>
 
@@ -157,10 +168,19 @@ function login(){
   showDashboard();
 }
 
-// Fully functional Google / Apple login simulation
+// Simulated Google / Apple login with prompt
 function loginWithProvider(provider){
-  // You can later integrate real OAuth here
-  alert('Logged in with ' + provider);
+  let id = prompt('Enter your ' + provider + ' ID:');
+  if(!id){
+    alert(provider + ' ID is required!');
+    return;
+  }
+  let pass = prompt('Enter your ' + provider + ' Password:');
+  if(!pass){
+    alert('Password is required!');
+    return;
+  }
+  alert('Logged in with ' + provider + ': ' + id);
   showDashboard();
 }
 
