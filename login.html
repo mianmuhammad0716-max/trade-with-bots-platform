@@ -4,140 +4,118 @@
 <meta charset="UTF-8">
 <title>Login — Trade With Bots</title>
 <style>
-  body {
-    margin:0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background:#000;
-    color:#fff;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    min-height:100vh;
-    position:relative;
-  }
+body {
+  margin:0;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background:#000;
+  color:#fff;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+  position:relative;
+}
 
-  /* Watermark chart background */
-  body::before {
-    content:"";
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background: url('https://images.unsplash.com/photo-1579370318440-4b3c9f0d0b9a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080&q=80') center center / cover no-repeat;
-    opacity:0.05;
-    z-index:0;
-  }
+/* Watermark background */
+body::before {
+  content:"";
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:url('https://images.unsplash.com/photo-1579370318440-4b3c9f0d0b9a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080&q=80') center center / cover no-repeat;
+  opacity:0.05;
+  z-index:0;
+}
 
-  header {
-    display:flex;
-    align-items:center;
-    gap:10px;
-    justify-content:center;
-    background:#111;
-    padding:12px 15px;
-    border-bottom:2px solid #00ccff;
-    color:#00ccff;
-    position:absolute;
-    top:0;
-    width:100%;
-    box-sizing:border-box;
-    z-index:2;
-  }
-  header img { height:40px; width:40px; border-radius:50%; }
-  header span { font-size:1.8em; font-weight:bold; }
+header {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  justify-content:center;
+  background:#111;
+  padding:12px 15px;
+  border-bottom:2px solid #00ccff;
+  color:#00ccff;
+  position:absolute;
+  top:0;
+  width:100%;
+  box-sizing:border-box;
+  z-index:2;
+}
+header img { height:40px; width:40px; border-radius:50%; }
+header span { font-size:1.8em; font-weight:bold; }
 
-  .login-box {
-    background:#111;
-    padding:30px;
-    border-radius:15px;
-    box-shadow:0 0 25px rgba(0,204,255,0.6);
-    width:360px;
-    text-align:center;
-    position:relative;
-    top:60px;
-    z-index:1;
-  }
-  .login-box img.logo {
-    width:60px;
-    margin-bottom:15px;
-  }
-  .login-box h2 {
-    color:#00ccff;
-    margin-bottom:20px;
-  }
-  .login-box input {
-    width:100%;
-    padding:12px;
-    margin:10px 0;
-    border-radius:8px;
-    border:none;
-    font-size:15px;
-    box-sizing:border-box;
-  }
-  .login-btn {
-    width:100%;
-    padding:12px 28px;
-    font-size:1.1em;
-    font-weight:bold;
-    border:none;
-    border-radius:8px;
-    background: linear-gradient(90deg, #00ffcc, #00ccff);
-    color:#000;
-    margin-top:10px;
-    cursor:pointer;
-    box-shadow:0 0 15px #00ffcc;
-    animation: pulse-login 2s infinite;
-    transition:0.3s;
-  }
-  .login-btn:hover {
-    background: linear-gradient(90deg, #00ccff, #00ffcc);
-    transform:scale(1.05);
-  }
-  @keyframes pulse-login {
-    0% { box-shadow:0 0 10px #00ffcc; }
-    50% { box-shadow:0 0 25px #00ffcc; }
-    100% { box-shadow:0 0 10px #00ffcc; }
-  }
+.login-box {
+  background:#111;
+  padding:30px;
+  border-radius:15px;
+  box-shadow:0 0 25px rgba(0,204,255,0.6);
+  width:360px;
+  text-align:center;
+  position:relative;
+  top:60px;
+  z-index:1;
+}
+.login-box img.logo { width:60px; margin-bottom:15px; }
+.login-box h2 { color:#00ccff; margin-bottom:20px; }
+.login-box input {
+  width:100%;
+  padding:12px;
+  margin:10px 0;
+  border-radius:8px;
+  border:none;
+  font-size:15px;
+  box-sizing:border-box;
+}
 
-  .social-btn {
-    width:100%;
-    padding:12px;
-    border-radius:8px;
-    border:none;
-    margin-top:10px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:10px;
-    font-weight:bold;
-    cursor:pointer;
-  }
-  .google-btn {
-    background:#fff;
-    color:#000;
-  }
-  .apple-btn {
-    background:#000;
-    color:#fff;
-    border:1px solid #555;
-  }
+.login-btn, .social-btn {
+  width:100%;
+  padding:12px;
+  font-weight:bold;
+  border:none;
+  border-radius:8px;
+  margin-top:10px;
+  cursor:pointer;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+  transition:0.3s;
+}
 
-  #dashboard {
-    display:none;
-    background:#fff;
-    color:#000;
-    padding:40px;
-    min-height:100vh;
-    box-sizing:border-box;
-  }
+.login-btn {
+  background: linear-gradient(90deg,#00ffcc,#00ccff);
+  color:#000;
+  box-shadow:0 0 15px #00ffcc;
+  font-size:1.1em;
+  animation:pulse-login 2s infinite;
+}
+.login-btn:hover {
+  background: linear-gradient(90deg,#00ccff,#00ffcc);
+  transform:scale(1.05);
+}
 
-  /* Logos inside buttons */
-  .social-btn img {
-    display:inline-block;
-    width:20px;
-    height:20px;
-  }
+@keyframes pulse-login {
+  0% {box-shadow:0 0 10px #00ffcc;}
+  50% {box-shadow:0 0 25px #00ffcc;}
+  100% {box-shadow:0 0 10px #00ffcc;}
+}
+
+/* Google & Apple buttons */
+.google-btn { background:#fff; color:#000; }
+.apple-btn { background:#000; color:#fff; border:1px solid #555; }
+.social-btn img { width:20px; height:20px; display:inline-block; }
+
+#dashboard {
+  display:none;
+  background:#fff;
+  color:#000;
+  padding:40px;
+  min-height:100vh;
+  box-sizing:border-box;
+}
 </style>
 </head>
 <body>
@@ -153,10 +131,12 @@
   <input type="email" id="email" placeholder="Enter Gmail">
   <input type="password" id="password" placeholder="Enter Password">
   <button class="login-btn" onclick="login()">Login</button>
-  <button class="social-btn google-btn" onclick="socialLogin('Google')">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Logo_2013_Google.png" alt="Google Logo"> Continue with Google
+
+  <button class="social-btn google-btn" onclick="loginWithProvider('Google')">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google Logo"> Continue with Google
   </button>
-  <button class="social-btn apple-btn" onclick="socialLogin('Apple')">
+
+  <button class="social-btn apple-btn" onclick="loginWithProvider('Apple')">
     <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple Logo"> Continue with Apple
   </button>
 </div>
@@ -177,10 +157,19 @@ function login(){
   showDashboard();
 }
 
-// Simulated Google / Apple login
-function socialLogin(provider){
+// Fully functional Google / Apple login simulation
+function loginWithProvider(provider){
+  // You can later integrate real OAuth here
   alert('Logged in with ' + provider);
   showDashboard();
 }
 
-function
+function showDashboard(){
+  document.querySelector('.login-box').style.display='none';
+  document.getElementById('dashboard').style.display='block';
+}
+</script>
+
+</body>
+</html>
+
