@@ -3,274 +3,159 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Trade With Bots</title>
+<title>Dashboard — Trade With Bots</title>
+<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+
 <style>
-body {
-  margin:0;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background:#000;
-  color:#fff;
-  display:flex;
-  justify-content:center;
-  align-items:flex-start;
-  min-height:100vh;
-  position:relative;
-  overflow-x:hidden;
-}
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #000;
+    color: #fff;
+  }
 
-/* Watermark */
-body::before {
-content:"";
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:url('[https://images.unsplash.com/photo-1579370318440-4b3c9f0d0b9a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080&q=80](https://images.unsplash.com/photo-1579370318440-4b3c9f0d0b9a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080&q=80)') center center / cover no-repeat;
-opacity:0.05;
-z-index:0;
-}
+  /* Header */
+  header {
+    background-color: #111;
+    color: #00ccff;
+    padding: 12px 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 2px solid #00ccff;
+  }
+  header img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+  }
+  header span {
+    font-size: 1.8em;
+    font-weight: bold;
+  }
 
-header {
-display:flex;
-align-items:center;
-gap:10px;
-justify-content:center;
-background:#111;
-padding:12px 15px;
-border-bottom:2px solid #00ccff;
-color:#00ccff;
-width:100%;
-box-sizing:border-box;
-position:fixed;
-top:0;
-z-index:2;
-}
-header img { height:40px; width:40px; border-radius:50%; }
-header span { font-size:1.8em; font-weight:bold; }
+  /* Hero / Welcome */
+  .hero {
+    text-align: center;
+    padding: 35px 15px;
+    position: relative;
+  }
+  .hero h1 {
+    font-size: 2em;
+    color: #00ccff;
+    margin-bottom: 15px;
+    z-index: 1;
+    position: relative;
+  }
+  .hero p {
+    font-size: 1em;
+    color: #bbb;
+    margin-bottom: 25px;
+    z-index: 1;
+    position: relative;
+  }
 
-.login-box {
-background:#111;
-padding:30px;
-border-radius:15px;
-box-shadow:0 0 25px rgba(0,204,255,0.6);
-width:360px;
-text-align:center;
-margin-top:100px;
-position:relative;
-z-index:1;
-transition: transform 0.6s ease, opacity 0.6s ease;
-}
-.login-box img.logo { width:60px; margin-bottom:15px; }
-.login-box h2 { color:#00ccff; margin-bottom:20px; }
-.login-box input {
-width:100%;
-padding:12px;
-margin:10px 0;
-border-radius:8px;
-border:none;
-font-size:15px;
-box-sizing:border-box;
-}
+  /* Watermark behind hero */
+  .hero::before {
+    content: "TRADE WITH BOTS";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-30deg);
+    font-size: 6em;
+    color: rgba(255, 255, 255, 0.05);
+    white-space: nowrap;
+    z-index: 0;
+  }
 
-.login-btn, .social-btn {
-width:100%;
-padding:12px;
-font-weight:bold;
-border:none;
-border-radius:8px;
-margin-top:10px;
-cursor:pointer;
-display:flex;
-justify-content:center;
-align-items:center;
-gap:10px;
-transition:0.3s;
-}
+  /* Charts Grid */
+  .chart-grid {
+    max-width: 1200px;
+    margin: 20px auto 120px auto;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  .chart {
+    background: #111;
+    padding: 12px;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0,255,255,0.15);
+    height: 100%;
+  }
+  .big-chart { grid-column: span 2; height: 450px; }
+  .small-chart { height: 300px; }
 
-.login-btn {
-background: linear-gradient(90deg,#00ffcc,#00ccff);
-color:#000;
-box-shadow:0 0 15px #00ffcc;
-font-size:1.1em;
-animation:pulse-login 2s infinite;
-}
-.login-btn:hover {
-background: linear-gradient(90deg,#00ccff,#00ffcc);
-transform:scale(1.05);
-}
-@keyframes pulse-login {
-0% {box-shadow:0 0 10px #00ffcc;}
-50% {box-shadow:0 0 25px #00ffcc;}
-100% {box-shadow:0 0 10px #00ffcc;}
-}
+  /* Mobile adjustments */
+  @media (max-width: 768px) {
+    header span { font-size: 1.4em; }
+    header img { height: 34px; width: 34px; }
+    .hero h1 { font-size: 1.6em; }
+    .hero p { font-size: 0.95em; }
+    .chart-grid { grid-template-columns: 1fr; }
+    .big-chart { height: 300px; }
+    .small-chart { height: 220px; }
+    .hero::before { font-size: 4em; }
+  }
 
-.google-btn { background:#fff; color:#000; }
-.apple-btn { background:#000; color:#fff; border:1px solid #555; }
-.social-btn svg { width:20px; height:20px; display:inline-block; }
-
-#dashboard {
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:flex-start;
-padding-top:120px;
-gap:20px;
-width:100%;
-box-sizing:border-box;
-position:absolute;
-top:0;
-left:100%;
-opacity:0;
-transition: left 0.8s ease, opacity 0.8s ease;
-z-index:1;
-}
-
-.card {
-background:#111;
-padding:25px;
-border-radius:15px;
-box-shadow:0 0 20px rgba(0,204,255,0.5);
-width:300px;
-text-align:center;
-transition:0.3s transform, 0.3s box-shadow;
-}
-.card:hover {
-transform:scale(1.03);
-box-shadow:0 0 30px #00ccff;
-}
-
-button.dashboard-btn {
-background: linear-gradient(90deg,#00ffcc,#00ccff);
-color:#000;
-border:none;
-padding:12px 20px;
-border-radius:8px;
-font-weight:bold;
-cursor:pointer;
-transition:0.3s;
-margin-top:15px;
-}
-button.dashboard-btn:hover {
-background: linear-gradient(90deg,#00ccff,#00ffcc);
-transform:scale(1.05);
-}
-
-footer {
-position:fixed;
-bottom:0;
-width:100%;
-text-align:center;
-padding:10px;
-color:#00ccff;
-border-top:2px solid #00ccff;
-} </style>
+  footer {
+    text-align: center;
+    padding: 18px;
+    background-color: #111;
+    color: #00ccff;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    border-top: 2px solid #00ccff;
+    font-size: 0.9em;
+  }
+</style>
 
 </head>
-<body>
 
+<body>
 <header>
   <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="Bot Logo">
   <span>Trade With Bots</span>
 </header>
 
-<div class="login-box" id="login-box">
-  <img class="logo" src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="Logo">
-  <h2>Login</h2>
-  <input type="email" id="email" placeholder="Enter Gmail">
-  <input type="password" id="password" placeholder="Enter Password">
-  <button class="login-btn" onclick="login()">Login</button>
-
-  <button class="social-btn google-btn" onclick="loginWithProvider('Google')">
-    Continue with Google
-  </button>
-
-  <button class="social-btn apple-btn" onclick="loginWithProvider('Apple')">
-    Continue with Apple
-  </button>
+<div class="hero">
+  <h1>Welcome! You are logged in</h1>
+  <p>Monitor your portfolio and automated bot trades below.</p>
 </div>
 
-<div id="dashboard">
-  <h2 id="welcome-message"></h2>
-
-  <div class="card">
-    <h3>Balance</h3>
-    <p id="balance">$12,340.50</p>
-  </div>
-
-  <div class="card">
-    <h3>Profit</h3>
-    <p id="profit">+$1,245.75</p>
-  </div>
-
-  <div class="card">
-    <h3>Quick Actions</h3>
-    <button class="dashboard-btn" onclick="alert('Deposit Clicked')">Deposit</button>
-    <button class="dashboard-btn" onclick="alert('Withdraw Clicked')">Withdraw</button>
-    <button class="dashboard-btn" onclick="alert('Trade Clicked')">Trade</button>
-  </div>
-
-<button class="dashboard-btn" style="background:red;color:white;" onclick="logout()">Logout</button>
-
+<div class="chart-grid">
+  <div class="chart big-chart" id="btc_chart"></div>
+  <div class="chart small-chart" id="eth_chart"></div>
+  <div class="chart small-chart" id="sol_chart"></div>
 </div>
-
-<footer>
-  © 2025 Trade With Bots
-</footer>
 
 <script>
-function checkLoginState() {
-  const loggedIn = localStorage.getItem('loggedIn');
-  if(loggedIn === 'true'){
-    document.getElementById('login-box').style.display = 'none';
-    showDashboard();
+  function createChart(symbol) {
+    return new TradingView.widget({
+      container_id: symbol + "_chart",
+      autosize: true,
+      symbol: "BINANCE:" + symbol,
+      interval: "60",
+      timezone: "Etc/UTC",
+      theme: "dark",
+      style: 1,
+      locale: "en",
+      toolbar_bg: "#111",
+      hide_top_toolbar: false,
+      hide_legend: false,
+      show_popup_button: true,
+    });
   }
-}
 
-function login(){
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
-  if(email && password){
-    localStorage.setItem('loggedIn', 'true'); // save login state
-    localStorage.setItem('userEmail', email);
-    document.getElementById('login-box').style.transform='translateX(-100%)';
-    document.getElementById('login-box').style.opacity='0';
-    setTimeout(()=>{
-      document.getElementById('login-box').style.display='none';
-      showDashboard();
-    },600);
-  } else {
-    alert('Please enter Gmail and Password!');
-  }
-}
-
-function showDashboard(){
-  const dashboard = document.getElementById('dashboard');
-  dashboard.style.left='0';
-  dashboard.style.opacity='1';
-  const email = localStorage.getItem('userEmail') || 'User';
-  document.getElementById('welcome-message').innerText = 'Welcome, ' + email + '! You are logged in.';
-}
-
-function logout(){
-  localStorage.removeItem('loggedIn');
-  localStorage.removeItem('userEmail');
-  document.getElementById('login-box').style.display='block';
-  document.getElementById('login-box').style.transform='translateX(0)';
-  document.getElementById('login-box').style.opacity='1';
-  const dashboard = document.getElementById('dashboard');
-  dashboard.style.left='100%';
-  dashboard.style.opacity='0';
-}
-
-function loginWithProvider(provider){
-  alert('Login with ' + provider + ' is simulated.');
-  login();
-}
-
-window.onload = checkLoginState;
+  createChart("BTCUSDT");
+  createChart("ETHUSDT");
+  createChart("SOLUSDT");
 </script>
 
+<footer>© 2025 Trade With Bots | All rights reserved</footer>
 </body>
 </html>
 
