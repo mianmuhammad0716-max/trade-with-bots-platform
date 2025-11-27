@@ -1,337 +1,197 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>Dashboard — Trade With Bots</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link rel="stylesheet" href="styles.css">
-  <!-- TradingView library (for the main trading chart) -->
-  <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — Trade With Bots</title>
 
-  <style>
-    /* Small page-specific tweaks (keeps core styling in styles.css) */
-    /* If you prefer all CSS in styles.css move these rules there */
-    .topbar { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px; }
-    .top-title { font-size:20px; color:#00ccff; font-weight:700; }
-    .notif-panel { position:relative; }
-    .notif-list { display:none; position:absolute; right:0; top:42px; width:320px; background:#071018; border-radius:10px; padding:10px; box-shadow:0 10px 30px rgba(0,0,0,0.6); z-index:50; }
-    .chart-wrapper { background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:12px; padding:12px; min-height:420px; }
-    @media (max-width: 1000px) {
-      .topbar { flex-direction:column; align-items:flex-start; gap:8px; }
-    }
-  </style>
+<!-- Embedded CSS -->
+
+<style>
+:root{
+  --bg:#000;
+  --card:#0f1113;
+  --panel:#0b0b0c;
+  --accent:#00ccff;
+  --muted:#9aa;
+  --glass: rgba(255,255,255,0.03);
+  --glass-2: rgba(255,255,255,0.02);
+  --success:#2ee6a7;
+  --danger:#ff6b6b;
+  --radius:12px;
+}
+html, body{
+  margin:0; padding:0; height:100%; font-family: Inter, "Segoe UI", Roboto, system-ui, Arial; background:var(--bg); color:#fff;
+}
+a{color:inherit; text-decoration:none;}
+.app {display:grid; grid-template-columns:260px 1fr; min-height:100vh; gap:20px;}
+
+/* Sidebar */
+.sidebar {
+  background:linear-gradient(180deg,var(--card), #0b0b0b);
+  padding:18px;
+  border-radius: var(--radius);
+  box-shadow: 0 6px 30px rgba(0,204,255,0.03);
+}
+.sidebar h2{color:var(--accent); margin-bottom:18px;}
+.sidebar a{
+  display:block; padding:10px 8px; border-radius:8px; margin-bottom:6px; font-weight:600; transition:0.2s;
+}
+.sidebar a:hover{background:rgba(0,204,255,0.06);}
+.sidebar a.active{background:rgba(0,204,255,0.12); color:#fff;}
+
+/* Main content */
+.main {padding:18px; display:flex; flex-direction:column; gap:18px;}
+.topbar{display:flex; justify-content:space-between; align-items:center;}
+.top-title{font-size:20px; color:var(--accent); font-weight:700;}
+.btn{background: linear-gradient(90deg,var(--accent), #00a8e6); color:#000; padding:10px 14px; border-radius:10px; border:none; font-weight:700; cursor:pointer; box-shadow:0 8px 30px rgba(0,204,255,0.08);}
+.btn.ghost{background:transparent; color:var(--accent); border:1px solid rgba(0,204,255,0.08); box-shadow:none;}
+.icon-btn{background: rgba(255,255,255,0.02); border-radius:10px; padding:10px; border:none; color:var(--muted); cursor:pointer;}
+.grid{display:grid; grid-template-columns:1fr 420px; gap:18px; align-items:start;}
+.left-col, .right-col{display:flex; flex-direction:column; gap:18px;}
+.card{background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:14px; border-radius:12px; box-shadow:0 6px 20px rgba(0,0,0,0.6);}
+.card .label{font-size:13px; color:var(--muted);}
+.card .value{font-size:20px; color:#fff; font-weight:800; margin-top:6px;}
+.bots-table{width:100%; border-collapse:collapse;}
+.bots-table th, .bots-table td{padding:10px 8px; font-size:13px; color:#dceef7; text-align:left;}
+.bots-table thead th{font-size:12px; color:var(--muted); text-transform:uppercase;}
+.status-pill{padding:6px 8px; border-radius:999px; font-weight:700; font-size:12px; display:inline-block;}
+.status-active{background:var(--success);}
+.status-paused{background:#ffd166;}
+.status-off{background:var(--danger); color:#fff;}
+.footer-copy{margin-top:auto; font-size:13px; color:var(--muted); text-align:center;}
+@media(max-width:1000px){
+  .app{grid-template-columns:1fr; padding:14px;}
+  .sidebar{order:2; display:flex;}
+  .main{order:1; padding:0;}
+  .grid{grid-template-columns:1fr;}
+  .right-col{width:100%;}
+}
+</style>
+
+<!-- TradingView Chart -->
+
+<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+
 </head>
 <body>
 
-  <div class="app" role="application">
+<div class="app">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2>TradeWithBots</h2>
+    <a href="dashboard.html" class="active">Dashboard</a>
+    <a href="bots.html">Bots</a>
+    <a href="newbot.html">Create Bot</a>
+    <a href="signals.html">Signals</a>
+    <a href="payment.html">Deposit</a>
+    <a href="withdraw.html">Withdraw</a>
+    <a href="profile.html">Profile</a>
+    <a href="settings.html">Settings</a>
+    <a href="index.html" style="color:#ff4444;">Logout</a>
+  </aside>
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar" aria-label="Sidebar">
-      <div class="brand">
-        <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="bot">
-        <h1>Trade With Bots</h1>
+  <!-- Main content -->
+
+  <main class="main">
+    <div class="topbar">
+      <div class="top-title">Dashboard</div>
+      <div>
+        <button class="btn" onclick="window.location.href='payment.html'">Payments</button>
       </div>
+    </div>
 
-      <nav class="nav" aria-label="Main navigation">
-        <a href="dashboard.html" class="active">🏠 Dashboard</a>
-        <a href="bots.html">🤖 Bots</a>
-        <a href="signals.html">📈 Signals</a>
-        <a href="payment.html">💸 Payments</a>
-        <a href="newbot.html">➕ Create Bot</a>
-        <a href="withdraw.html">💳 Withdraw</a>
-        <a href="profile.html">👤 Profile</a>
-        <a href="settings.html">⚙️ Settings</a>
-      </nav>
+```
+<div class="grid">
+  <!-- Left column -->
+  <div class="left-col">
+    <div class="card">
+      <div class="label">Total Balance</div>
+      <div class="value" id="balanceVal">$12,430</div>
+      <div style="font-size:12px; color:var(--muted); margin-top:6px;">Updated just now</div>
+    </div>
+    <div class="card">
+      <div class="label">Active Bots</div>
+      <div class="value">6</div>
+      <div style="font-size:12px; color:var(--muted); margin-top:6px;">87% win ratio</div>
+    </div>
+    <div class="card">
+      <div class="label">Profit Today</div>
+      <div class="value" id="profitToday">+$430</div>
+      <div style="font-size:12px; color:var(--muted); margin-top:6px;">Demo data</div>
+    </div>
 
-      <div class="small">Logged in as <strong>Muhammad</strong></div>
+    <div class="card" style="height:300px;">
+      <div id="tradingview_main" style="width:100%; height:100%;"></div>
+    </div>
 
-      <div style="margin-top:16px;">
-        <button class="btn" onclick="startGuide()">Get Started</button>
-      </div>
-
-      <div class="footer-copy" style="margin-top:18px;">© 2025 Trade With Bots<br>All rights reserved</div>
-    </aside>
-
-    <!-- MAIN -->
-    <main class="main" role="main">
-
-      <!-- TOPBAR -->
-      <div class="topbar">
-        <div style="display:flex; gap:12px; align-items:center;">
-          <div class="top-title">Dashboard</div>
-          <div style="font-size:13px; color:#9aa;">Monitor bots • Live demo mode</div>
-        </div>
-
-        <div style="display:flex; gap:8px; align-items:center;">
-          <button class="btn" onclick="window.location.href='payment.html'">Payments</button>
-
-          <div class="notif-panel" aria-haspopup="true">
-            <button class="icon-btn" id="notifBtn" aria-expanded="false">
-              🔔 <span id="notifBadge" style="background:#ff6b6b;color:#fff;padding:4px 7px;border-radius:999px;font-size:12px;margin-left:-8px;position:relative;top:-8px;left:-4px;">3</span>
-            </button>
-
-            <div class="notif-list" id="notifList" role="menu" aria-hidden="true">
-              <div class="notif-item" style="display:flex;gap:8px;align-items:flex-start;padding:8px;border-bottom:1px solid rgba(255,255,255,0.03);">
-                <div style="width:42px;height:42px;border-radius:8px;background:linear-gradient(90deg,#00ccff,#0a84ff);display:flex;align-items:center;justify-content:center;color:#000;font-weight:800;">B</div>
-                <div>
-                  <div style="font-weight:700;">Bot Alpha executed</div>
-                  <div style="font-size:13px;color:#9aa;margin-top:6px;">+2.3% profit • 5m ago</div>
-                </div>
-              </div>
-
-              <div class="notif-item" style="display:flex;gap:8px;align-items:flex-start;padding:8px;border-bottom:1px solid rgba(255,255,255,0.03);">
-                <div style="width:42px;height:42px;border-radius:8px;background:#ffd166;display:flex;align-items:center;justify-content:center;color:#000;font-weight:800;">⚠</div>
-                <div>
-                  <div style="font-weight:700;">Low balance on wallet</div>
-                  <div style="font-size:13px;color:#9aa;margin-top:6px;">Please top up to keep bots running</div>
-                </div>
-              </div>
-
-              <div style="text-align:center;margin-top:8px;">
-                <button class="btn" style="padding:8px 12px;" onclick="clearNotifs()">Mark all read</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="user" style="margin-left:6px;">
-            <div class="avatar" title="Account">M</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- GRID -->
-      <div class="grid">
-
-        <!-- LEFT COLUMN -->
-        <div class="left-col">
-
-          <!-- STATS -->
-          <div class="cards-row" style="margin-bottom:8px;">
-            <div class="card" style="flex:1">
-              <div class="label">Total Balance</div>
-              <div class="value" id="balanceVal">$12,430</div>
-              <div style="font-size:12px;color:#9aa;margin-top:8px;">Updated just now</div>
-            </div>
-
-            <div class="card" style="width:180px">
-              <div class="label">Active Bots</div>
-              <div class="value">6</div>
-              <div style="font-size:12px;color:#9aa;margin-top:8px;">87% win ratio (avg)</div>
-            </div>
-
-            <div class="card" style="width:180px">
-              <div class="label">Profit Today</div>
-              <div class="value" id="profitToday">+$430</div>
-              <div style="font-size:12px;color:#9aa;margin-top:8px;">Real-time demo</div>
-            </div>
-          </div>
-
-          <!-- CHART CARD -->
-          <div class="chart-card card" style="padding:8px;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-              <div style="font-weight:700;color:#00ccff;">BTC / USDT • Live</div>
-              <div style="display:flex;gap:8px;">
-                <button class="icon-btn" title="1h">1h</button>
-                <button class="icon-btn" title="4h">4h</button>
-                <button class="icon-btn" title="1D">1D</button>
-              </div>
-            </div>
-
-            <!-- TradingView main chart container -->
-            <div id="tradingview_main" style="height:420px;"></div>
-          </div>
-
-          <!-- Bots table -->
-          <div class="panel card">
-            <h3>Active Bots</h3>
-            <table class="bots-table" id="botsTable" role="table">
-              <thead>
-                <tr><th>Bot</th><th>Strategy</th><th>ROI (7d)</th><th>Status</th><th style="text-align:right">Actions</th></tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Alpha</td>
-                  <td>Scalper</td>
-                  <td>+12.4%</td>
-                  <td><span class="status-pill status-active">Active</span></td>
-                  <td style="text-align:right">
-                    <button class="btn" onclick="editBot('Alpha')">Edit</button>
-                    <button class="icon-btn" onclick="toggleBot(this,'Alpha')">⏸</button>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>Gamma</td>
-                  <td>Trend</td>
-                  <td>+8.1%</td>
-                  <td><span class="status-pill status-paused">Paused</span></td>
-                  <td style="text-align:right">
-                    <button class="btn" onclick="editBot('Gamma')">Edit</button>
-                    <button class="icon-btn" onclick="toggleBot(this,'Gamma')">▶</button>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>Omega</td>
-                  <td>Mean Reversion</td>
-                  <td>-1.2%</td>
-                  <td><span class="status-pill status-off">Stopped</span></td>
-                  <td style="text-align:right">
-                    <button class="btn" onclick="editBot('Omega')">Edit</button>
-                    <button class="icon-btn" onclick="toggleBot(this,'Omega')">▶</button>
-                  </td>
-                </tr>
-
-              </tbody>
-            </table>
-          </div>
-
-        </div> <!-- end left-col -->
-
-        <!-- RIGHT COLUMN -->
-        <aside class="right-col">
-
-          <div class="panel card">
-            <h3>Portfolio Snapshot</h3>
-            <div style="display:flex;gap:12px;align-items:center;justify-content:space-between;">
-              <div>
-                <div style="font-size:14px;color:#9aa">Total Equity</div>
-                <div style="font-weight:800;font-size:20px;">$12,430</div>
-                <div style="font-size:12px;color:#9aa;margin-top:6px;">Available: $4,200</div>
-              </div>
-              <div style="text-align:right;">
-                <div style="font-size:12px;color:#9aa">24h Change</div>
-                <div style="font-weight:800;color:#2ee6a7;">+3.6%</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="panel card">
-            <h3>Notifications</h3>
-            <div style="font-size:13px;color:#9aa;margin-bottom:8px;">Latest system / bot alerts</div>
-            <div style="display:flex;flex-direction:column;gap:8px;">
-              <div style="display:flex;gap:10px;align-items:flex-start;">
-                <div style="width:12px;height:12px;border-radius:50%;background:#2ee6a7;margin-top:6px;"></div>
-                <div><strong>Bot Alpha</strong> placed an order • <span style="color:#9aa">2m ago</span></div>
-              </div>
-              <div style="display:flex;gap:10px;align-items:flex-start;">
-                <div style="width:12px;height:12px;border-radius:50%;background:#ffd166;margin-top:6px;"></div>
-                <div><strong>Margin</strong> running low • <span style="color:#9aa">12m ago</span></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="panel card">
-            <h3>Quick Actions</h3>
-            <div style="display:flex;flex-direction:column;gap:8px;">
-              <button class="btn" onclick="startBot()">Start New Bot</button>
-              <button class="btn ghost" onclick="window.location.href='payment.html'">Top Up / Payment</button>
-            </div>
-          </div>
-
-        </aside>
-      </div> <!-- end grid -->
-
-    </main>
-
+    <div class="card">
+      <h3>Active Bots</h3>
+      <table class="bots-table">
+        <thead>
+          <tr><th>Bot</th><th>Strategy</th><th>ROI (7d)</th><th>Status</th><th>Actions</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Alpha</td><td>Scalper</td><td>+12.4%</td>
+            <td><span class="status-pill status-active">Active</span></td>
+            <td>
+              <button class="btn" onclick="editBot('Alpha')">Edit</button>
+              <button class="icon-btn" onclick="toggleBot(this,'Alpha')">⏸</button>
+            </td>
+          </tr>
+          <tr>
+            <td>Gamma</td><td>Trend</td><td>+8.1%</td>
+            <td><span class="status-pill status-paused">Paused</span></td>
+            <td>
+              <button class="btn" onclick="editBot('Gamma')">Edit</button>
+              <button class="icon-btn" onclick="toggleBot(this,'Gamma')">▶</button>
+            </td>
+          </tr>
+          <tr>
+            <td>Omega</td><td>Mean Reversion</td><td>-1.2%</td>
+            <td><span class="status-pill status-off">Stopped</span></td>
+            <td>
+              <button class="btn" onclick="editBot('Omega')">Edit</button>
+              <button class="icon-btn" onclick="toggleBot(this,'Omega')">▶</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
-  <script>
-    // TradingView main chart widget
-    (function(){
-      try {
-        new TradingView.widget({
-          "autosize": true,
-          "symbol": "BINANCE:BTCUSDT",
-          "interval": "60",
-          "timezone": "Etc/UTC",
-          "theme": "dark",
-          "style": "1",
-          "locale": "en",
-          "container_id": "tradingview_main",
-          "toolbar_bg":"#111",
-          "hide_side_toolbar": false,
-          "details": true,
-          "studies":["MACD@tv-basicstudies"]
-        });
-      } catch(e) {
-        const node = document.getElementById('tradingview_main');
-        node.innerHTML = '<div style="padding:20px;text-align:center;color:#999">Chart failed to load — check internet connection</div>';
-      }
-    })();
+  <!-- Right column -->
+  <aside class="right-col">
+    <div class="card">
+      <h3>Portfolio Snapshot</h3>
+      <div>Total Equity: $12,430</div>
+      <div>Available: $4,200</div>
+      <div>24h Change: +3.6%</div>
+    </div>
+    <div class="card">
+      <h3>Quick Actions</h3>
+      <button class="btn" onclick="startBot()">Start New Bot</button>
+      <button class="btn ghost" onclick="window.location.href='payment.html'">Top Up / Payment</button>
+    </div>
+  </aside>
+</div>
+```
 
-    // Notification dropdown
-    const notifBtn = document.getElementById('notifBtn');
-    const notifList = document.getElementById('notifList');
-    notifBtn && notifBtn.addEventListener('click', function(e){
-      const isOpen = notifList.style.display === 'block';
-      notifList.style.display = isOpen ? 'none' : 'block';
-      notifBtn.setAttribute('aria-expanded', (!isOpen).toString());
-    });
-    document.addEventListener('click', function(e){
-      if (!notifBtn.contains(e.target) && notifList && !notifList.contains(e.target)) {
-        notifList.style.display = 'none';
-      }
-    });
+  </main>
+</div>
 
-    function clearNotifs(){
-      const badge = document.getElementById('notifBadge');
-      if (badge) badge.style.display = 'none';
-      if (notifList) notifList.style.display = 'none';
-      alert('All notifications marked read (demo).');
-    }
+<!-- JS -->
 
-    // Buttons actions
-    function startGuide(){
-      alert('Welcome! Click "Start New Bot" to create your first bot (demo).');
-      // scroll to quick actions
-      setTimeout(()=> window.scrollTo({ top: 700, behavior:'smooth' }), 100);
-    }
+<script>
+function startBot(){const n=prompt("Name your new bot (demo):","NewBot");if(!n)return alert("Cancelled");alert("Bot '"+n+"' created (demo).");}
+function editBot(name){alert("Edit bot: "+name+" (demo).");}
+function toggleBot(btn,name){btn.innerText=btn.innerText.trim()==="▶"?"⏸":"▶"; alert("Toggled bot '"+name+"' (demo).");}
 
-    function startBot(){
-      // open new bot page if exists, otherwise ask inline
-      if (location.origin && confirm('Open bot creation page? (Click Cancel to use inline quick create)')) {
-        window.location.href = 'newbot.html';
-        return;
-      }
-      const name = prompt('Name your new bot (demo):', 'NewBot');
-      if(!name) return alert('Bot creation cancelled');
-      // show deposit address to send investment (demo)
-      alert('Send investment to demo account: 08746382876\nAfter payment, your bot "'+name+'" will start (demo).');
-      alert('Bot "'+name+'" created (demo). You can manage it in Bots tab.');
-    }
+// TradingView Chart
+try {new TradingView.widget({autosize:true,symbol:"BINANCE:BTCUSDT",interval:"60",timezone:"Etc/UTC",theme:"dark",style:"1",locale:"en",container_id:"tradingview_main",toolbar_bg:"#111",hide_side_toolbar:false,details:true,studies:["MACD@tv-basicstudies"]});} catch(e){document.getElementById("tradingview_main").innerHTML='<div style="padding:20px;text-align:center;color:#999">Chart failed to load</div>';}
+</script>
 
-    function editBot(name){
-      alert('Open editor for bot: ' + name + ' (demo).');
-    }
-
-    function toggleBot(btn, name){
-      alert('Toggled bot "'+name+'" (demo).');
-      // just visual toggle of text
-      btn.innerText = btn.innerText.trim() === '▶' ? '⏸' : '▶';
-    }
-
-    // small simulated live profit update
-    (function simulateProfit(){
-      let val = 12430;
-      const el = document.getElementById('balanceVal');
-      const p = document.getElementById('profitToday');
-      setInterval(()=>{
-        const mut = (Math.random()-0.45)*50;
-        val = Math.max(100, Math.round((val+mut)*100)/100);
-        if(el) el.innerText = '$' + val.toLocaleString();
-        if(p) {
-          const change = Math.round((Math.random()-0.4)*50);
-          p.innerText = (change>=0?'+':'') + '$' + Math.abs(change);
-        }
-      }, 2500);
-    })();
-
-    // ensure TradingView resizes on window resize
-    window.addEventListener('resize', function(){
-      // TradingView widget usually auto-resizes; if not it will handle itself
-    });
-  </script>
 </body>
 </html>
-
