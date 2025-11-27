@@ -1,0 +1,48 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Signals — Trade With Bots</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://s3.tradingview.com/tv.js"></script>
+</head>
+
+<body>
+
+<div class="sidebar">
+  <h2>⚡ TWB</h2>
+  <a href="dashboard.html">Dashboard</a>
+  <a href="bots.html">Bots</a>
+  <a href="signals.html" class="active">Signals</a>
+  <a href="profile.html">Profile</a>
+  <a href="settings.html">Settings</a>
+  <a href="payment.html">Payments</a>
+  <a href="withdraw.html">Withdraw</a>
+  <a href="login.html" class="logout">Logout</a>
+</div>
+
+<div class="main">
+  <div class="topbar">
+    <span>Live Trading Signals</span>
+  </div>
+
+  <div class="chart-box">
+    <div id="sig_chart"></div>
+  </div>
+
+<script>
+new TradingView.widget({
+  container_id: "sig_chart",
+  autosize: true,
+  symbol: "BINANCE:ETHUSDT",
+  interval: "15",
+  theme: "dark",
+  style: "1",
+  locale: "en"
+});
+</script>
+
+</div>
+
+</body>
+</html>
