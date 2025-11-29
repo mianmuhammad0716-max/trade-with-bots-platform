@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <title>Dashboard — Trade With Bots</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+
   <style>
     :root{
       --bg:#000;
@@ -19,236 +19,265 @@
       --danger:#ff6b6b;
       --radius:12px;
     }
-    html,body{height:100%; margin:0; background:var(--bg); color:#fff; font-family: Inter, "Segoe UI", Roboto, system-ui, Arial; -webkit-font-smoothing:antialiased;}
-    a{color:inherit}
-    .app {display: grid; grid-template-columns: 260px 1fr; min-height:100vh; gap:20px;}
-    .sidebar {background:linear-gradient(180deg,var(--card), #0b0b0b); padding:18px; border-radius: var(--radius); box-shadow: 0 6px 30px rgba(0,204,255,0.03); position:relative;}
-    .brand {display:flex; gap:12px; align-items:center; margin-bottom:18px;}
+
+    html,body{
+      height:100%;
+      margin:0;
+      background:var(--bg);
+      color:#fff;
+      font-family: Inter, "Segoe UI", Roboto, system-ui, Arial;
+    }
+
+    .app {
+      display:grid;
+      grid-template-columns:260px 1fr;
+      min-height:100vh;
+      gap:20px;
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      background:linear-gradient(180deg,var(--card),#0b0b0b);
+      padding:18px;
+      border-radius:var(--radius);
+      box-shadow:0 6px 30px rgba(0,204,255,0.03);
+    }
+
+    .brand { display:flex; gap:12px; align-items:center; margin-bottom:18px; }
     .brand img{height:44px; width:44px; border-radius:8px;}
-    .brand h1{font-size:18px; margin:0; color:var(--accent); letter-spacing:0.4px}
-    .sidebar .nav { margin-top:16px; display:flex; flex-direction:column; gap:6px; }
-    .nav a{display:flex; align-items:center; gap:12px; padding:10px 10px; color:#cfeff6; text-decoration:none; border-radius:10px; transition:background .15s, transform .12s; font-weight:600; font-size:14px;}
-    .nav a:hover { background: rgba(0,204,255,0.06); transform: translateY(-2px); }
-    .nav a.active { background: rgba(0,204,255,0.12); box-shadow: 0 6px 18px rgba(0,204,255,0.06); color: #fff; }
-    .sidebar .small { margin-top:18px; font-size:13px; color:var(--muted);}
-    .main { padding: 18px; display:flex; flex-direction:column; gap:18px;}
-    .topbar { display:flex; align-items:center; justify-content:space-between; gap:12px;}
+    .brand h1{font-size:18px; margin:0; color:var(--accent);}
+    
+    .nav { display:flex; flex-direction:column; gap:6px; margin-top:16px; }
+    .nav a{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:10px;
+      border-radius:10px;
+      font-weight:600;
+      font-size:14px;
+      color:#cfeff6;
+      text-decoration:none;
+      transition: background .15s, transform .12s;
+    }
+    .nav a:hover{ background: rgba(0,204,255,0.06); transform: translateY(-2px); }
+    .nav a.active{ background: rgba(0,204,255,0.12); color:#fff; }
+
+    .small { margin-top:18px; font-size:13px; color:var(--muted); }
+
+    /* ===== MAIN ===== */
+    .main { padding:18px; display:flex; flex-direction:column; gap:18px; }
+    .topbar { display:flex; align-items:center; justify-content:space-between; gap:12px; }
     .top-left { display:flex; gap:12px; align-items:center; }
     .top-title { font-size:18px; color:var(--accent); font-weight:700; }
+
     .top-actions { display:flex; gap:10px; align-items:center; }
-    .btn { background: linear-gradient(90deg,var(--accent), #00a8e6); color:#000; padding:10px 14px; border-radius:10px; border:none; cursor:pointer; font-weight:700; box-shadow: 0 8px 30px rgba(0,204,255,0.08);}
-    .btn.ghost { background: transparent; color: var(--accent); border: 1px solid rgba(0,204,255,0.08); box-shadow:none; }
+
+    /* BUTTONS */
+    .btn {
+      background:linear-gradient(90deg,var(--accent),#00a8e6);
+      color:#000;
+      padding:10px 14px;
+      border-radius:10px;
+      border:none;
+      cursor:pointer;
+      font-weight:700;
+    }
     .icon-btn { background: rgba(255,255,255,0.02); border-radius:10px; padding:10px; border:none; color:var(--muted); cursor:pointer; }
-    .user { display:flex; gap:10px; align-items:center; }
-    .user .avatar { height:40px; width:40px; border-radius:8px; background:linear-gradient(90deg,#0a84ff,#00ccff); display:flex; align-items:center; justify-content:center; font-weight:800; color:#000;}
+
+    .avatar { height:40px; width:40px; border-radius:8px; background:linear-gradient(90deg,#0a84ff,#00ccff); display:flex; align-items:center; justify-content:center; font-weight:800; color:#000; }
+
+    /* NOTIFICATIONS */
     .notif-badge { background:var(--danger); color:#fff; padding:4px 7px; border-radius:999px; font-size:12px; margin-left:-8px; position:relative; top:-12px; left:-6px; }
-    .grid { display:grid; grid-template-columns: 1fr 420px; gap:18px; align-items:start; }
+
+    .notif-list {
+      position:absolute;
+      right:0;
+      top:46px;
+      width:260px;
+      background:#0c0c0c;
+      border-radius:12px;
+      padding:12px;
+      display:none;
+      box-shadow:0 6px 30px rgba(0,0,0,0.4);
+    }
+
+    .notif-item {
+      display:flex;
+      gap:12px;
+      padding:10px 0;
+      border-bottom:1px solid rgba(255,255,255,0.05);
+    }
+
+    /* GRID */
+    .grid { display:grid; grid-template-columns:1fr 420px; gap:18px; }
     .left-col { display:flex; flex-direction:column; gap:18px; }
-    .stats { display:flex; gap:12px; }
-    .card { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:14px; border-radius:12px; box-shadow: 0 6px 20px rgba(0,0,0,0.6); min-width: 0;}
-    .card .label { font-size:13px; color:var(--muted); }
-    .card .value { font-size:20px; color:#fff; font-weight:800; margin-top:6px; }
+
     .cards-row { display:flex; gap:12px; }
-    .chart-card { background: linear-gradient(180deg, rgba(10,10,12,0.9), rgba(6,6,8,0.9)); border-radius:12px; padding:12px; min-height: 420px; position:relative; }
-    #tradingview_main { width:100%; height:100%; min-height:360px; }
-    .right-col { display:flex; flex-direction:column; gap:12px; width:100%; }
-    .panel { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:12px; border-radius:12px; }
-    .panel h3 { margin:0 0 8px 0; color:var(--accent); font-size:15px; }
+
+    .card {
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      padding:14px;
+      border-radius:12px;
+      box-shadow:0 6px 20px rgba(0,0,0,0.6);
+    }
+
+    .label { font-size:13px; color:var(--muted); }
+    .value { font-size:20px; font-weight:800; margin-top:6px; }
+
+    .chart-card {
+      background:linear-gradient(180deg, rgba(10,10,12,0.9), rgba(6,6,8,0.9));
+      border-radius:12px;
+      padding:8px;
+      min-height:420px;
+    }
+
+    .panel h3 { margin:0 0 8px 0; color:var(--accent); }
+
     .bots-table { width:100%; border-collapse:collapse; }
-    .bots-table th, .bots-table td { padding:10px 8px; text-align:left; font-size:13px; color:#dceef7; }
-    .bots-table thead th { font-size:12px; color:var(--muted); font-weight:700; text-transform:uppercase; }
-    .status-pill { padding:6px 8px; border-radius:999px; font-weight:700; font-size:12px; color:#000; display:inline-block; }
+    .bots-table th, .bots-table td { padding:10px 8px; font-size:13px; color:#dceef7; }
+    .bots-table thead th { font-size:12px; color:var(--muted); }
+
+    .status-pill { padding:6px 8px; border-radius:999px; font-weight:700; font-size:12px; color:#000; }
     .status-active { background:var(--success); }
     .status-paused { background:#ffd166; }
     .status-off { background:var(--danger); color:#fff; }
-    .notif-panel { position:relative; }
-    .notif-list { position:absolute; right:0; top:44px; background:#071018; border-radius:10px; padding:10px; width:320px; box-shadow:0 10px 30px rgba(0,0,0,0.6); display:none; z-index:50; }
-    .notif-item { padding:10px; border-radius:8px; display:flex; gap:8px; align-items:flex-start; }
-    .notif-item + .notif-item { margin-top:8px; }
-    .footer-copy { margin-top:auto; font-size:13px; color:var(--muted); text-align:center; }
-    @media (max-width: 1000px) {
-      .app { grid-template-columns: 1fr; padding:14px; }
-      .sidebar { order:2; display:flex; overflow:auto; }
-      .main { order:1; padding:0; }
-      .grid { grid-template-columns:1fr; }
-      .right-col { width:100%; }
-    }
   </style>
 </head>
+
 <body>
-  <div class="app" role="application">
-    <aside class="sidebar" aria-label="Sidebar">
-      <div class="brand">
-        <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="bot">
-        <h1>Trade With Bots</h1>
-      </div>
-      <nav class="nav" aria-label="Main navigation">
-        <a href="#" class="active">🏠 Dashboard</a>
-        <a href="#">🤖 Bots</a>
-        <a href="#">📈 Signals</a>
-        <a href="payment.html">💸 Payments</a>
-        <a href="#">👤 Profile</a>
-        <a href="#">⚙️ Settings</a>
-      </nav>
-      <div class="small">Logged in as <strong>Muhammad</strong></div>
-      <div style="margin-top:16px;">
-        <button class="btn" onclick="startGuide()">Get Started</button>
-      </div>
-      <div class="footer-copy" style="margin-top:18px;">© 2025 Trade With Bots<br>All rights reserved</div>
-    </aside>
 
-```
-<main class="main" role="main">
-  <div class="topbar">
-    <div class="top-left">
-      <div class="top-title">Dashboard</div>
+<div class="app">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png">
+      <h1>Trade With Bots</h1>
     </div>
-    <div class="top-actions">
-      <div style="display:flex; gap:8px; align-items:center;">
-        <button class="btn" onclick="window.location.href='payment.html'">Payments</button>
-        <div class="notif-panel" style="position:relative;">
-          <button class="icon-btn" id="notifBtn" aria-haspopup="true" aria-expanded="false">🔔<span class="notif-badge" id="notifBadge">3</span></button>
-          <div class="notif-list" id="notifList" role="menu" aria-hidden="true">
+
+    <nav class="nav">
+      <a class="active">🏠 Dashboard</a>
+      <a>🤖 Bots</a>
+      <a>📈 Signals</a>
+      <a href="payment.html">💸 Payments</a>
+      <a>👤 Profile</a>
+      <a>⚙️ Settings</a>
+    </nav>
+
+    <div class="small">Logged in as <strong>Muhammad</strong></div>
+    <div style="margin-top:16px;"><button class="btn">Get Started</button></div>
+  </aside>
+
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- TOP BAR -->
+    <div class="topbar">
+      <div class="top-left">
+        <div class="top-title">Dashboard</div>
+      </div>
+
+      <div class="top-actions">
+        <button class="btn" onclick="location.href='payment.html'">Payments</button>
+
+        <div style="position:relative;">
+          <button class="icon-btn" id="notifBtn">🔔 <span class="notif-badge" id="notifBadge">3</span></button>
+
+          <div class="notif-list" id="notifList">
             <div class="notif-item">
-              <div style="width:42px; height:42px; border-radius:8px; background:linear-gradient(90deg,#00ccff,#0a84ff); display:flex; align-items:center; justify-content:center; color:#000; font-weight:800;">B</div>
-              <div><div style="font-weight:700;">Bot Alpha executed</div><div style="font-size:13px; color:var(--muted); margin-top:4px;">+2.3% profit • 5m ago</div></div>
-            </div>
-            <div class="notif-item">
-              <div style="width:42px; height:42px; border-radius:8px; background:#ffd166; display:flex; align-items:center; justify-content:center; color:#000; font-weight:800;">⚠</div>
-              <div><div style="font-weight:700;">Low balance on wallet</div><div style="font-size:13px; color:var(--muted); margin-top:4px;">Please top up to keep bots running</div></div>
-            </div>
-            <div style="text-align:center; margin-top:8px;">
-              <button class="btn" style="padding:8px 12px;" onclick="clearNotifs()">Mark all read</button>
+              <div style="width:42px;height:42px;border-radius:8px;background:linear-gradient(90deg,#00ccff,#0a84ff);display:flex;align-items:center;justify-content:center;font-weight:800;color:#000">B</div>
+              <div><strong>Bot Alpha executed</strong><br><span style="font-size:12px;color:var(--muted);">+2.3% profit • 5m ago</span></div>
             </div>
           </div>
         </div>
-        <div class="user" style="margin-left:6px;">
-          <div class="avatar">M</div>
-        </div>
+
+        <div class="avatar">M</div>
       </div>
     </div>
-  </div>
 
-  <div class="grid">
-    <div class="left-col">
-      <div class="cards-row">
-        <div class="card" style="flex:1">
-          <div class="label">Total Balance</div>
-          <div class="value" id="balanceVal">$12,430</div>
-          <div style="font-size:12px; color:var(--muted); margin-top:8px;">Updated just now</div>
-        </div>
-        <div class="card" style="width:180px">
-          <div class="label">Active Bots</div>
-          <div class="value">6</div>
-          <div style="font-size:12px; color:var(--muted); margin-top:8px;">87% win ratio (avg)</div>
-        </div>
-        <div class="card" style="width:180px">
-          <div class="label">Profit Today</div>
-          <div class="value" id="profitToday">+$430</div>
-          <div style="font-size:12px; color:var(--muted); margin-top:8px;">Real-time demo</div>
-        </div>
-      </div>
 
-      <div class="chart-card card" style="padding:8px;">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-          <div style="font-weight:700; color:var(--accent);">BTC / USDT • Live</div>
-          <div style="display:flex; gap:8px;">
-            <button class="icon-btn" title="1h">1h</button>
-            <button class="icon-btn" title="4h">4h</button>
-            <button class="icon-btn" title="1D">1D</button>
+    <!-- GRID -->
+    <div class="grid">
+
+      <div class="left-col">
+
+        <!-- CARDS -->
+        <div class="cards-row">
+          <div class="card" style="flex:1;">
+            <div class="label">Total Balance</div>
+            <div class="value" id="balanceVal">$12,430</div>
+          </div>
+
+          <div class="card" style="width:180px;">
+            <div class="label">Active Bots</div>
+            <div class="value">6</div>
+          </div>
+
+          <div class="card" style="width:180px;">
+            <div class="label">Profit Today</div>
+            <div class="value" id="profitToday">+$430</div>
           </div>
         </div>
-        <div id="tradingview_main" style="height:420px;"></div>
-      </div>
 
-      <div class="panel card">
-        <h3>Active Bots</h3>
-        <table class="bots-table" id="botsTable" role="table">
-          <thead>
-            <tr><th>Bot</th><th>Strategy</th><th>ROI (7d)</th><th>Status</th><th style="text-align:right">Actions</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Alpha</td>
-              <td>Scalper</td>
-              <td>+12.4%</td>
-              <td><span class="status-pill status-active">Active</span></td>
-              <td style="text-align:right">
-                <button class="btn" onclick="editBot('Alpha')">Edit</button>
-                <button class="icon-btn" onclick="toggleBot(this,'Alpha')">⏸</button>
-              </td>
-            </tr>
-            <tr>
-              <td>Gamma</td>
-              <td>Trend</td>
-              <td>+8.1%</td>
-              <td><span class="status-pill status-paused">Paused</span></td>
-              <td style="text-align:right">
-                <button class="btn" onclick="editBot('Gamma')">Edit</button>
-                <button class="icon-btn" onclick="toggleBot(this,'Gamma')">▶</button>
-              </td>
-            </tr>
-            <tr>
-              <td>Omega</td>
-              <td>Mean Reversion</td>
-              <td>-1.2%</td>
-              <td><span class="status-pill status-off">Stopped</span></td>
-              <td style="text-align:right">
-                <button class="btn" onclick="editBot('Omega')">Edit</button>
-                <button class="icon-btn" onclick="toggleBot(this,'Omega')">▶</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <!-- CHART -->
+        <div class="chart-card">
+          <div id="tradingview_main" style="height:420px;"></div>
+        </div>
+
+        <!-- TABLE -->
+        <div class="panel card">
+          <h3>Active Bots</h3>
+          <table class="bots-table">
+            <thead>
+              <tr>
+                <th>Bot</th><th>Strategy</th><th>ROI</th><th>Status</th><th style="text-align:right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Alpha</td><td>Scalper</td><td>+12.4%</td>
+                <td><span class="status-pill status-active">Active</span></td>
+                <td style="text-align:right;"><button class="btn">Edit</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
       </div>
 
     </div>
 
-    <aside class="right-col">
-      <div class="panel card">
-        <h3>Portfolio Snapshot</h3>
-        <div style="display:flex; gap:12px; align-items:center; justify-content:space-between;">
-          <div>
-            <div style="font-size:14px; color:var(--muted)">Total Equity</div>
-            <div style="font-weight:800; font-size:20px;">$12,430</div>
-            <div style="font-size:12px; color:var(--muted); margin-top:6px;">Available: $4,200</div>
-          </div>
-          <div style="text-align:right;">
-            <div style="font-size:12px; color:var(--muted)">24h Change</div>
-            <div style="font-weight:800; color:var(--success);">+3.6%</div>
-          </div>
-        </div>
-      </div>
+  </main>
+</div>
 
-      <div class="panel card">
-        <h3>Notifications</h3>
-        <div style="font-size:13px; color:var(--muted); margin-bottom:8px;">Latest system / bot alerts</div>
-        <div style="display:flex; flex-direction:column; gap:8px;">
-          <div style="display:flex; gap:10px; align-items:flex-start;">
-            <div style="width:12px; height:12px; border-radius:50%; background:var(--success); margin-top:6px;"></div>
-            <div><strong>Bot Alpha</strong> placed an order • <span style="color:var(--muted)">2m ago</span></div>
-          </div>
-          <div style="display:flex; gap:10px; align-items:flex-start;">
-            <div style="width:12px; height:12px; border-radius:50%; background:#ffd166; margin-top:6px;"></div>
-            <div><strong>Margin</strong> running low • <span style="color:var(--muted)">12m ago</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="panel card">
-        <h3>Quick Actions</h3>
-        <div style="display:flex; flex-direction:column; gap:8px;">
-          <button class="btn" onclick="startBot()">Start New Bot</button>
-          <button class="btn ghost" onclick="window.location.href='payment.html'">Top Up / Payment</button>
-        </div>
-      </div>
-
-    </aside>
-  </div>
-</main>
-```
-
-  </div>
 
 <script>
-  (function(){try{new TradingView.widget({autosize:true,symbol:"BINANCE:BTCUSDT",interval:"60",timezone:"Etc/UTC",theme:"dark",style:"1",locale
+/* TRADINGVIEW */
+new TradingView.widget({
+  autosize:true,
+  symbol:"BINANCE:BTCUSDT",
+  interval:"60",
+  timezone:"Etc/UTC",
+  theme:"dark",
+  container_id:"tradingview_main"
+});
+
+/* NOTIFICATION TOGGLER */
+const notifBtn = document.getElementById("notifBtn");
+const notifList = document.getElementById("notifList");
+
+notifBtn.onclick = () => {
+  notifList.style.display = notifList.style.display === "block" ? "none" : "block";
+};
+
+/* FAKE LIVE BALANCE */
+let bal = 12430;
+setInterval(()=>{
+  bal += (Math.random() - 0.5) * 40;
+  document.getElementById("balanceVal").innerText = "$" + Math.round(bal);
+}, 2000);
+</script>
+
+</body>
+</html>
