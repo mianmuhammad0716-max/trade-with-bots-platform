@@ -46,7 +46,7 @@
     .brand { display:flex; gap:12px; align-items:center; margin-bottom:18px; }
     .brand img{height:44px; width:44px; border-radius:8px;}
     .brand h1{font-size:18px; margin:0; color:var(--accent);}
-    
+
     .nav { display:flex; flex-direction:column; gap:6px; margin-top:16px; }
     .nav a{
       display:flex;
@@ -146,15 +146,14 @@
 
     <nav class="nav">
       <a class="active">🏠 Dashboard</a>
-      <a>🤖 Bots</a>
-      <a>📈 Signals</a>
+      <a href="bots.html">🤖 Bots</a>
+      <a href="signals.html">📈 Signals</a>
       <a href="payment.html">💸 Payments</a>
-      <a>👤 Profile</a>
-      <a>⚙️ Settings</a>
+      <a href="profile.html">👤 Profile</a>
+      <a href="settings.html">⚙️ Settings</a>
     </nav>
 
     <div class="small">Logged in as <strong>Muhammad</strong></div>
-    <div style="margin-top:16px;"><button class="btn">Get Started</button></div>
   </aside>
 
 
@@ -171,10 +170,20 @@
         <button class="btn" onclick="location.href='payment.html'">Payments</button>
 
         <div style="position:relative;">
-          <button class="icon-btn" id="notifBtn">🔔 <span class="notif-badge" id="notifBadge">3</span></button>
+          <button class="icon-btn" id="notifBtn">🔔</button>
 
-          <div class="notif-list" id="notifList">
-            <div class="notif-item">
+          <div class="notif-list" id="notifList" style="
+            display:none;
+            position:absolute;
+            right:0;
+            top:45px;
+            background:#111;
+            padding:12px;
+            width:260px;
+            border-radius:10px;
+            box-shadow:0 0 20px rgba(0,0,0,0.6);
+          ">
+            <div class="notif-item" style="display:flex; gap:12px; margin-bottom:10px;">
               <div style="width:42px;height:42px;border-radius:8px;background:linear-gradient(90deg,#00ccff,#0a84ff);display:flex;align-items:center;justify-content:center;font-weight:800;color:#000">B</div>
               <div><strong>Bot Alpha executed</strong><br><span style="font-size:12px;color:var(--muted);">+2.3% profit • 5m ago</span></div>
             </div>
@@ -197,12 +206,12 @@
             <div class="label">Total Balance</div>
             <div class="value" id="balanceVal">$12,430</div>
 
-            <!-- ⭐ ADDED BUTTONS HERE ⭐ -->
-            <button class="btn" style="margin-top:12px;" onclick="location.href='earning.html'">
+            <!-- FIXED BUTTON LINKS -->
+            <button class="btn" style="margin-top:12px;" onclick="location.href='payment.html'">
               Start Earning with $13
             </button>
 
-            <button class="withdraw-btn" style="margin-top:12px;" onclick="location.href='withdraw.html'">
+            <button class="withdraw-btn" style="margin-top:12px;" onclick="location.href='payment.html'">
               Withdraw
             </button>
           </div>
