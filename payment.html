@@ -4,65 +4,95 @@
 <meta charset="UTF-8">
 <title>Payments — Trade With Bots</title>
 
-<!-- Same styling as dashboard -->
 <style>
     body {
-        margin:0;
+        margin: 0;
         font-family: Arial, sans-serif;
-        background: #0d0d0d;
+        background: linear-gradient(to bottom right, #0b0b0b, #121212);
         color: white;
     }
+
+    /* NAVBAR */
     .navbar {
-        background: #111;
-        padding: 15px 25px;
+        background: #0e0e0e;
+        padding: 14px 40px;
         display: flex;
         align-items: center;
-        border-bottom: 1px solid #222;
+        border-bottom: 1px solid #1f1f1f;
     }
-    .navbar .logo {
-        font-size: 26px;
+
+    .logo-area {
+        display: flex;
+        align-items: center;
+        margin-right: 50px;
+    }
+
+    .logo-area .icon {
+        font-size: 24px;
+        margin-right: 8px;
+        color: #f5b342;
+    }
+
+    .logo-area .text {
+        font-size: 22px;
         font-weight: 700;
-        color: #f5b842;
-        margin-right: 40px;
+        color: #f5b342;
+        margin-top: 2px;
     }
+
     .navbar a {
         text-decoration: none;
-        color: white;
-        margin-right: 25px;
+        color: #e0e0e0;
+        margin-right: 28px;
         font-size: 15px;
-    }
-    .navbar a:hover {
-        color: #f5b842;
+        transition: 0.2s;
     }
 
-    .container {
-        padding: 30px;
+    .navbar a:hover {
+        color: #f5b342;
     }
+
+    /* PAGE CONTENT */
+    .container {
+        padding: 50px 40px;
+    }
+
     h2 {
         font-size: 28px;
-        margin-bottom: 20px;
+        margin-bottom: 25px;
+        font-weight: 600;
     }
 
-    button {
-        padding: 10px 18px;
+    /* BUTTONS */
+    .pay-btn {
+        padding: 12px 20px;
         border: none;
         cursor: pointer;
-        background: #f5b842;
+        background: #f5b342;
         color: #000;
         border-radius: 8px;
         font-size: 15px;
-        margin-right: 10px;
+        margin-right: 12px;
+        margin-bottom: 10px;
+        transition: 0.2s;
     }
-    button:hover {
+
+    .pay-btn:hover {
         opacity: 0.8;
+        transform: scale(1.03);
     }
+
 </style>
+
 </head>
 <body>
 
-<!-- SAME NAVBAR AS DASHBOARD -->
+<!-- NAVBAR (PERFECT MATCH) -->
 <div class="navbar">
-    <div class="logo">⚡ TWB</div>
+    <div class="logo-area">
+        <div class="icon">⚡</div>
+        <div class="text">TWB</div>
+    </div>
 
     <a href="dashboard.html">Dashboard</a>
     <a href="bots.html">Bots</a>
@@ -75,12 +105,13 @@
     <a href="index.html">Logout</a>
 </div>
 
+<!-- PAGE CONTENT -->
 <div class="container">
     <h2>Choose Payment Method</h2>
 
-    <button onclick="location.href='usdt.html'">USDT TRC20</button>
-    <button onclick="location.href='crypto.html'">Crypto Wallet</button>
-    <button onclick="location.href='bank.html'">Bank Transfer</button>
+    <button class="pay-btn" onclick="location.href='usdt.html'">USDT TRC20</button>
+    <button class="pay-btn" onclick="location.href='crypto.html'">Crypto Wallet</button>
+    <button class="pay-btn" onclick="location.href='bank.html'">Bank Transfer</button>
 </div>
 
 </body>
