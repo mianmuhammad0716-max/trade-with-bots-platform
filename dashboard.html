@@ -1,155 +1,281 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Dashboard — TradeWithBots</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <title>Dashboard — Trade With Bots</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 
-<style>
-  :root {
-    --bg: #0a0a0a;
-    --card: #111;
-    --text: #e9e9e9;
-    --accent: #00eaff;
-    --danger: #ff4444;
-    --radius: 12px;
-  }
+  <style>
+    :root{
+      --bg:#000;
+      --card:#0f1113;
+      --panel:#0b0b0c;
+      --accent:#00ccff;
+      --muted:#9aa;
+      --glass: rgba(255,255,255,0.03);
+      --glass-2: rgba(255,255,255,0.02);
+      --success:#2ee6a7;
+      --danger:#ff6b6b;
+      --radius:12px;
+    }
 
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-  }
+    html,body{
+      height:100%;
+      margin:0;
+      background:var(--bg);
+      color:#fff;
+      font-family: Inter, "Segoe UI", Roboto, system-ui, Arial;
+    }
 
-  .container {
-    display: flex;
-    height: 100vh;
-  }
+    .app {
+      display:grid;
+      grid-template-columns:260px 1fr;
+      min-height:100vh;
+      gap:20px;
+    }
 
-  /* SIDEBAR */
-  .sidebar {
-    width: 250px;
-    background: #0d0d0d;
-    padding: 25px;
-    box-shadow: 4px 0px 15px rgba(0, 255, 255, 0.06);
-  }
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      background:linear-gradient(180deg,var(--card),#0b0b0b);
+      padding:18px;
+      border-radius:var(--radius);
+      box-shadow:0 6px 30px rgba(0,204,255,0.03);
+    }
 
-  .sidebar h2 {
-    color: var(--accent);
-    margin-bottom: 25px;
-    font-size: 22px;
-  }
+    .brand { display:flex; gap:12px; align-items:center; margin-bottom:18px; }
+    .brand img{height:44px; width:44px; border-radius:8px;}
+    .brand h1{font-size:18px; margin:0; color:var(--accent);}
+    
+    .nav { display:flex; flex-direction:column; gap:6px; margin-top:16px; }
+    .nav a{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:10px;
+      border-radius:10px;
+      font-weight:600;
+      font-size:14px;
+      color:#cfeff6;
+      text-decoration:none;
+      transition: background .15s, transform .12s;
+    }
+    .nav a:hover{ background: rgba(0,204,255,0.06); transform: translateY(-2px); }
+    .nav a.active{ background: rgba(0,204,255,0.12); color:#fff; }
 
-  .sidebar a {
-    display: block;
-    padding: 12px;
-    margin-bottom: 10px;
-    color: #cfcfcf;
-    border-radius: var(--radius);
-    text-decoration: none;
-    font-size: 15px;
-    transition: 0.25s;
-  }
+    .small { margin-top:18px; font-size:13px; color:var(--muted); }
 
-  .sidebar a:hover {
-    background: var(--accent);
-    color: #000;
-  }
+    /* ===== MAIN ===== */
+    .main { padding:18px; display:flex; flex-direction:column; gap:18px; }
+    .topbar { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .top-left { display:flex; gap:12px; align-items:center; }
+    .top-title { font-size:18px; color:var(--accent); font-weight:700; }
 
-  .logout {
-    color: var(--danger) !important;
-  }
+    .top-actions { display:flex; gap:10px; align-items:center; }
 
-  /* MAIN PANEL */
-  .main {
-    flex: 1;
-    padding: 40px;
-    overflow-y: auto;
-  }
+    /* BUTTONS */
+    .btn {
+      background:linear-gradient(90deg,var(--accent),#00a8e6);
+      color:#000;
+      padding:10px 14px;
+      border-radius:10px;
+      border:none;
+      cursor:pointer;
+      font-weight:700;
+    }
+    .icon-btn { background: rgba(255,255,255,0.02); border-radius:10px; padding:10px; border:none; color:var(--muted); cursor:pointer; }
 
-  .card {
-    background: var(--card);
-    padding: 30px;
-    border-radius: var(--radius);
-    box-shadow: 0 0 25px rgba(0, 255, 255, 0.08);
-    max-width: 550px;
-  }
+    .avatar { height:40px; width:40px; border-radius:8px; background:linear-gradient(90deg,#0a84ff,#00ccff); display:flex; align-items:center; justify-content:center; font-weight:800; color:#000; }
 
-  .card h1 {
-    margin: 0;
-    font-size: 32px;
-    color: var(--accent);
-  }
+    /* WITHDRAW BUTTON */
+    .withdraw-btn {
+      background:linear-gradient(90deg,#ff4b4b,#ff2d2d);
+      color:#fff;
+      padding:10px 14px;
+      font-weight:700;
+      border-radius:10px;
+      border:none;
+      cursor:pointer;
+    }
 
-  .balance-text {
-    margin-top: 10px;
-    font-size: 18px;
-  }
+    /* GRID */
+    .grid { display:grid; grid-template-columns:1fr 420px; gap:18px; }
+    .left-col { display:flex; flex-direction:column; gap:18px; }
 
-  /* BUTTONS */
-  .btn {
-    display: inline-block;
-    padding: 12px 22px;
-    margin-top: 18px;
-    background: var(--accent);
-    color: #000;
-    font-weight: bold;
-    border-radius: var(--radius);
-    text-decoration: none;
-    transition: 0.2s;
-  }
+    .cards-row { display:flex; gap:12px; }
 
-  .btn:hover {
-    background: #00cde0;
-  }
+    .card {
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      padding:14px;
+      border-radius:12px;
+      box-shadow:0 6px 20px rgba(0,0,0,0.6);
+    }
 
-  .withdraw-btn {
-    background: var(--danger);
-    color: #000;
-    margin-left: 10px;
-  }
+    .label { font-size:13px; color:var(--muted); }
+    .value { font-size:20px; font-weight:800; margin-top:6px; }
 
-  .withdraw-btn:hover {
-    background: #ff2222;
-  }
-</style>
+    .chart-card {
+      background:linear-gradient(180deg, rgba(10,10,12,0.9), rgba(6,6,8,0.9));
+      border-radius:12px;
+      padding:8px;
+      min-height:420px;
+    }
+
+    .panel h3 { margin:0 0 8px 0; color:var(--accent); }
+
+    .bots-table { width:100%; border-collapse:collapse; }
+    .bots-table th, .bots-table td { padding:10px 8px; font-size:13px; color:#dceef7; }
+    .bots-table thead th { font-size:12px; color:var(--muted); }
+
+    .status-pill { padding:6px 8px; border-radius:999px; font-weight:700; font-size:12px; color:#000; }
+    .status-active { background:var(--success); }
+    .status-paused { background:#ffd166; }
+    .status-off { background:var(--danger); color:#fff; }
+  </style>
 </head>
 
 <body>
 
-<div class="container">
-
-  <!-- ============ SIDEBAR ============ -->
-  <div class="sidebar">
-    <h2>TradeWithBots</h2>
-
-    <a href="dashboard.html">Dashboard</a>
-    <a href="bots.html">Bots</a>
-    <a href="newbot.html">Create Bot</a>
-    <a href="signals.html">Signals</a>
-    <a href="payment.html">Deposit</a>
-    <a href="withdraw.html">Withdraw</a>
-    <a href="profile.html">Profile</a>
-    <a href="settings.html">Settings</a>
-
-    <a href="index.html" class="logout">Logout</a>
-  </div>
-
-  <!-- ============ MAIN CONTENT ============ -->
-  <div class="main">
-    <div class="card">
-      <h1>Welcome Back!</h1>
-      <p class="balance-text">Your Wallet Balance: <strong>$13.00</strong></p>
-
-      <!-- ACTION BUTTONS -->
-      <a href="earning.html" class="btn">Start Earning with $13</a>
-      <a href="withdraw.html" class="btn withdraw-btn">Withdraw</a>
+<div class="app">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png">
+      <h1>Trade With Bots</h1>
     </div>
-  </div>
 
+    <nav class="nav">
+      <a class="active">🏠 Dashboard</a>
+      <a>🤖 Bots</a>
+      <a>📈 Signals</a>
+      <a href="payment.html">💸 Payments</a>
+      <a>👤 Profile</a>
+      <a>⚙️ Settings</a>
+    </nav>
+
+    <div class="small">Logged in as <strong>Muhammad</strong></div>
+    <div style="margin-top:16px;"><button class="btn">Get Started</button></div>
+  </aside>
+
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- TOP BAR -->
+    <div class="topbar">
+      <div class="top-left">
+        <div class="top-title">Dashboard</div>
+      </div>
+
+      <div class="top-actions">
+        <button class="btn" onclick="location.href='payment.html'">Payments</button>
+
+        <div style="position:relative;">
+          <button class="icon-btn" id="notifBtn">🔔 <span class="notif-badge" id="notifBadge">3</span></button>
+
+          <div class="notif-list" id="notifList">
+            <div class="notif-item">
+              <div style="width:42px;height:42px;border-radius:8px;background:linear-gradient(90deg,#00ccff,#0a84ff);display:flex;align-items:center;justify-content:center;font-weight:800;color:#000">B</div>
+              <div><strong>Bot Alpha executed</strong><br><span style="font-size:12px;color:var(--muted);">+2.3% profit • 5m ago</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="avatar">M</div>
+      </div>
+    </div>
+
+
+    <!-- GRID -->
+    <div class="grid">
+
+      <div class="left-col">
+
+        <!-- CARDS -->
+        <div class="cards-row">
+          <div class="card" style="flex:1;">
+            <div class="label">Total Balance</div>
+            <div class="value" id="balanceVal">$12,430</div>
+
+            <!-- ⭐ ADDED BUTTONS HERE ⭐ -->
+            <button class="btn" style="margin-top:12px;" onclick="location.href='earning.html'">
+              Start Earning with $13
+            </button>
+
+            <button class="withdraw-btn" style="margin-top:12px;" onclick="location.href='withdraw.html'">
+              Withdraw
+            </button>
+          </div>
+
+          <div class="card" style="width:180px;">
+            <div class="label">Active Bots</div>
+            <div class="value">6</div>
+          </div>
+
+          <div class="card" style="width:180px;">
+            <div class="label">Profit Today</div>
+            <div class="value" id="profitToday">+$430</div>
+          </div>
+        </div>
+
+        <!-- CHART -->
+        <div class="chart-card">
+          <div id="tradingview_main" style="height:420px;"></div>
+        </div>
+
+        <!-- TABLE -->
+        <div class="panel card">
+          <h3>Active Bots</h3>
+          <table class="bots-table">
+            <thead>
+              <tr>
+                <th>Bot</th><th>Strategy</th><th>ROI</th><th>Status</th><th style="text-align:right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Alpha</td><td>Scalper</td><td>+12.4%</td>
+                <td><span class="status-pill status-active">Active</span></td>
+                <td style="text-align:right;"><button class="btn">Edit</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
 </div>
+
+
+<script>
+/* TRADINGVIEW */
+new TradingView.widget({
+  autosize:true,
+  symbol:"BINANCE:BTCUSDT",
+  interval:"60",
+  timezone:"Etc/UTC",
+  theme:"dark",
+  container_id:"tradingview_main"
+});
+
+/* NOTIFICATION TOGGLER */
+const notifBtn = document.getElementById("notifBtn");
+const notifList = document.getElementById("notifList");
+
+notifBtn.onclick = () => {
+  notifList.style.display = notifList.style.display === "block" ? "none" : "block";
+};
+
+/* FAKE LIVE BALANCE */
+let bal = 12430;
+setInterval(()=>{
+  bal += (Math.random() - 0.5) * 40;
+  document.getElementById("balanceVal").innerText = "$" + Math.round(bal);
+}, 2000);
+</script>
 
 </body>
 </html>
-
