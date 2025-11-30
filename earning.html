@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8">
   <title>Start Earning — Trade With Bots</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
     :root{
@@ -12,98 +12,78 @@
       --panel:#0b0b0c;
       --accent:#00ccff;
       --muted:#9aa;
-      --glass: rgba(255,255,255,0.03);
-      --glass-2: rgba(255,255,255,0.02);
       --success:#2ee6a7;
       --danger:#ff6b6b;
       --radius:12px;
     }
 
     html,body{
-      height:100%;
       margin:0;
       background:var(--bg);
       color:#fff;
-      font-family: Inter, "Segoe UI", Roboto, system-ui, Arial;
+      font-family: Inter, Arial, sans-serif;
     }
 
-    .app {
+    .app{
       display:grid;
       grid-template-columns:260px 1fr;
       min-height:100vh;
       gap:20px;
-      padding:18px;
     }
 
-    /* ===== SIDEBAR ===== */
-    .sidebar {
+    /* SIDEBAR */
+    .sidebar{
       background:linear-gradient(180deg,var(--card),#0b0b0b);
       padding:18px;
       border-radius:var(--radius);
-      box-shadow:0 6px 30px rgba(0,204,255,0.03);
     }
-
-    .brand { display:flex; gap:12px; align-items:center; margin-bottom:18px; }
+    .brand{
+      display:flex; gap:12px; align-items:center;
+    }
     .brand img{height:44px; width:44px; border-radius:8px;}
     .brand h1{font-size:18px; margin:0; color:var(--accent);}
 
-    .nav { display:flex; flex-direction:column; gap:6px; margin-top:16px; }
+    .nav{display:flex; flex-direction:column; gap:6px; margin-top:18px;}
     .nav a{
-      display:flex; align-items:center; gap:12px;
-      padding:10px; border-radius:10px;
-      text-decoration:none; font-weight:600;
-      font-size:14px; color:#cfeff6;
-      transition: background .15s, transform .12s;
+      text-decoration:none;
+      padding:10px;
+      border-radius:10px;
+      color:#cfeff6;
+      font-weight:600;
+      transition: .2s;
     }
-    .nav a:hover{ background: rgba(0,204,255,0.06); transform: translateY(-2px); }
-    .nav .active{ background: rgba(0,204,255,0.12); color:#fff; }
+    .nav a:hover{background:rgba(0,204,255,0.06);}
+    .nav a.active{background:rgba(0,204,255,0.12); color:#fff;}
 
-    .main { padding:18px; display:flex; flex-direction:column; gap:18px; }
+    /* MAIN */
+    .main{padding:18px; display:flex; flex-direction:column; gap:18px;}
 
-    /* TOPBAR */
-    .topbar { display:flex; align-items:center; justify-content:space-between; gap:12px; }
-    .top-title { font-size:19px; color:var(--accent); font-weight:700; }
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .top-title{font-size:20px; font-weight:700; color:var(--accent);}
 
-    .avatar {
-      height:40px; width:40px; border-radius:8px;
-      background:linear-gradient(90deg,#0a84ff,#00ccff);
-      display:flex; align-items:center; justify-content:center;
-      font-weight:800; color:#000;
+    .btn{
+      background:linear-gradient(90deg,var(--accent),#00a8e6);
+      border:none;
+      padding:10px 16px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:700;
+      color:#000;
+      margin-top:10px;
     }
 
-    /* CARD */
-    .card {
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
       padding:18px;
       border-radius:12px;
       box-shadow:0 6px 20px rgba(0,0,0,0.6);
     }
-
-    /* BUTTON */
-    .btn {
-      background:linear-gradient(90deg,var(--accent),#00a8e6);
-      color:#000;
-      padding:12px 18px;
-      border-radius:10px;
-      border:none;
-      cursor:pointer;
-      font-weight:700;
-      font-size:15px;
-      width:100%;
-    }
-
-    .title-big {
-      font-size:26px;
-      font-weight:800;
-      margin-bottom:10px;
-    }
-
-    .desc {
-      margin-top:4px;
-      font-size:15px;
-      color:var(--muted);
-      margin-bottom:20px;
-    }
+    .label{color:var(--muted); font-size:14px;}
+    .value{font-size:26px; font-weight:800; margin-top:6px;}
 
   </style>
 </head>
@@ -112,44 +92,51 @@
 
 <div class="app">
 
-  <!-- SIDEBAR -->
+  <!-- SIDEBAR SAME AS DASHBOARD -->
   <aside class="sidebar">
     <div class="brand">
       <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png">
-      <h1>Trade With Bots</h1>
+      <h1>TWB</h1>
     </div>
 
     <nav class="nav">
       <a href="dashboard.html">🏠 Dashboard</a>
-      <a class="active">🚀 Start Earning</a>
+      <a href="bots.html">🤖 Bots</a>
+      <a href="newbot.html">➕ Create Bot</a>
+      <a href="signals.html">📈 Signals</a>
       <a href="payment.html">💸 Payments</a>
-      <a>👤 Profile</a>
-      <a>⚙ Settings</a>
+      <a href="withdraw.html">Withdraw</a>
+      <a href="profile.html">👤 Profile</a>
+      <a href="settings.html">⚙ Settings</a>
+      <a href="index.html" style="color:#ff6b6b;">Logout</a>
     </nav>
   </aside>
 
-  <!-- MAIN -->
+  <!-- MAIN CONTENT -->
   <main class="main">
 
-    <!-- TOP BAR -->
     <div class="topbar">
       <div class="top-title">Start Earning</div>
-      <div class="avatar">M</div>
+      <button class="btn" onclick="location.href='dashboard.html'">Back to Dashboard</button>
     </div>
 
-    <!-- CONTENT CARD -->
-    <div class="card" style="max-width:550px; margin:auto; text-align:center;">
+    <div class="card">
+      <h2 style="margin:0; color:var(--accent);">Activate Earning Plan</h2>
+      <p class="label">You can start earning daily profits using our automated algorithm.</p>
 
-      <div class="title-big">Start Earning With $13</div>
+      <div class="value">$13 Investment</div>
 
-      <div class="desc">
-        Activate your earning bot with only <b>$13</b> and start automated trading profits instantly.
-      </div>
+      <button class="btn" onclick="location.href='payment.html'">Deposit & Start</button>
+    </div>
 
-      <button class="btn" onclick="alert('Your earning bot has been activated!')">
-        Activate Bot Now
-      </button>
-
+    <div class="card">
+      <h3 style="margin:0; color:var(--accent);">What You Will Get</h3>
+      <ul>
+        <li>Daily automated trading</li>
+        <li>AI scalping strategies</li>
+        <li>Secure profit withdrawal</li>
+        <li>Live performance tracking</li>
+      </ul>
     </div>
 
   </main>
