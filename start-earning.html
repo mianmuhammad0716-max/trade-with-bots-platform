@@ -1,59 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Start Earning — TradeWithBots</title>
+  <meta charset="utf-8" />
+  <title>Start Earning — Trade With Bots</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  <!-- SAME STYLES AS DASHBOARD -->
-  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root{
+      --bg:#000;
+      --card:#0f1113;
+      --panel:#0b0b0c;
+      --accent:#00ccff;
+      --muted:#9aa;
+      --success:#2ee6a7;
+      --danger:#ff6b6b;
+      --radius:12px;
+    }
+
+    html,body{
+      height:100%;
+      margin:0;
+      background:var(--bg);
+      color:#fff;
+      font-family: Inter, "Segoe UI", Roboto, system-ui, Arial;
+    }
+
+    .app {
+      display:grid;
+      grid-template-columns:260px 1fr;
+      min-height:100vh;
+      gap:20px;
+      padding:18px;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      background:linear-gradient(180deg,var(--card),#0b0b0b);
+      padding:18px;
+      border-radius:var(--radius);
+      box-shadow:0 6px 30px rgba(0,204,255,0.03);
+    }
+
+    .brand { display:flex; gap:12px; align-items:center; margin-bottom:18px; }
+    .brand div{
+      height:44px;width:44px;border-radius:8px;
+      background:linear-gradient(90deg,#00ccff,#0088ff);
+      display:flex;align-items:center;justify-content:center;
+      font-size:20px;font-weight:800;color:#000;
+    }
+    .brand h1{font-size:18px; margin:0; color:var(--accent);}
+
+    .nav { display:flex; flex-direction:column; gap:6px; margin-top:16px; }
+    .nav a{
+      display:flex; align-items:center; gap:12px;
+      padding:10px; border-radius:10px;
+      text-decoration:none; font-weight:600;
+      color:#cfeff6; transition:0.15s;
+    }
+    .nav a:hover{ background:rgba(0,204,255,0.06); }
+    .nav .active{ background:rgba(0,204,255,0.12); color:#fff; }
+
+    .main { padding:10px; display:flex; flex-direction:column; gap:18px; }
+
+    .topbar { display:flex; align-items:center; justify-content:space-between; }
+    .top-title { font-size:20px; font-weight:700; color:var(--accent); }
+
+    .btn {
+      background:linear-gradient(90deg,var(--accent),#0099cc);
+      padding:10px 14px; border-radius:10px;
+      border:none; cursor:pointer; font-weight:700;
+      color:#000;
+    }
+
+    .center-card {
+      background:var(--card);
+      padding:30px;
+      border-radius:12px;
+      box-shadow:0 6px 20px rgba(0,0,0,0.6);
+      max-width:500px;
+      margin:auto;
+      text-align:center;
+    }
+
+    .big-text { font-size:28px; font-weight:800; margin-bottom:14px; }
+    .desc { font-size:15px; color:var(--muted); margin-bottom:20px; }
+  </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="app">
 
-    <!-- SIDEBAR -->
-    <div class="sidebar">
-        <h2>TradeWithBots</h2>
-
-        <a href="dashboard.html">Dashboard</a>
-        <a href="bots.html">Bots</a>
-        <a href="newbot.html">Create Bot</a>
-        <a href="signals.html">Signals</a>
-        <a href="payment.html">Deposit</a>
-        <a href="withdraw.html">Withdraw</a>
-        <a href="profile.html">Profile</a>
-        <a href="settings.html">Settings</a>
-
-        <a href="index.html" class="logout">Logout</a>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div>TWB</div>
+      <h1>Trade With Bots</h1>
     </div>
 
-    <!-- MAIN CONTENT -->
-    <div class="main">
+    <nav class="nav">
+      <a href="dashboard.html">🏠 Dashboard</a>
+      <a href="#" class="active">🚀 Start Earning</a>
+      <a href="payment.html">💸 Payments</a>
+      <a>👤 Profile</a>
+      <a>⚙ Settings</a>
+    </nav>
+  </aside>
 
-        <!-- TOPBAR -->
-        <div class="topbar">
-            <h1>Start Earning</h1>
-        </div>
-
-        <!-- CONTENT WRAPPER -->
-        <div class="content">
-
-            <div class="card" style="text-align:center;">
-                <h2>Start Trading with Just <span style="color:#00eaff;">$13</span></h2>
-                <p>Your bot will automatically trade for you and grow your account.</p>
-
-                <a href="payment.html" class="btn-primary">Deposit & Start</a>
-
-                <br><br>
-
-                <a href="withdraw.html" class="btn-secondary">Withdraw</a>
-            </div>
-
-        </div>
-
+  <!-- MAIN CONTENT -->
+  <main class="main">
+    <div class="topbar">
+      <div class="top-title">Start Earning</div>
+      <div class="avatar" style="background:linear-gradient(90deg,#0a84ff,#00ccff);padding:10px 14px;border-radius:10px;font-weight:800;color:#000;">M</div>
     </div>
+
+    <div class="center-card">
+      <div class="big-text">Start Earning With $13</div>
+
+      <p class="desc">
+        Activate your earning bot with just *$13* and start generating automated profits based on real-time market signals.
+      </p>
+
+      <button class="btn" onclick="alert('Your earning bot has been activated!')">
+        Activate Now
+      </button>
+    </div>
+
+  </main>
 </div>
 
 </body>
