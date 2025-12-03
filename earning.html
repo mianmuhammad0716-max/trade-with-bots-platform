@@ -29,6 +29,7 @@
       grid-template-columns:260px 1fr;
       min-height:100vh;
       gap:20px;
+      padding:20px;
     }
 
     /* SIDEBAR */
@@ -36,55 +37,108 @@
       background:linear-gradient(180deg,var(--card),#0b0b0b);
       padding:18px;
       border-radius:var(--radius);
+      box-shadow:0 6px 30px rgba(0,204,255,0.03);
+      height:100%;
     }
-    .brand{
-      display:flex; gap:12px; align-items:center;
-    }
-    .brand img{height:44px; width:44px; border-radius:8px;}
-    .brand h1{font-size:18px; margin:0; color:var(--accent);}
 
-    .nav{display:flex; flex-direction:column; gap:6px; margin-top:18px;}
+    .brand{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      margin-bottom:20px;
+    }
+
+    .brand img{
+      height:44px;
+      width:44px;
+      border-radius:8px;
+    }
+
+    .brand h1{
+      font-size:18px;
+      margin:0;
+      color:var(--accent);
+    }
+
+    .nav{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+
     .nav a{
       text-decoration:none;
       padding:10px;
       border-radius:10px;
       color:#cfeff6;
       font-weight:600;
-      transition: .2s;
+      transition:0.15s;
     }
-    .nav a:hover{background:rgba(0,204,255,0.06);}
-    .nav a.active{background:rgba(0,204,255,0.12); color:#fff;}
+
+    .nav a:hover{
+      background:rgba(0,204,255,0.06);
+    }
+
+    .nav a.active{
+      background:rgba(0,204,255,0.12);
+      color:#fff;
+    }
 
     /* MAIN */
-    .main{padding:18px; display:flex; flex-direction:column; gap:18px;}
+    .main{
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
 
     .topbar{
+      background:var(--card);
+      padding:12px 18px;
+      border-radius:12px;
       display:flex;
-      justify-content:space-between;
       align-items:center;
+      justify-content:space-between;
+      box-shadow:0 6px 20px rgba(0,0,0,0.4);
     }
-    .top-title{font-size:20px; font-weight:700; color:var(--accent);}
+
+    .top-title{
+      font-size:18px;
+      font-weight:700;
+      color:var(--accent);
+    }
 
     .btn{
       background:linear-gradient(90deg,var(--accent),#00a8e6);
-      border:none;
+      color:#000;
       padding:10px 16px;
       border-radius:10px;
+      border:none;
       cursor:pointer;
       font-weight:700;
-      color:#000;
-      margin-top:10px;
     }
 
     .card{
       background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
-      padding:18px;
+      padding:20px;
       border-radius:12px;
       box-shadow:0 6px 20px rgba(0,0,0,0.6);
     }
-    .label{color:var(--muted); font-size:14px;}
-    .value{font-size:26px; font-weight:800; margin-top:6px;}
 
+    .label{
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .value{
+      font-size:26px;
+      font-weight:800;
+      margin:10px 0;
+    }
+
+    ul li{
+      margin-bottom:8px;
+      color:#cfeff6;
+    }
   </style>
 </head>
 
@@ -92,7 +146,7 @@
 
 <div class="app">
 
-  <!-- SIDEBAR SAME AS DASHBOARD -->
+  <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="brand">
       <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png">
@@ -112,17 +166,17 @@
     </nav>
   </aside>
 
-  <!-- MAIN CONTENT -->
+  <!-- MAIN -->
   <main class="main">
 
     <div class="topbar">
       <div class="top-title">Start Earning</div>
-      <button class="btn" onclick="location.href='dashboard.html'">Back to Dashboard</button>
+      <button class="btn" onclick="location.href='dashboard.html'">Back</button>
     </div>
 
     <div class="card">
       <h2 style="margin:0; color:var(--accent);">Activate Earning Plan</h2>
-      <p class="label">You can start earning daily profits using our automated algorithm.</p>
+      <p class="label">Start earning daily profits using our automated AI trading system.</p>
 
       <div class="value">$13 Investment</div>
 
@@ -130,12 +184,13 @@
     </div>
 
     <div class="card">
-      <h3 style="margin:0; color:var(--accent);">What You Will Get</h3>
+      <h3 style="margin:0; color:var(--accent);">What You Get</h3>
       <ul>
         <li>Daily automated trading</li>
         <li>AI scalping strategies</li>
-        <li>Secure profit withdrawal</li>
-        <li>Live performance tracking</li>
+        <li>Secure withdrawals</li>
+        <li>Real-time bot performance</li>
+        <li>Smart portfolio growth</li>
       </ul>
     </div>
 
