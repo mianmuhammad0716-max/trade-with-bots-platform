@@ -33,18 +33,15 @@
       gap:20px;
     }
 
-    /* ===== SIDEBAR ===== */
     .sidebar {
       background:linear-gradient(180deg,var(--card),#0b0b0b);
       padding:18px;
       border-radius:var(--radius);
       box-shadow:0 6px 30px rgba(0,204,255,0.03);
     }
-
     .brand { display:flex; gap:12px; align-items:center; margin-bottom:18px; }
     .brand img{height:44px; width:44px; border-radius:8px;}
     .brand h1{font-size:18px; margin:0; color:var(--accent);}
-
     .nav { display:flex; flex-direction:column; gap:6px; margin-top:16px; }
     .nav a{
       display:flex;
@@ -60,15 +57,10 @@
     }
     .nav a:hover{ background: rgba(0,204,255,0.06); transform: translateY(-2px); }
     .nav a.active{ background: rgba(0,204,255,0.12); color:#fff; }
-
-    .small { margin-top:18px; font-size:13px; color:var(--muted); }
-
-    /* ===== MAIN ===== */
-    .main { padding:18px; display:flex; flex-direction:column; gap:18px; }
-    .topbar { display:flex; align-items:center; justify-content:space-between; gap:12px; }
-    .top-title { font-size:18px; color:var(--accent); font-weight:700; }
-
-    /* BUTTONS */
+    .small { margin-top:18px; font-size:13px; color:var(--muted);}
+    .main { padding:18px; display:flex; flex-direction:column; gap:18px;}
+    .topbar { display:flex; align-items:center; justify-content:space-between; gap:12px;}
+    .top-title { font-size:18px; color:var(--accent); font-weight:700;}
     .btn {
       background:linear-gradient(90deg,var(--accent),#00a8e6);
       color:#000;
@@ -77,6 +69,11 @@
       border:none;
       cursor:pointer;
       font-weight:700;
+      transition: background .15s;
+    }
+    .btn:active, .btn:focus {
+      background:linear-gradient(90deg,var(--accent),#00a8e6);
+      color:#000;
     }
     .withdraw-btn {
       background:linear-gradient(90deg,#ff4b4b,#ff2d2d);
@@ -87,7 +84,6 @@
       border:none;
       cursor:pointer;
     }
-
     .card {
       background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
       padding:20px;
@@ -95,24 +91,18 @@
       box-shadow:0 6px 20px rgba(0,0,0,0.6);
       margin-bottom: 0;
     }
-    .label { font-size:14px; color:var(--muted); }
-    .value { font-size:26px; font-weight:800; margin:10px 0; }
-
-    ul li { margin-bottom:8px; font-size:14px; color:#cfeff6; }
+    .label { font-size:14px; color:var(--muted);}
+    .value { font-size:26px; font-weight:800; margin:10px 0;}
+    ul li { margin-bottom:8px; font-size:14px; color:#cfeff6;}
   </style>
 </head>
-
 <body>
-
 <div class="app">
-
-  <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="brand">
       <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png">
       <h1>Trade With Bots</h1>
     </div>
-
     <nav class="nav">
       <a href="dashboard.html">🏠 Dashboard</a>
       <a href="bots.html">🤖 Bots</a>
@@ -121,35 +111,25 @@
       <a href="profile.html">👤 Profile</a>
       <a href="settings.html">⚙️ Settings</a>
     </nav>
-
     <div class="small">
       Logged in as <strong>Muhammad</strong>
     </div>
   </aside>
-
-  <!-- MAIN -->
   <main class="main">
-
-    <!-- TOPBAR -->
     <div class="topbar">
       <div class="top-title">Start Earning</div>
       <button class="btn" onclick="location.href='dashboard.html'">Back to Dashboard</button>
     </div>
-
-    <!-- CARD 1 -->
-    <div class="card">
-      <h2 style="margin:0; color:var(--accent);">Activate Earning Plan</h2>
-      <p class="label">Start earning daily profits using our automated AI trading system.</p>
-      <div class="value">$13 Investment</div>
+    <div class="card" style="flex:1;">
+      <div class="label">Total Balance</div>
+      <div class="value" id="balanceVal">$12,430</div>
       <button class="btn" style="margin-top:12px;" onclick="location.href='payment.html'">
         Start Earning with $13
       </button>
-      <button class="withdraw-btn" style="margin-top:12px; margin-left:10px;" onclick="location.href='payment.html'">
+      <button class="withdraw-btn" style="margin-top:12px;" onclick="location.href='payment.html'">
         Withdraw
       </button>
     </div>
-
-    <!-- CARD 2 -->
     <div class="card">
       <h3 style="margin:0; color:var(--accent);">What You Get</h3>
       <ul>
@@ -160,10 +140,14 @@
         <li>Smart portfolio growth</li>
       </ul>
     </div>
-
   </main>
-
 </div>
-
+<script>
+let bal = 12430;
+setInterval(()=>{
+  bal += (Math.random() - 0.5) * 40;
+  document.getElementById("balanceVal").innerText = "$" + Math.round(bal);
+}, 2000);
+</script>
 </body>
 </html>
