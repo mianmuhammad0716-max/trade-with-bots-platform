@@ -20,10 +20,11 @@
     }
 
     html,body{
+      height:100%;
       margin:0;
       background:var(--bg);
       color:#fff;
-      font-family: Inter, "Segoe UI", Roboto, Arial;
+      font-family: Inter, "Segoe UI", Roboto, system-ui, Arial;
     }
 
     .app {
@@ -31,10 +32,9 @@
       grid-template-columns:260px 1fr;
       min-height:100vh;
       gap:20px;
-      padding:20px;
     }
 
-    /* SIDEBAR */
+    /* ===== SIDEBAR ===== */
     .sidebar {
       background:linear-gradient(180deg,var(--card),#0b0b0b);
       padding:18px;
@@ -62,40 +62,40 @@
     .nav a:hover{ background: rgba(0,204,255,0.06); transform: translateY(-2px); }
     .nav a.active{ background: rgba(0,204,255,0.12); color:#fff; }
 
-    /* MAIN */
-    .main { padding:0; display:flex; flex-direction:column; gap:18px; }
+    .small { margin-top:18px; font-size:13px; color:var(--muted); }
 
-    /* TOP BAR */
-    .topbar {
-      background:var(--card);
-      padding:14px 18px;
-      border-radius:12px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      box-shadow:0 6px 20px rgba(0,0,0,0.5);
-    }
-
+    /* ===== MAIN ===== */
+    .main { padding:18px; display:flex; flex-direction:column; gap:18px; }
+    .topbar { display:flex; align-items:center; justify-content:space-between; gap:12px; }
     .top-title { font-size:18px; color:var(--accent); font-weight:700; }
 
+    /* BUTTONS */
     .btn {
       background:linear-gradient(90deg,var(--accent),#00a8e6);
       color:#000;
-      padding:10px 16px;
+      padding:10px 14px;
       border-radius:10px;
       border:none;
       cursor:pointer;
       font-weight:700;
     }
+    .withdraw-btn {
+      background:linear-gradient(90deg,#ff4b4b,#ff2d2d);
+      color:#fff;
+      padding:10px 14px;
+      font-weight:700;
+      border-radius:10px;
+      border:none;
+      cursor:pointer;
+    }
 
-    /* CARD */
     .card {
-      background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
       padding:20px;
       border-radius:12px;
       box-shadow:0 6px 20px rgba(0,0,0,0.6);
+      margin-bottom: 0;
     }
-
     .label { font-size:14px; color:var(--muted); }
     .value { font-size:26px; font-weight:800; margin:10px 0; }
 
@@ -120,10 +120,10 @@
       <a href="signals.html">📈 Signals</a>
       <a href="payment.html">💸 Payments</a>
       <a href="profile.html">👤 Profile</a>
-      <a href="settings.html">⚙ Settings</a>
+      <a href="settings.html">⚙️ Settings</a>
     </nav>
 
-    <div class="small" style="margin-top:18px; font-size:13px; color:var(--muted);">
+    <div class="small">
       Logged in as <strong>Muhammad</strong>
     </div>
   </aside>
@@ -134,7 +134,7 @@
     <!-- TOPBAR -->
     <div class="topbar">
       <div class="top-title">Start Earning</div>
-      <button class="btn" onclick="location.href='dashboard.html'">Back</button>
+      <button class="btn" onclick="location.href='dashboard.html'">Back to Dashboard</button>
     </div>
 
     <!-- CARD 1 -->
@@ -145,6 +145,9 @@
       <div class="value">$13 Investment</div>
 
       <button class="btn" onclick="location.href='payment.html'">Deposit & Start</button>
+      <button class="withdraw-btn" style="margin-left:10px;" onclick="location.href='payment.html'">
+        Withdraw
+      </button>
     </div>
 
     <!-- CARD 2 -->
