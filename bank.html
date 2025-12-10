@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Bank Transfer — Trade With Bots</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to bottom right, #0b0b0b, #121212);
+        color: white;
+    }
+
+    /* NAVBAR (Same as Payment Page) */
+    .navbar {
+        background: #0e0e0e;
+        padding: 14px 40px;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #1f1f1f;
+    }
+
+    .logo-area {
+        display: flex;
+        align-items: center;
+        margin-right: 50px;
+    }
+
+    .logo-area .icon {
+        font-size: 24px;
+        margin-right: 8px;
+        color: #f5b342;
+    }
+
+    .logo-area .text {
+        font-size: 22px;
+        font-weight: 700;
+        color: #f5b342;
+        margin-top: 2px;
+    }
+
+    .navbar a {
+        text-decoration: none;
+        color: #e0e0e0;
+        margin-right: 28px;
+        font-size: 15px;
+        transition: 0.2s;
+    }
+
+    .navbar a:hover {
+        color: #f5b342;
+    }
+
+    /* PAGE CONTENT */
+    .container {
+        padding: 50px 40px;
+    }
+
+    .title {
+        font-size: 28px;
+        font-weight: 600;
+        margin-bottom: 25px;
+    }
+
+    .card {
+        background: #141414;
+        padding: 25px;
+        border-radius: 12px;
+        border: 1px solid #222;
+        width: 420px;
+    }
+
+    .label {
+        color: #bbbbbb;
+        font-size: 14px;
+        margin-bottom: 4px;
+    }
+
+    .value {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 18px;
+        color: #f5b342;
+    }
+
+    .copy-btn {
+        padding: 10px 16px;
+        background: #f5b342;
+        color: black;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 700;
+        margin-top: 10px;
+        transition: 0.2s;
+    }
+
+    .copy-btn:hover {
+        transform: scale(1.05);
+    }
+
+    .note {
+        margin-top: 20px;
+        color: #ccc;
+        font-size: 14px;
+    }
+</style>
+
+<script>
+function copyText(text) {
+    navigator.clipboard.writeText(text);
+    alert("Copied: " + text);
+}
+</script>
+
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="logo-area">
+        <div class="icon">⚡</div>
+        <div class="text">TWB</div>
+    </div>
+
+    <a href="dashboard.html">Dashboard</a>
+    <a href="bots.html">Bots</a>
+    <a href="signals.html">Signals</a>
+    <a href="profile.html">Profile</a>
+    <a href="settings.html">Settings</a>
+    <a href="payment.html">Payments</a>
+    <a href="withdraw.html">Withdraw</a>
+    <a href="addbalance.html">Add Balance</a>
+    <a href="index.html">Logout</a>
+</div>
+
+<!-- CONTENT -->
+<div class="container">
+    <div class="title">Bank Transfer (JazzCash)</div>
+
+    <div class="card">
+        <div class="label">Account Holder Name</div>
+        <div class="value">Rehman Ali Bajwa</div>
+
+        <div class="label">JazzCash Number</div>
+        <div class="value">0304 5724897</div>
+
+        <button class="copy-btn" onclick="copyText('03045724897')">
+            Copy Number
+        </button>
+
+        <div class="note">
+            After sending payment, take a screenshot and upload it on the next page for confirmation.
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
