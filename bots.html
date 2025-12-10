@@ -27,7 +27,13 @@
     font-family: Inter, "Segoe UI", Roboto, system-ui, Arial;
   }
 
-  .app { display:grid; grid-template-columns:260px 1fr; min-height:100vh; gap:20px; }
+  .app { 
+    display:grid; 
+    grid-template-columns:260px 1fr; 
+    min-height:100vh; 
+    gap:20px; 
+    padding:20px;
+  }
 
   /* SIDEBAR */
   .sidebar {
@@ -35,6 +41,7 @@
     padding:18px;
     border-radius:var(--radius);
     box-shadow:0 6px 30px rgba(0,204,255,0.03);
+    height:100%;
   }
   .brand {
     display:flex; gap:12px; align-items:center; margin-bottom:18px;
@@ -63,10 +70,17 @@
   .small { margin-top:18px; font-size:13px; color:var(--muted); }
 
   /* MAIN */
-  .main { padding:18px; display:flex; flex-direction:column; gap:18px; }
+  .main { 
+    padding:18px; 
+    display:flex; 
+    flex-direction:column; 
+    gap:18px; 
+  }
+
+  /* TOPBAR */
   .topbar { 
     background:var(--glass); 
-    padding:15px 20px; 
+    padding:18px 22px; 
     border-radius:12px; 
     display:flex; 
     justify-content:space-between; 
@@ -74,8 +88,9 @@
     box-shadow:0 6px 20px rgba(0,0,0,0.5);
     backdrop-filter:blur(12px);
   }
-  .top-title { font-size:18px; font-weight:700; color:var(--accent); }
+  .top-title { font-size:20px; font-weight:700; color:var(--accent); }
 
+  /* BUTTON */
   .btn {
     background:linear-gradient(90deg,var(--accent),#00a8e6);
     border:none;
@@ -84,16 +99,21 @@
     border-radius:10px;
     font-weight:700;
     cursor:pointer;
+    box-shadow:0 0 12px rgba(0,204,255,0.4);
+  }
+
+  /* TABLE WRAPPER */
+  .table-wrapper {
+    background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+    padding:18px;
+    border-radius:12px;
+    box-shadow:0 6px 20px rgba(0,0,0,0.6);
   }
 
   /* TABLE */
   .table {
     width:100%;
-    background:var(--glass);
-    border-radius:12px;
     border-collapse:collapse;
-    overflow:hidden;
-    box-shadow:0 4px 25px rgba(0,0,0,0.4);
   }
 
   .table th, .table td {
@@ -105,6 +125,14 @@
     color:var(--muted);
     background:var(--glass-2);
     text-align:left;
+    font-weight:700;
+  }
+
+  .table tr {
+    border-bottom:1px solid rgba(255,255,255,0.05);
+  }
+  .table tr:last-child {
+    border-bottom:0;
   }
 
   .table tr:hover {
@@ -150,37 +178,39 @@
       <button class="btn" onclick="location.href='new-bot.html'">➕ Create Bot</button>
     </div>
 
-    <!-- TABLE -->
-    <table class="table">
-      <tr>
-        <th>Bot Name</th>
-        <th>Asset</th>
-        <th>Status</th>
-        <th>Profit</th>
-      </tr>
+    <!-- TABLE WRAPPER -->
+    <div class="table-wrapper">
+      <table class="table">
+        <tr>
+          <th>Bot Name</th>
+          <th>Asset</th>
+          <th>Status</th>
+          <th>Profit</th>
+        </tr>
 
-      <tr>
-        <td>Scalper Pro</td>
-        <td>BTC</td>
-        <td class="online">Running</td>
-        <td>+$142.33</td>
-      </tr>
+        <tr>
+          <td>Scalper Pro</td>
+          <td>BTC</td>
+          <td class="online">Running</td>
+          <td>+$142.33</td>
+        </tr>
 
-      <tr>
-        <td>Ether Wave</td>
-        <td>ETH</td>
-        <td class="offline">Stopped</td>
-        <td>+$32.12</td>
-      </tr>
+        <tr>
+          <td>Ether Wave</td>
+          <td>ETH</td>
+          <td class="offline">Stopped</td>
+          <td>+$32.12</td>
+        </tr>
 
-      <tr>
-        <td>Solana AI</td>
-        <td>SOL</td>
-        <td class="online">Running</td>
-        <td>+$67.90</td>
-      </tr>
+        <tr>
+          <td>Solana AI</td>
+          <td>SOL</td>
+          <td class="online">Running</td>
+          <td>+$67.90</td>
+        </tr>
 
-    </table>
+      </table>
+    </div>
 
   </main>
 
