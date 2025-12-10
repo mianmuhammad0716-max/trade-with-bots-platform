@@ -72,15 +72,18 @@
     .top-title { font-size:18px; color:var(--accent); font-weight:700; }
 
     .top-actions { display:flex; gap:10px; align-items:center; }
-<button class="btn" style="margin-top:12px;" onclick="location.href='start-earning.html'">
-  Start Earning with $13
-</button>
 
-<button class="withdraw-btn" style="margin-top:12px;" onclick="location.href='withdraw.html'">
-  Withdraw
-</button>
+    /* BUTTONS */
+    .btn {
+      background:linear-gradient(90deg,var(--accent),#00a8e6);
+      color:#000;
+      padding:10px 14px;
+      border-radius:10px;
+      border:none;
+      cursor:pointer;
+      font-weight:700;
+    }
 
-    /* WITHDRAW BUTTON */
     .withdraw-btn {
       background:linear-gradient(90deg,#ff4b4b,#ff2d2d);
       color:#fff;
@@ -90,6 +93,10 @@
       border:none;
       cursor:pointer;
     }
+
+    .icon-btn { background: rgba(255,255,255,0.02); border-radius:10px; padding:10px; border:none; color:var(--muted); cursor:pointer; }
+
+    .avatar { height:40px; width:40px; border-radius:8px; background:linear-gradient(90deg,#0a84ff,#00ccff); display:flex; align-items:center; justify-content:center; font-weight:800; color:#000; }
 
     /* GRID */
     .grid { display:grid; grid-template-columns:1fr 420px; gap:18px; }
@@ -141,14 +148,12 @@
       <a class="active">🏠 Dashboard</a>
       <a href="bots.html">🤖 Bots</a>
       <a href="signals.html">📈 Signals</a>
-      <a href="payment.html">💸 Payments</a>
       <a href="profile.html">👤 Profile</a>
       <a href="settings.html">⚙️ Settings</a>
     </nav>
 
     <div class="small">Logged in as <strong>Muhammad</strong></div>
   </aside>
-
 
   <!-- MAIN -->
   <main class="main">
@@ -161,6 +166,7 @@
 
       <div class="top-actions">
         <button class="btn" onclick="location.href='start-earning.html'">Start Earning</button>
+        <button class="withdraw-btn" onclick="location.href='withdraw.html'">Withdraw</button>
 
         <div style="position:relative;">
           <button class="icon-btn" id="notifBtn">🔔</button>
@@ -178,7 +184,7 @@
           ">
             <div class="notif-item" style="display:flex; gap:12px; margin-bottom:10px;">
               <div style="width:42px;height:42px;border-radius:8px;background:linear-gradient(90deg,#00ccff,#0a84ff);display:flex;align-items:center;justify-content:center;font-weight:800;color:#000">B</div>
-              <div><strong>Bot Alpha executed</strong><br><span style="font-size:12px;color:var(--muted);">+2.3% profit • 5m ago</span></div>
+              <div><strong>Bot Alpha executed</strong><br><span style="font-size:12px;color:#cfeff6;">+2.3% profit • 5m ago</span></div>
             </div>
           </div>
         </div>
@@ -186,7 +192,6 @@
         <div class="avatar">M</div>
       </div>
     </div>
-
 
     <!-- GRID -->
     <div class="grid">
@@ -199,7 +204,7 @@
             <div class="label">Total Balance</div>
             <div class="value" id="balanceVal">$12,430</div>
 
-            <!-- FIXED BUTTON LINKS -->
+            <!-- Buttons -->
             <button class="btn" style="margin-top:12px;" onclick="location.href='start-earning.html'">
               Start Earning with $13
             </button>
@@ -250,7 +255,6 @@
 
   </main>
 </div>
-
 
 <script>
 /* TRADINGVIEW */
