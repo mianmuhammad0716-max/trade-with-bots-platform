@@ -1,34 +1,73 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Signals — Trade With Bots</title>
-<link rel="stylesheet" href="styles.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://s3.tradingview.com/tv.js"></script>
+<style>
+:root{
+  --bg:#000;
+  --card:#0f1113;
+  --accent:#00ccff;
+  --muted:#9aa;
+  --radius:12px;
+}
+html, body {margin:0;height:100%;font-family:Inter,sans-serif;background:var(--bg);color:#fff;}
+.app {display:grid;grid-template-columns:260px 1fr;min-height:100vh;gap:20px;}
+/* SIDEBAR */
+.sidebar {background:linear-gradient(180deg,var(--card),#0b0b0b);padding:18px;border-radius:var(--radius);display:flex;flex-direction:column;gap:10px;}
+.brand {display:flex;align-items:center;gap:10px;margin-bottom:18px;}
+.brand img {height:44px;width:44px;border-radius:8px;}
+.brand h1 {margin:0;color:var(--accent);font-size:18px;}
+.nav {display:flex;flex-direction:column;gap:6px;}
+.nav a {display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;color:#cfeff6;text-decoration:none;transition:0.2s;}
+.nav a.active {background: rgba(0,204,255,0.12);color:#fff;}
+.nav a:hover {background: rgba(0,204,255,0.06);}
+.nav a.whatsapp {background: #25D366; color: #fff; font-weight:700; justify-content:flex-start; text-align:left; box-shadow:0 0 10px #25D366; transition:0.3s;}
+.nav a.whatsapp:hover {box-shadow:0 0 20px #25D366; transform: translateY(-2px);}
+.small {margin-top:auto;font-size:13px;color:var(--muted);}
+/* MAIN */
+.main {padding:18px;display:flex;flex-direction:column;gap:18px;}
+.topbar {font-size:18px;color:var(--accent);font-weight:700;margin-bottom:12px;}
+.chart-card {background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:14px;box-shadow:0 6px 20px rgba(0,0,0,0.6);min-height:420px;}
+</style>
 </head>
-
 <body>
 
-<div class="sidebar">
-  <h2>⚡ TWB</h2>
-  <a href="dashboard.html">Dashboard</a>
-  <a href="bots.html">Bots</a>
-  <a href="signals.html" class="active">Signals</a>
-  <a href="profile.html">Profile</a>
-  <a href="settings.html">Settings</a>
-  <a href="payment.html">Payments</a>
-  <a href="withdraw.html">Withdraw</a>
-  <a href="login.html" class="logout">Logout</a>
+<div class="app">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="Logo">
+      <h1>Trade With Bots</h1>
+    </div>
+    <nav class="nav">
+      <a href="dashboard.html">🏠 Dashboard</a>
+      <a href="bots.html">🤖 Bots</a>
+      <a href="signals.html" class="active">📈 Signals</a>
+      <a href="profile.html">👤 Profile</a>
+      <a href="settings.html">⚙️ Settings</a>
+      <a href="payment.html">💳 Payments</a>
+      <a href="withdraw.html">💸 Withdraw</a>
+      <a href="login.html">Logout</a>
+      <!-- WhatsApp Support -->
+      <a href="https://wa.me/923001234567" target="_blank" class="whatsapp">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:20px;height:20px;">
+        💬 WhatsApp Support
+      </a>
+    </nav>
+    <div class="small">Logged in anonymously</div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="topbar">Live Trading Signals</div>
+    <div class="chart-card">
+      <div id="sig_chart" style="height:420px;"></div>
+    </div>
+  </main>
 </div>
-
-<div class="main">
-  <div class="topbar">
-    <span>Live Trading Signals</span>
-  </div>
-
-  <div class="chart-box">
-    <div id="sig_chart"></div>
-  </div>
 
 <script>
 new TradingView.widget({
@@ -41,8 +80,6 @@ new TradingView.widget({
   locale: "en"
 });
 </script>
-
-</div>
 
 </body>
 </html>
