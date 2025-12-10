@@ -28,25 +28,18 @@
       font-family: Inter, "Segoe UI", Roboto, system-ui, Arial;
     }
 
-    .app {
-      display:grid;
-      grid-template-columns:260px 1fr;
-      min-height:100vh;
-      gap:20px;
-    }
+    .app { display:grid; grid-template-columns:260px 1fr; min-height:100vh; gap:20px; }
 
-    /* ===== SIDEBAR ===== */
+    /* SIDEBAR */
     .sidebar {
       background:linear-gradient(180deg,var(--card),#0b0b0b);
       padding:18px;
       border-radius:var(--radius);
       box-shadow:0 6px 30px rgba(0,204,255,0.03);
     }
-
     .brand { display:flex; gap:12px; align-items:center; margin-bottom:18px; }
     .brand img{height:44px;width:44px;border-radius:8px;}
     .brand h1{font-size:18px;margin:0;color:var(--accent);}
-
     .nav { display:flex; flex-direction:column; gap:6px; margin-top:16px; }
     .nav a{
       display:flex;
@@ -62,73 +55,33 @@
     }
     .nav a:hover{ background: rgba(0,204,255,0.06); transform: translateY(-2px); }
     .nav a.active{ background: rgba(0,204,255,0.12); color:#fff; }
-
     .small { margin-top:18px; font-size:13px; color:var(--muted); }
 
-    /* ===== MAIN ===== */
+    /* MAIN */
     .main { padding:18px; display:flex; flex-direction:column; gap:18px; }
     .topbar { display:flex; align-items:center; justify-content:space-between; gap:12px; }
     .top-left { display:flex; gap:12px; align-items:center; }
     .top-title { font-size:18px; color:var(--accent); font-weight:700; }
-
     .top-actions { display:flex; gap:10px; align-items:center; }
 
     /* BUTTONS */
-    .btn {
-      background:linear-gradient(90deg,var(--accent),#00a8e6);
-      color:#000;
-      padding:10px 14px;
-      border-radius:10px;
-      border:none;
-      cursor:pointer;
-      font-weight:700;
-      margin-top:12px;
-    }
-
-    .withdraw-btn {
-      background:linear-gradient(90deg,#ff4b4b,#ff2d2d);
-      color:#fff;
-      padding:10px 14px;
-      font-weight:700;
-      border-radius:10px;
-      border:none;
-      cursor:pointer;
-      margin-top:12px;
-    }
-
+    .btn { background:linear-gradient(90deg,var(--accent),#00a8e6); color:#000; padding:10px 14px; border-radius:10px; border:none; cursor:pointer; font-weight:700; }
+    .withdraw-btn { background:linear-gradient(90deg,#ff4b4b,#ff2d2d); color:#fff; padding:10px 14px; font-weight:700; border-radius:10px; border:none; cursor:pointer; }
     .icon-btn { background: rgba(255,255,255,0.02); border-radius:10px; padding:10px; border:none; color:var(--muted); cursor:pointer; }
-
     .avatar { height:40px; width:40px; border-radius:8px; background:linear-gradient(90deg,#0a84ff,#00ccff); display:flex; align-items:center; justify-content:center; font-weight:800; color:#000; }
 
     /* GRID */
     .grid { display:grid; grid-template-columns:1fr 420px; gap:18px; }
     .left-col { display:flex; flex-direction:column; gap:18px; }
-
     .cards-row { display:flex; gap:12px; }
-
-    .card {
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      padding:14px;
-      border-radius:12px;
-      box-shadow:0 6px 20px rgba(0,0,0,0.6);
-    }
-
+    .card { background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:14px; border-radius:12px; box-shadow:0 6px 20px rgba(0,0,0,0.6); }
     .label { font-size:13px; color:var(--muted); }
     .value { font-size:20px; font-weight:800; margin-top:6px; }
-
-    .chart-card {
-      background:linear-gradient(180deg, rgba(10,10,12,0.9), rgba(6,6,8,0.9));
-      border-radius:12px;
-      padding:8px;
-      min-height:420px;
-    }
-
+    .chart-card { background:linear-gradient(180deg, rgba(10,10,12,0.9), rgba(6,6,8,0.9)); border-radius:12px; padding:8px; min-height:420px; }
     .panel h3 { margin:0 0 8px 0; color:var(--accent); }
-
     .bots-table { width:100%; border-collapse:collapse; }
     .bots-table th, .bots-table td { padding:10px 8px; font-size:13px; color:#dceef7; }
     .bots-table thead th { font-size:12px; color:var(--muted); }
-
     .status-pill { padding:6px 8px; border-radius:999px; font-weight:700; font-size:12px; color:#000; }
     .status-active { background:var(--success); }
     .status-paused { background:#ffd166; }
@@ -137,7 +90,6 @@
 </head>
 
 <body>
-
 <div class="app">
   <!-- SIDEBAR -->
   <aside class="sidebar">
@@ -147,10 +99,10 @@
     </div>
 
     <nav class="nav">
-      <a class="active" href="dashboard.html">🏠 Dashboard</a>
+      <a class="active">🏠 Dashboard</a>
       <a href="bots.html">🤖 Bots</a>
       <a href="signals.html">📈 Signals</a>
-      <a href="start-earning.html">💳 Start Earning</a>
+      <a href="startearning.html">💳 Start Earning</a>
       <a href="withdraw.html">💸 Withdraw</a>
       <a href="profile.html">👤 Profile</a>
       <a href="settings.html">⚙️ Settings</a>
@@ -161,58 +113,39 @@
 
   <!-- MAIN -->
   <main class="main">
-
-    <!-- TOP BAR -->
     <div class="topbar">
       <div class="top-left">
         <div class="top-title">Dashboard</div>
       </div>
 
       <div class="top-actions">
-        <button class="btn" onclick="location.href='start-earning.html'">Start Earning</button>
+        <button class="btn" onclick="location.href='startearning.html'">Start Earning</button>
         <button class="withdraw-btn" onclick="location.href='withdraw.html'">Withdraw</button>
-
         <div style="position:relative;">
           <button class="icon-btn" id="notifBtn">🔔</button>
-          <div class="notif-list" id="notifList" style="
-            display:none;
-            position:absolute;
-            right:0;
-            top:45px;
-            background:#111;
-            padding:12px;
-            width:260px;
-            border-radius:10px;
-            box-shadow:0 0 20px rgba(0,0,0,0.6);
-          ">
+          <div class="notif-list" id="notifList" style="display:none; position:absolute; right:0; top:45px; background:#111; padding:12px; width:260px; border-radius:10px; box-shadow:0 0 20px rgba(0,0,0,0.6);">
             <div class="notif-item" style="display:flex; gap:12px; margin-bottom:10px;">
               <div style="width:42px;height:42px;border-radius:8px;background:linear-gradient(90deg,#00ccff,#0a84ff);display:flex;align-items:center;justify-content:center;font-weight:800;color:#000">B</div>
               <div><strong>Bot Alpha executed</strong><br><span style="font-size:12px;color:#cfeff6;">+2.3% profit • 5m ago</span></div>
             </div>
           </div>
         </div>
-
         <div class="avatar">M</div>
       </div>
     </div>
 
-    <!-- GRID -->
     <div class="grid">
       <div class="left-col">
 
-        <!-- CARDS -->
+        <!-- CARDS ROW -->
         <div class="cards-row">
           <div class="card" style="flex:1;">
             <div class="label">Total Balance</div>
             <div class="value" id="balanceVal">$0</div>
 
             <!-- Buttons under balance -->
-            <button class="btn" onclick="location.href='start-earning.html'">
-              Start Earning with $13
-            </button>
-            <button class="withdraw-btn" onclick="location.href='withdraw.html'">
-              Withdraw
-            </button>
+            <button class="btn" style="margin-top:12px;" onclick="location.href='startearning.html'">Start Earning</button>
+            <button class="withdraw-btn" style="margin-top:12px;" onclick="location.href='withdraw.html'">Withdraw</button>
           </div>
 
           <div class="card" style="width:180px;">
@@ -222,7 +155,7 @@
 
           <div class="card" style="width:180px;">
             <div class="label">Profit Today</div>
-            <div class="value" id="profitToday">+$0</div>
+            <div class="value" id="profitToday">0</div>
           </div>
         </div>
 
@@ -242,9 +175,9 @@
             </thead>
             <tbody>
               <tr>
-                <td>Alpha</td><td>Scalper</td><td>+0%</td>
-                <td><span class="status-pill status-off">Off</span></td>
-                <td style="text-align:right;"><button class="btn">Edit</button></td>
+                <td>-</td><td>-</td><td>-</td>
+                <td><span class="status-pill status-off">Inactive</span></td>
+                <td style="text-align:right;"><button class="btn" disabled>Edit</button></td>
               </tr>
             </tbody>
           </table>
@@ -252,6 +185,7 @@
 
       </div>
     </div>
+
   </main>
 </div>
 
@@ -269,25 +203,17 @@ new TradingView.widget({
 /* NOTIFICATION TOGGLER */
 const notifBtn = document.getElementById("notifBtn");
 const notifList = document.getElementById("notifList");
-
 notifBtn.onclick = () => {
   notifList.style.display = notifList.style.display === "block" ? "none" : "block";
 };
 
-/* FAKE LIVE BALANCE */
-let bal = 0; // zero balance
+/* FAKE BALANCE STARTS AT ZERO */
+let bal = 0;
 setInterval(()=>{
-  bal += (Math.random() - 0.5) * 20;
-  document.getElementById("balanceVal").innerText = "$" + Math.max(0, Math.round(bal));
-}, 2000);
-
-let profitToday = 0; // zero profit
-setInterval(()=>{
-  profitToday += (Math.random() - 0.5) * 5;
-  document.getElementById("profitToday").innerText = "+$" + Math.max(0, Math.round(profitToday));
-}, 3000);
+  bal += (Math.random()-0.5)*10;
+  document.getElementById("balanceVal").innerText = "$" + Math.round(bal);
+},2000);
 </script>
 
 </body>
 </html>
-
