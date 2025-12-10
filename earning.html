@@ -1,153 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>Start Earning — Trade With Bots</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <style>
-    :root{
-      --bg:#000;
-      --card:#0f1113;
-      --panel:#0b0b0c;
-      --accent:#00ccff;
-      --muted:#9aa;
-      --glass: rgba(255,255,255,0.03);
-      --glass-2: rgba(255,255,255,0.02);
-      --success:#2ee6a7;
-      --danger:#ff6b6b;
-      --radius:12px;
+<meta charset="UTF-8">
+<title>Bank Transfer — Trade With Bots</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to bottom right, #0b0b0b, #121212);
+        color: white;
     }
 
-    html,body{
-      height:100%;
-      margin:0;
-      background:var(--bg);
-      color:#fff;
-      font-family: Inter, "Segoe UI", Roboto, system-ui, Arial;
+    /* NAVBAR */
+    .navbar {
+        background: #0e0e0e;
+        padding: 14px 40px;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #1f1f1f;
     }
 
-    .app {
-      display:grid;
-      grid-template-columns:260px 1fr;
-      min-height:100vh;
-      gap:20px;
+    .logo-area {
+        display: flex;
+        align-items: center;
+        margin-right: 50px;
+    }
+    .logo-area .icon {
+        font-size: 24px;
+        margin-right: 8px;
+        color: #f5b342;
+    }
+    .logo-area .text {
+        font-size: 22px;
+        font-weight: 700;
+        color: #f5b342;
+        margin-top: 2px;
     }
 
-    .sidebar {
-      background:linear-gradient(180deg,var(--card),#0b0b0b);
-      padding:18px;
-      border-radius:var(--radius);
-      box-shadow:0 6px 30px rgba(0,204,255,0.03);
+    .navbar a {
+        text-decoration: none;
+        color: #e0e0e0;
+        margin-right: 28px;
+        font-size: 15px;
+        transition: 0.2s;
     }
-    .brand { display:flex; gap:12px; align-items:center; margin-bottom:18px; }
-    .brand img{height:44px; width:44px; border-radius:8px;}
-    .brand h1{font-size:18px; margin:0; color:var(--accent);}
-    .nav { display:flex; flex-direction:column; gap:6px; margin-top:16px; }
-    .nav a{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      padding:10px;
-      border-radius:10px;
-      font-weight:600;
-      font-size:14px;
-      color:#cfeff6;
-      text-decoration:none;
-      transition: background .15s, transform .12s;
+    .navbar a:hover {
+        color: #f5b342;
     }
-    .nav a:hover{ background: rgba(0,204,255,0.06); transform: translateY(-2px); }
-    .nav a.active{ background: rgba(0,204,255,0.12); color:#fff; }
-    .small { margin-top:18px; font-size:13px; color:var(--muted);}
-    .main { padding:18px; display:flex; flex-direction:column; gap:18px;}
-    .topbar { display:flex; align-items:center; justify-content:space-between; gap:12px;}
-    .top-title { font-size:18px; color:var(--accent); font-weight:700;}
-    .btn {
-      background:linear-gradient(90deg,var(--accent),#00a8e6);
-      color:#000;
-      padding:10px 14px;
-      border-radius:10px;
-      border:none;
-      cursor:pointer;
-      font-weight:700;
-      transition: background .15s;
+
+    /* MAIN CONTENT */
+    .container {
+        padding: 50px 40px;
+        max-width: 600px;
+        margin: auto;
     }
-    .btn:active, .btn:focus {
-      background:linear-gradient(90deg,var(--accent),#00a8e6);
-      color:#000;
+
+    h2 {
+        font-size: 28px;
+        margin-bottom: 25px;
+        font-weight: 700;
+        text-align: center;
     }
-    .withdraw-btn {
-      background:linear-gradient(90deg,#ff4b4b,#ff2d2d);
-      color:#fff;
-      padding:10px 14px;
-      font-weight:700;
-      border-radius:10px;
-      border:none;
-      cursor:pointer;
+
+    .box {
+        background: #141414;
+        border: 1px solid #2a2a2a;
+        padding: 25px;
+        border-radius: 12px;
+        margin-top: 20px;
     }
-    .card {
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      padding:20px;
-      border-radius:12px;
-      box-shadow:0 6px 20px rgba(0,0,0,0.6);
-      margin-bottom: 0;
+
+    .line {
+        font-size: 17px;
+        margin-bottom: 14px;
     }
-    .label { font-size:14px; color:var(--muted);}
-    .value { font-size:26px; font-weight:800; margin:10px 0;}
-    ul li { margin-bottom:8px; font-size:14px; color:#cfeff6;}
-  </style>
+
+    .highlight {
+        color: #f5b342;
+        font-weight: 600;
+    }
+
+    .copy-btn {
+        margin-top: 12px;
+        padding: 10px 18px;
+        background: #f5b342;
+        border: none;
+        color: #000;
+        font-weight: 600;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .copy-btn:hover {
+        opacity: 0.8;
+        transform: scale(1.03);
+    }
+
+    .note {
+        margin-top: 20px;
+        font-size: 14px;
+        color: #cccccc;
+        opacity: 0.8;
+        line-height: 1.6;
+    }
+</style>
+
 </head>
 <body>
-<div class="app">
-  <aside class="sidebar">
-    <div class="brand">
-      <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png">
-      <h1>Trade With Bots</h1>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="logo-area">
+        <div class="icon">⚡</div>
+        <div class="text">TWB</div>
     </div>
-    <nav class="nav">
-      <a href="dashboard.html">🏠 Dashboard</a>
-      <a href="bots.html">🤖 Bots</a>
-      <a href="signals.html">📈 Signals</a>
-      <a href="payment.html">💸 Payments</a>
-      <a href="profile.html">👤 Profile</a>
-      <a href="settings.html">⚙️ Settings</a>
-    </nav>
-    <div class="small">
-      Logged in as <strong>Muhammad</strong>
-    </div>
-  </aside>
-  <main class="main">
-    <div class="topbar">
-      <div class="top-title">Start Earning</div>
-      <button class="btn" onclick="location.href='dashboard.html'">Back to Dashboard</button>
-    </div>
-    <div class="card" style="flex:1;">
-      <div class="label">Total Balance</div>
-      <div class="value" id="balanceVal">$12,430</div>
-      <button class="btn" style="margin-top:12px;" onclick="location.href='payment.html'">
-        Start Earning with $13
-      </button>
-      <button class="withdraw-btn" style="margin-top:12px;" onclick="location.href='payment.html'">
-        Withdraw
-      </button>
-    </div>
-    <div class="card">
-      <h3 style="margin:0; color:var(--accent);">What You Get</h3>
-      <ul>
-        <li>Daily automated trading</li>
-        <li>AI scalping strategies</li>
-        <li>Secure withdrawals</li>
-        <li>Real-time bot performance</li>
-        <li>Smart portfolio growth</li>
-      </ul>
-    </div>
-  </main>
+
+    <a href="dashboard.html">Dashboard</a>
+    <a href="bots.html">Bots</a>
+    <a href="signals.html">Signals</a>
+    <a href="profile.html">Profile</a>
+    <a href="settings.html">Settings</a>
+    <a href="payment.html">Payments</a>
+    <a href="withdraw.html">Withdraw</a>
+    <a href="addbalance.html">Add Balance</a>
+    <a href="index.html">Logout</a>
 </div>
+
+<!-- CONTENT -->
+<div class="container">
+    <h2>Bank Transfer Details</h2>
+
+    <div class="box">
+        <div class="line">Account Holder: <span class="highlight">Rehman Ali Bajwa</span></div>
+        <div class="line">Mobile Account Number: <span class="highlight">03045724897</span></div>
+        <div class="line">Payment Service: <span class="highlight">JazzCash</span></div>
+
+        <button class="copy-btn" onclick="copyInfo()">
+            Copy Details
+        </button>
+
+        <p class="note">
+            Please send the payment to the above account.<br>
+            After sending, upload your transaction screenshot in the Payment Confirmation section.<br>
+            Your balance will be updated within *5–10 minutes* after verification.
+        </p>
+    </div>
+</div>
+
 <script>
-let bal = 12430;
-setInterval(()=>{
-  bal += (Math.random() - 0.5) * 40;
-  document.getElementById("balanceVal").innerText = "$" + Math.round(bal);
-}, 2000);
+function copyInfo() {
+    const text = 
+`Account Holder: Rehman Ali Bajwa
+Account Number: 03045724897
+Service: JazzCash`;
+
+    navigator.clipboard.writeText(text);
+    alert("Bank details copied to clipboard!");
+}
 </script>
+
 </body>
 </html>
