@@ -3,37 +3,70 @@
 <head>
 <meta charset="UTF-8">
 <title>Withdraw — Trade With Bots</title>
-<link rel="stylesheet" href="styles.css">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+:root{--bg:#000;--card:#0f1113;--accent:#00ccff;--muted:#9aa;--radius:12px;}
+html,body{margin:0;height:100%;font-family:Inter,sans-serif;background:var(--bg);color:#fff;}
+.app{display:grid;grid-template-columns:260px 1fr;min-height:100vh;gap:20px;}
+.sidebar{background:linear-gradient(180deg,var(--card),#0b0b0b);padding:18px;border-radius:var(--radius);}
+.brand{display:flex;gap:12px;align-items:center;margin-bottom:18px;}
+.brand img{height:44px;width:44px;border-radius:8px;}
+.brand h1{font-size:18px;margin:0;color:var(--accent);}
+.nav{display:flex;flex-direction:column;gap:6px;margin-top:16px;}
+.nav a{display:flex;align-items:center;gap:12px;padding:10px;border-radius:10px;font-weight:600;font-size:14px;color:#cfeff6;text-decoration:none;transition:background .15s;}
+.nav a:hover{background: rgba(0,204,255,0.06);}
+.nav a.active{background: rgba(0,204,255,0.12);color:#fff;}
+.small{margin-top:18px;font-size:13px;color:var(--muted);}
+.main{padding:18px;display:flex;flex-direction:column;gap:18px;}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.top-title{font-size:18px;color:var(--accent);font-weight:700;}
+.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:20px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.6);}
+.input-amount{margin-top:12px;padding:10px;border-radius:8px;border:none;width:120px;}
+.btn-withdraw{background:linear-gradient(90deg,#ff4b4b,#ff2d2d);color:#fff;padding:10px 14px;border-radius:10px;border:none;cursor:pointer;font-weight:700;margin-top:12px;}
+</style>
 </head>
-
 <body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png">
+      <h1>Trade With Bots</h1>
+    </div>
+    <nav class="nav">
+      <a href="dashboard.html">🏠 Dashboard</a>
+      <a href="start-earning.html">💳 Start Earning</a>
+      <a href="withdraw.html" class="active">💸 Withdraw</a>
+      <a href="profile.html">👤 Profile</a>
+      <a href="settings.html">⚙️ Settings</a>
+    </nav>
+    <div class="small">Logged in as <strong>Muhammad</strong></div>
+  </aside>
 
-<div class="sidebar">
-  <h2>⚡ TWB</h2>
-  <a href="dashboard.html">Dashboard</a>
-  <a href="bots.html">Bots</a>
-  <a href="signals.html">Signals</a>
-  <a href="profile.html">Profile</a>
-  <a href="settings.html">Settings</a>
-  <a href="payment.html">Payments</a>
-  <a href="withdraw.html" class="active">Withdraw</a>
-  <a href="login.html" class="logout">Logout</a>
+  <main class="main">
+    <div class="topbar">
+      <div class="top-title">Withdraw</div>
+    </div>
+
+    <div class="card">
+      <div class="label">Available Balance</div>
+      <div class="value" id="balanceVal">$12,430</div>
+      <input type="number" id="withdrawAmt" class="input-amount" placeholder="Amount $">
+      <button class="btn-withdraw" onclick="withdrawBalance()">Withdraw</button>
+      <p class="note">Withdraw your balance to your bank or crypto wallet.</p>
+    </div>
+  </main>
 </div>
 
-<div class="main">
-  <div class="topbar"><span>Withdraw</span></div>
-
-  <div class="card big">
-    <label>USDT Wallet Address</label>
-    <input type="text" placeholder="Your TRC20 Address">
-
-    <label>Amount</label>
-    <input type="number" placeholder="Amount">
-
-    <button class="pay-btn">Withdraw</button>
-  </div>
-
-</div>
-
+<script>
+let bal=12430;
+function withdrawBalance(){
+  const amt=parseFloat(document.getElementById("withdrawAmt").value);
+  if(isNaN(amt)||amt<=0||amt>bal){alert("Invalid amount");return;}
+  bal-=amt;
+  document.getElementById("withdrawAmt").value="";
+  document.getElementById("balanceVal").innerText="$"+Math.round(bal);
+  alert("$"+amt+" withdrawn!");
+}
+</script>
 </body>
 </html>
