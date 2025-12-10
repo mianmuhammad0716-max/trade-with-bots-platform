@@ -82,6 +82,7 @@
       border:none;
       cursor:pointer;
       font-weight:700;
+      margin-top:12px;
     }
 
     .withdraw-btn {
@@ -92,6 +93,7 @@
       border-radius:10px;
       border:none;
       cursor:pointer;
+      margin-top:12px;
     }
 
     .icon-btn { background: rgba(255,255,255,0.02); border-radius:10px; padding:10px; border:none; color:var(--muted); cursor:pointer; }
@@ -145,9 +147,11 @@
     </div>
 
     <nav class="nav">
-      <a class="active">🏠 Dashboard</a>
+      <a class="active" href="dashboard.html">🏠 Dashboard</a>
       <a href="bots.html">🤖 Bots</a>
       <a href="signals.html">📈 Signals</a>
+      <a href="start-earning.html">💳 Start Earning</a>
+      <a href="withdraw.html">💸 Withdraw</a>
       <a href="profile.html">👤 Profile</a>
       <a href="settings.html">⚙️ Settings</a>
     </nav>
@@ -165,14 +169,11 @@
       </div>
 
       <div class="top-actions">
-        <div style="display:flex; gap:10px;">
-          <button class="btn" onclick="location.href='startearning.html'">Start Earning</button>
-          <button class="withdraw-btn" onclick="location.href='withdraw.html'">Withdraw</button>
-        </div>
+        <button class="btn" onclick="location.href='start-earning.html'">Start Earning</button>
+        <button class="withdraw-btn" onclick="location.href='withdraw.html'">Withdraw</button>
 
         <div style="position:relative;">
           <button class="icon-btn" id="notifBtn">🔔</button>
-
           <div class="notif-list" id="notifList" style="
             display:none;
             position:absolute;
@@ -197,7 +198,6 @@
 
     <!-- GRID -->
     <div class="grid">
-
       <div class="left-col">
 
         <!-- CARDS -->
@@ -207,20 +207,22 @@
             <div class="value" id="balanceVal">$0</div>
 
             <!-- Buttons under balance -->
-            <div style="margin-top:12px; display:flex; gap:12px;">
-              <button class="btn" onclick="location.href='startearning.html'">Start Earning</button>
-              <button class="withdraw-btn" onclick="location.href='withdraw.html'">Withdraw</button>
-            </div>
+            <button class="btn" onclick="location.href='start-earning.html'">
+              Start Earning with $13
+            </button>
+            <button class="withdraw-btn" onclick="location.href='withdraw.html'">
+              Withdraw
+            </button>
           </div>
 
           <div class="card" style="width:180px;">
             <div class="label">Active Bots</div>
-            <div class="value">6</div>
+            <div class="value">0</div>
           </div>
 
           <div class="card" style="width:180px;">
             <div class="label">Profit Today</div>
-            <div class="value" id="profitToday">+$430</div>
+            <div class="value" id="profitToday">+$0</div>
           </div>
         </div>
 
@@ -240,8 +242,8 @@
             </thead>
             <tbody>
               <tr>
-                <td>Alpha</td><td>Scalper</td><td>+12.4%</td>
-                <td><span class="status-pill status-active">Active</span></td>
+                <td>Alpha</td><td>Scalper</td><td>+0%</td>
+                <td><span class="status-pill status-off">Off</span></td>
                 <td style="text-align:right;"><button class="btn">Edit</button></td>
               </tr>
             </tbody>
@@ -249,9 +251,7 @@
         </div>
 
       </div>
-
     </div>
-
   </main>
 </div>
 
@@ -275,11 +275,17 @@ notifBtn.onclick = () => {
 };
 
 /* FAKE LIVE BALANCE */
-let bal = 12430;
+let bal = 0; // zero balance
 setInterval(()=>{
-  bal += (Math.random() - 0.5) * 40;
-  document.getElementById("balanceVal").innerText = "$" + Math.round(bal);
+  bal += (Math.random() - 0.5) * 20;
+  document.getElementById("balanceVal").innerText = "$" + Math.max(0, Math.round(bal));
 }, 2000);
+
+let profitToday = 0; // zero profit
+setInterval(()=>{
+  profitToday += (Math.random() - 0.5) * 5;
+  document.getElementById("profitToday").innerText = "+$" + Math.max(0, Math.round(profitToday));
+}, 3000);
 </script>
 
 </body>
