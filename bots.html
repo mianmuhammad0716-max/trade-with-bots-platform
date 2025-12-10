@@ -3,59 +3,186 @@
 <head>
 <meta charset="UTF-8">
 <title>Bots — Trade With Bots</title>
-<link rel="stylesheet" href="styles.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+  :root{
+    --bg:#000;
+    --card:#0f1113;
+    --panel:#0b0b0c;
+    --accent:#00ccff;
+    --muted:#9aa;
+    --glass: rgba(255,255,255,0.03);
+    --glass-2: rgba(255,255,255,0.02);
+    --success:#2ee6a7;
+    --danger:#ff6b6b;
+    --radius:12px;
+  }
+
+  html,body{
+    height:100%;
+    margin:0;
+    background:var(--bg);
+    color:#fff;
+    font-family: Inter, "Segoe UI", Roboto, system-ui, Arial;
+  }
+
+  .app { display:grid; grid-template-columns:260px 1fr; min-height:100vh; gap:20px; }
+
+  /* SIDEBAR */
+  .sidebar {
+    background:linear-gradient(180deg,var(--card),#0b0b0b);
+    padding:18px;
+    border-radius:var(--radius);
+    box-shadow:0 6px 30px rgba(0,204,255,0.03);
+  }
+  .brand {
+    display:flex; gap:12px; align-items:center; margin-bottom:18px;
+  }
+  .brand img{
+    height:44px;width:44px;border-radius:8px;
+  }
+  .brand h1{
+    font-size:18px;margin:0;color:var(--accent);
+  }
+  .nav { display:flex; flex-direction:column; gap:6px; margin-top:16px; }
+  .nav a{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:10px;
+    border-radius:10px;
+    font-weight:600;
+    font-size:14px;
+    color:#cfeff6;
+    text-decoration:none;
+    transition: background .15s, transform .12s;
+  }
+  .nav a:hover{ background: rgba(0,204,255,0.06); transform: translateY(-2px); }
+  .nav a.active{ background: rgba(0,204,255,0.12); color:#fff; }
+  .small { margin-top:18px; font-size:13px; color:var(--muted); }
+
+  /* MAIN */
+  .main { padding:18px; display:flex; flex-direction:column; gap:18px; }
+  .topbar { 
+    background:var(--glass); 
+    padding:15px 20px; 
+    border-radius:12px; 
+    display:flex; 
+    justify-content:space-between; 
+    align-items:center;
+    box-shadow:0 6px 20px rgba(0,0,0,0.5);
+    backdrop-filter:blur(12px);
+  }
+  .top-title { font-size:18px; font-weight:700; color:var(--accent); }
+
+  .btn {
+    background:linear-gradient(90deg,var(--accent),#00a8e6);
+    border:none;
+    padding:10px 14px;
+    color:#000;
+    border-radius:10px;
+    font-weight:700;
+    cursor:pointer;
+  }
+
+  /* TABLE */
+  .table {
+    width:100%;
+    background:var(--glass);
+    border-radius:12px;
+    border-collapse:collapse;
+    overflow:hidden;
+    box-shadow:0 4px 25px rgba(0,0,0,0.4);
+  }
+
+  .table th, .table td {
+    padding:14px 12px;
+    font-size:14px;
+  }
+
+  .table th {
+    color:var(--muted);
+    background:var(--glass-2);
+    text-align:left;
+  }
+
+  .table tr:hover {
+    background:rgba(255,255,255,0.03);
+  }
+
+  .online { color:var(--success); font-weight:700; }
+  .offline { color:var(--danger); font-weight:700; }
+
+</style>
 </head>
 
 <body>
 
-<div class="sidebar">
-  <h2>⚡ TWB</h2>
-  <a href="dashboard.html">Dashboard</a>
-  <a href="bots.html" class="active">Bots</a>
-  <a href="signals.html">Signals</a>
-  <a href="profile.html">Profile</a>
-  <a href="settings.html">Settings</a>
-  <a href="payment.html">Payments</a>
-  <a href="withdraw.html">Withdraw</a>
-  <a href="login.html" class="logout">Logout</a>
-</div>
+<div class="app">
 
-<div class="main">
-  <div class="topbar">
-    <span>AI Bots</span>
-    <button class="pay-btn" onclick="window.location.href='new-bot.html'">➕ Create Bot</button>
-  </div>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png">
+      <h1>Trade With Bots</h1>
+    </div>
 
-  <table class="table">
-    <tr>
-      <th>Bot Name</th>
-      <th>Asset</th>
-      <th>Status</th>
-      <th>Profit</th>
-    </tr>
+    <nav class="nav">
+      <a href="dashboard.html">🏠 Dashboard</a>
+      <a class="active">🤖 Bots</a>
+      <a href="signals.html">📈 Signals</a>
+      <a href="startearning.html">💳 Start Earning</a>
+      <a href="withdraw.html">💸 Withdraw</a>
+      <a href="profile.html">👤 Profile</a>
+      <a href="settings.html">⚙️ Settings</a>
+    </nav>
 
-    <tr>
-      <td>Scalper Pro</td>
-      <td>BTC</td>
-      <td class="online">Running</td>
-      <td>+$142.33</td>
-    </tr>
+    <div class="small">Logged in as <strong>User</strong></div>
+  </aside>
 
-    <tr>
-      <td>Ether Wave</td>
-      <td>ETH</td>
-      <td class="offline">Stopped</td>
-      <td>+$32.12</td>
-    </tr>
+  <!-- MAIN -->
+  <main class="main">
+    
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div class="top-title">AI Bots</div>
+      <button class="btn" onclick="location.href='new-bot.html'">➕ Create Bot</button>
+    </div>
 
-    <tr>
-      <td>Solana AI</td>
-      <td>SOL</td>
-      <td class="online">Running</td>
-      <td>+$67.90</td>
-    </tr>
+    <!-- TABLE -->
+    <table class="table">
+      <tr>
+        <th>Bot Name</th>
+        <th>Asset</th>
+        <th>Status</th>
+        <th>Profit</th>
+      </tr>
 
-  </table>
+      <tr>
+        <td>Scalper Pro</td>
+        <td>BTC</td>
+        <td class="online">Running</td>
+        <td>+$142.33</td>
+      </tr>
+
+      <tr>
+        <td>Ether Wave</td>
+        <td>ETH</td>
+        <td class="offline">Stopped</td>
+        <td>+$32.12</td>
+      </tr>
+
+      <tr>
+        <td>Solana AI</td>
+        <td>SOL</td>
+        <td class="online">Running</td>
+        <td>+$67.90</td>
+      </tr>
+
+    </table>
+
+  </main>
 
 </div>
 
