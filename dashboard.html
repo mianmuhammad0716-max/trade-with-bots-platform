@@ -28,7 +28,6 @@ html,body{
   overflow-x:hidden;
 }
 
-/* MAIN LAYOUT */
 .app { 
   display:grid; 
   grid-template-columns:260px 1fr; 
@@ -37,7 +36,6 @@ html,body{
   position:relative;
 }
 
-/* SIDEBAR */
 .sidebar {
   background:linear-gradient(180deg,var(--card),#0b0b0b);
   padding:18px;
@@ -48,7 +46,6 @@ html,body{
   z-index:1000;
 }
 
-/* HAMBURGER */
 .hamburger {
   display:none;
   font-size:26px;
@@ -63,7 +60,6 @@ html,body{
   left:12px;
 }
 
-/* OVERLAY */
 .overlay {
   display:none;
   position:fixed;
@@ -75,7 +71,6 @@ html,body{
 }
 .overlay.active { display:block; }
 
-/* NAV */
 .brand { display:flex; gap:12px; align-items:center; margin-bottom:18px; }
 .brand img{height:44px;width:44px;border-radius:8px;}
 .brand h1{font-size:18px;margin:0;color:var(--accent);}
@@ -98,7 +93,6 @@ html,body{
 
 .small { margin-top:18px; font-size:13px; color:var(--muted); }
 
-/* MAIN */
 .main { padding:18px; display:flex; flex-direction:column; gap:18px; }
 .topbar { display:flex; align-items:center; justify-content:space-between; gap:12px; }
 
@@ -117,7 +111,6 @@ html,body{
   font-weight:800; color:#000; 
 }
 
-/* GRID DESKTOP */
 .grid { display:grid; grid-template-columns:1fr 420px; gap:18px; }
 .left-col { display:flex; flex-direction:column; gap:18px; }
 
@@ -139,26 +132,23 @@ html,body{
 .status-paused { background:#ffd166; }
 .status-off { background:var(--danger); color:#fff; }
 
-/* MOBILE RESPONSIVE */
 @media(max-width:900px){
   .app { grid-template-columns:1fr; gap:0; }
   .hamburger { display:block; }
-
   .sidebar { transform:translateX(-100%); border-radius:0; width:240px; }
   .sidebar.mobile-show { transform:translateX(0); }
-
   .main.mobile-shift { filter:blur(3px); }
-
   .grid { grid-template-columns:1fr !important; gap:12px; }
   .cards-row { flex-direction:column; }
   .card { width:100% !important; }
   .top-actions { justify-content:flex-end; }
-
   .chart-card { min-height:300px; }
   .bots-table { font-size:12px; }
+
+  /* hide card buttons on mobile */
+  .card button { display:none; }
 }
 
-/* DESKTOP FIX */
 @media(min-width:901px){
   .sidebar { position:static !important; transform:translateX(0) !important; height:auto; }
 }
@@ -171,7 +161,6 @@ html,body{
 <div class="overlay" id="overlay"></div>
 
 <div class="app">
-
 <aside class="sidebar" id="sidebar">
 <div class="brand">
   <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png">
@@ -211,6 +200,7 @@ html,body{
     <div class="card" style="flex:1;">
       <div class="label">Total Balance</div>
       <div class="value" id="balanceVal">$0</div>
+      <!-- Buttons hidden on mobile -->
       <button class="btn" style="margin-top:12px;" onclick="location.href='startearning.html'">Start Earning</button>
       <button class="withdraw-btn" style="margin-top:12px;" onclick="location.href='withdraw.html'">Withdraw</button>
     </div>
