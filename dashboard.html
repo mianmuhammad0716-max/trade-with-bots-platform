@@ -29,9 +29,7 @@
       overflow-x:hidden;
     }
 
-    /* ==========================
-       MAIN LAYOUT DESKTOP
-    ========================== */
+    /* MAIN LAYOUT */
     .app { 
       display:grid; 
       grid-template-columns:260px 1fr; 
@@ -66,34 +64,17 @@
       left:12px;
     }
 
-    /* MOBILE SIDEBAR (HIDDEN DEFAULT) */
-    .sidebar.mobile-hide {
-      transform:translateX(-300px);
-      position:fixed;
-      top:0;
-      left:0;
-      width:240px;
-      height:100vh;
-    }
-    .sidebar.mobile-show {
-      transform:translateX(0);
-    }
-
     /* OVERLAY FOR MOBILE */
     .overlay {
       display:none;
       position:fixed;
-      top:0;
-      left:0;
-      width:100vw;
-      height:100vh;
-      background: rgba(0,0,0,0.4);
+      top:0; left:0;
+      width:100%;
+      height:100%;
+      background:rgba(0,0,0,0.4);
       z-index:900;
-      transition: opacity 0.3s ease;
     }
-    .overlay.active {
-      display:block;
-    }
+    .overlay.active { display:block; }
 
     /* NAV */
     .brand { display:flex; gap:12px; align-items:center; margin-bottom:18px; }
@@ -120,16 +101,14 @@
     .small { margin-top:18px; font-size:13px; color:var(--muted); }
 
     /* MAIN */
-    .main { padding:18px; display:flex; flex-direction:column; gap:18px; transition: filter 0.3s ease; }
+    .main { padding:18px; display:flex; flex-direction:column; gap:18px; }
     .topbar { display:flex; align-items:center; justify-content:space-between; gap:12px; }
 
     .top-title { font-size:18px; color:var(--accent); font-weight:700; }
-
     .top-actions { display:flex; gap:10px; align-items:center; }
 
     .btn { background:linear-gradient(90deg,var(--accent),#00a8e6); color:#000; padding:10px 14px; border-radius:10px; border:none; cursor:pointer; font-weight:700; }
     .withdraw-btn { background:linear-gradient(90deg,#ff4b4b,#ff2d2d); color:#fff; padding:10px 14px; border-radius:10px; border:none; cursor:pointer; font-weight:700; }
-
     .icon-btn { background: rgba(255,255,255,0.02); border-radius:10px; padding:10px; border:none; color:var(--muted); cursor:pointer; }
 
     .avatar { 
@@ -145,7 +124,6 @@
     .left-col { display:flex; flex-direction:column; gap:18px; }
 
     .cards-row { display:flex; gap:12px; flex-wrap:wrap; }
-
     .card { background:var(--glass); padding:14px; border-radius:12px; box-shadow:0 6px 20px rgba(0,0,0,0.6); }
 
     .label { font-size:13px; color:var(--muted); }
@@ -154,7 +132,6 @@
     .chart-card { background:var(--glass); border-radius:12px; padding:8px; min-height:420px; }
 
     .panel h3 { margin:0 0 8px 0; color:var(--accent); }
-
     .bots-table { width:100%; border-collapse:collapse; display:block; overflow-x:auto; }
     .bots-table th, .bots-table td { padding:10px 8px; font-size:13px; color:#dceef7; }
     .bots-table thead th { font-size:12px; color:var(--muted); }
@@ -164,54 +141,25 @@
     .status-paused { background:#ffd166; }
     .status-off { background:var(--danger); color:#fff; }
 
-    /* ==========================
-        MOBILE FIX
-    ========================== */
+    /* MOBILE RESPONSIVE */
     @media(max-width:900px){
+      .app { grid-template-columns:1fr; gap:0; }
+      .hamburger { display:block; }
 
-      .app {
-        grid-template-columns:1fr;
-        gap:0;
-      }
+      .sidebar { transform:translateX(-300px); border-radius:0; }
+      .sidebar.mobile-show { transform:translateX(0); }
 
-      /* Show hamburger */
-      .hamburger {
-        display:block;
-      }
+      .main.mobile-shift { filter:blur(3px); }
 
-      /* Sidebar becomes sliding menu */
-      .sidebar {
-        position:fixed;
-        top:0;
-        left:0;
-        width:240px;
-        height:100vh;
-        border-radius:0;
-      }
+      .grid { grid-template-columns:1fr !important; }
+      .cards-row { flex-direction:column; }
+      .card { width:100% !important; }
+      .top-actions { flex-wrap:wrap; justify-content:flex-end; }
+    }
 
-      /* Main content blur when sidebar opens */
-      .main.mobile-shift {
-        filter:blur(3px);
-      }
-
-      /* Grid 1 column */
-      .grid {
-        grid-template-columns:1fr !important;
-      }
-
-      /* Cards full width */
-      .cards-row {
-        flex-direction:column;
-      }
-      .card {
-        width:100% !important;
-      }
-
-      /* Wrap buttons */
-      .top-actions {
-        flex-wrap:wrap;
-        justify-content:flex-end;
-      }
+    /* DESKTOP FIX */
+    @media(min-width:901px){
+      .sidebar { position:static !important; transform:translateX(0) !important; height:auto; }
     }
   </style>
 </head>
@@ -220,15 +168,12 @@
 
 <!-- HAMBURGER -->
 <button class="hamburger" id="menuBtn">☰</button>
-
-<!-- OVERLAY -->
 <div class="overlay" id="overlay"></div>
 
 <div class="app">
 
   <!-- SIDEBAR -->
-  <aside class="sidebar mobile-hide" id="sidebar">
-
+  <aside class="sidebar" id="sidebar">
     <div class="brand">
       <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png">
       <h1>Trade With Bots</h1>
@@ -242,7 +187,6 @@
       <a href="withdraw.html">💸 Withdraw</a>
       <a href="profile.html">👤 Profile</a>
       <a href="settings.html">⚙️ Settings</a>
-
       <a href="https://wa.me/923001234567" target="_blank" style="color:#25D366; font-weight:700; display:flex; align-items:center; gap:8px; padding:10px; border-radius:10px; margin-top:12px; background: rgba(37, 211, 102, 0.1);">
         📱 WhatsApp Support
       </a>
@@ -251,13 +195,10 @@
     <div class="small">Logged in as <strong>User</strong></div>
   </aside>
 
-
   <!-- MAIN -->
   <main class="main" id="mainContent">
-
     <div class="topbar">
       <div class="top-title">Dashboard</div>
-
       <div class="top-actions">
         <button class="btn" onclick="location.href='startearning.html'">Start Earning</button>
         <button class="withdraw-btn" onclick="location.href='withdraw.html'">Withdraw</button>
@@ -268,12 +209,10 @@
 
     <div class="grid">
       <div class="left-col">
-
         <div class="cards-row">
           <div class="card" style="flex:1;">
             <div class="label">Total Balance</div>
             <div class="value" id="balanceVal">$0</div>
-
             <button class="btn" style="margin-top:12px;" onclick="location.href='startearning.html'">Start Earning</button>
             <button class="withdraw-btn" style="margin-top:12px;" onclick="location.href='withdraw.html'">Withdraw</button>
           </div>
@@ -310,10 +249,8 @@
             </tbody>
           </table>
         </div>
-
       </div>
     </div>
-
   </main>
 </div>
 
@@ -340,16 +277,15 @@ const overlay = document.getElementById("overlay");
 const mainContent = document.getElementById("mainContent");
 
 menuBtn.onclick = () => {
-  sidebar.classList.toggle("mobile-show");
-  sidebar.classList.toggle("mobile-hide");
-  overlay.classList.toggle("active");
-  mainContent.classList.toggle("mobile-shift");
+  if(window.innerWidth <= 900){
+    const isOpen = sidebar.classList.toggle("mobile-show");
+    overlay.classList.toggle("active", isOpen);
+    mainContent.classList.toggle("mobile-shift", isOpen);
+  }
 };
 
-/* CLOSE SIDEBAR ON OVERLAY CLICK */
 overlay.onclick = () => {
   sidebar.classList.remove("mobile-show");
-  sidebar.classList.add("mobile-hide");
   overlay.classList.remove("active");
   mainContent.classList.remove("mobile-shift");
 };
