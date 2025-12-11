@@ -26,9 +26,16 @@
       background:var(--bg);
       color:#fff;
       font-family: Inter, "Segoe UI", Roboto, system-ui, Arial;
+      overflow-x:hidden;
     }
 
-    .app { display:grid; grid-template-columns:260px 1fr; min-height:100vh; gap:20px; }
+    .app { 
+      display:grid; 
+      grid-template-columns:260px 1fr; 
+      min-height:100vh; 
+      gap:20px; 
+      position:relative;
+    }
 
     /* SIDEBAR */
     .sidebar {
@@ -36,7 +43,37 @@
       padding:18px;
       border-radius:var(--radius);
       box-shadow:0 6px 30px rgba(0,204,255,0.03);
+      height:100%;
+      transition:transform 0.3s ease;
+      z-index:1000;
     }
+
+    /* HAMBURGER (MOBILE ONLY) */
+    .hamburger {
+      display:none;
+      font-size:26px;
+      padding:10px;
+      cursor:pointer;
+      background:none;
+      border:none;
+      color:#fff;
+    }
+
+    /* MOBILE SIDEBAR HIDDEN BY DEFAULT */
+    .sidebar.mobile-hide {
+      transform:translateX(-300px);
+      position:fixed;
+      top:0;
+      left:0;
+      height:100vh;
+      width:250px;
+    }
+
+    .sidebar.mobile-show {
+      transform:translateX(0);
+    }
+
+    /* NAV */
     .brand { display:flex; gap:12px; align-items:center; margin-bottom:18px; }
     .brand img{height:44px;width:44px;border-radius:8px;}
     .brand h1{font-size:18px;margin:0;color:var(--accent);}
@@ -73,26 +110,85 @@
     /* GRID */
     .grid { display:grid; grid-template-columns:1fr 420px; gap:18px; }
     .left-col { display:flex; flex-direction:column; gap:18px; }
-    .cards-row { display:flex; gap:12px; }
+    .cards-row { display:flex; gap:12px; flex-wrap:wrap; }
     .card { background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:14px; border-radius:12px; box-shadow:0 6px 20px rgba(0,0,0,0.6); }
     .label { font-size:13px; color:var(--muted); }
     .value { font-size:20px; font-weight:800; margin-top:6px; }
+
     .chart-card { background:linear-gradient(180deg, rgba(10,10,12,0.9), rgba(6,6,8,0.9)); border-radius:12px; padding:8px; min-height:420px; }
+
     .panel h3 { margin:0 0 8px 0; color:var(--accent); }
-    .bots-table { width:100%; border-collapse:collapse; }
+    .bots-table { width:100%; border-collapse:collapse; overflow-x:auto; display:block; }
     .bots-table th, .bots-table td { padding:10px 8px; font-size:13px; color:#dceef7; }
     .bots-table thead th { font-size:12px; color:var(--muted); }
     .status-pill { padding:6px 8px; border-radius:999px; font-weight:700; font-size:12px; color:#000; }
     .status-active { background:var(--success); }
     .status-paused { background:#ffd166; }
     .status-off { background:var(--danger); color:#fff; }
+
+    /* =====================================================
+       MOBILE RESPONSIVENESS
+    ===================================================== */
+    @media(max-width:900px){
+      .app {
+        grid-template-columns:1fr;
+        gap:0;
+      }
+
+      /* SIDEBAR MOBILE VERSION */
+      .sidebar {
+        position:fixed;
+        top:0; left:0;
+        width:240px;
+        height:100vh;
+      }
+
+      .hamburger {
+        display:block;
+      }
+
+      /* SHIFT MAIN WHEN SIDEBAR OPENS */
+      .main.mobile-shift {
+        filter:blur(3px);
+      }
+
+      /* GRID fix */
+      .grid {
+        grid-template-columns:1fr;
+      }
+
+      /* CARDS full width */
+      .cards-row {
+        flex-direction:column;
+      }
+      .card {
+        width:100% !important;
+      }
+
+      /* ACTION BUTTONS wrap */
+      .top-actions {
+        flex-wrap:wrap;
+        justify-content:flex-end;
+      }
+
+      /* TABLE SCROLL */
+      .bots-table {
+        display:block;
+        overflow-x:auto;
+        white-space:nowrap;
+      }
+    }
   </style>
 </head>
 
 <body>
+
+<!-- HAMBURGER -->
+<button class="hamburger" id="menuBtn">☰</button>
+
 <div class="app">
   <!-- SIDEBAR -->
-  <aside class="sidebar">
+  <aside class="sidebar mobile-hide" id="sidebar">
     <div class="brand">
       <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png">
       <h1>Trade With Bots</h1>
@@ -106,7 +202,7 @@
       <a href="withdraw.html">💸 Withdraw</a>
       <a href="profile.html">👤 Profile</a>
       <a href="settings.html">⚙️ Settings</a>
-      <!-- WhatsApp Support -->
+
       <a href="https://wa.me/923001234567" target="_blank" style="color:#25D366; font-weight:700; display:flex; align-items:center; gap:8px; padding:10px; border-radius:10px; margin-top:12px; background: rgba(37, 211, 102, 0.1);">
         📱 WhatsApp Support
       </a>
@@ -116,7 +212,7 @@
   </aside>
 
   <!-- MAIN -->
-  <main class="main">
+  <main class="main" id="mainContent">
     <div class="topbar">
       <div class="top-left">
         <div class="top-title">Dashboard</div>
@@ -125,15 +221,7 @@
       <div class="top-actions">
         <button class="btn" onclick="location.href='startearning.html'">Start Earning</button>
         <button class="withdraw-btn" onclick="location.href='withdraw.html'">Withdraw</button>
-        <div style="position:relative;">
-          <button class="icon-btn" id="notifBtn">🔔</button>
-          <div class="notif-list" id="notifList" style="display:none; position:absolute; right:0; top:45px; background:#111; padding:12px; width:260px; border-radius:10px; box-shadow:0 0 20px rgba(0,0,0,0.6);">
-            <div class="notif-item" style="display:flex; gap:12px; margin-bottom:10px;">
-              <div style="width:42px;height:42px;border-radius:8px;background:linear-gradient(90deg,#00ccff,#0a84ff);display:flex;align-items:center;justify-content:center;font-weight:800;color:#000">B</div>
-              <div><strong>Bot Alpha executed</strong><br><span style="font-size:12px;color:#cfeff6;">+2.3% profit • 5m ago</span></div>
-            </div>
-          </div>
-        </div>
+        <button class="icon-btn" id="notifBtn">🔔</button>
         <div class="avatar">U</div>
       </div>
     </div>
@@ -141,13 +229,11 @@
     <div class="grid">
       <div class="left-col">
 
-        <!-- CARDS ROW -->
         <div class="cards-row">
           <div class="card" style="flex:1;">
             <div class="label">Total Balance</div>
             <div class="value" id="balanceVal">$0</div>
 
-            <!-- Buttons under balance -->
             <button class="btn" style="margin-top:12px;" onclick="location.href='startearning.html'">Start Earning</button>
             <button class="withdraw-btn" style="margin-top:12px;" onclick="location.href='withdraw.html'">Withdraw</button>
           </div>
@@ -204,17 +290,22 @@ new TradingView.widget({
   container_id:"tradingview_main"
 });
 
-/* NOTIFICATION TOGGLER */
+/* NOTIFICATION TOGGLE */
 const notifBtn = document.getElementById("notifBtn");
-const notifList = document.getElementById("notifList");
 notifBtn.onclick = () => {
-  notifList.style.display = notifList.style.display === "block" ? "none" : "block";
+  alert("Notifications coming soon");
 };
 
-/* BALANCE IS ALWAYS ZERO */
-document.getElementById("balanceVal").innerText = "$0";
+/* SIDEBAR TOGGLE */
+const menuBtn = document.getElementById("menuBtn");
+const sidebar = document.getElementById("sidebar");
+const mainContent = document.getElementById("mainContent");
+
+menuBtn.onclick = () => {
+    sidebar.classList.toggle("mobile-show");
+    sidebar.classList.toggle("mobile-hide");
+};
 </script>
 
 </body>
 </html>
-
