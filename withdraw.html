@@ -25,10 +25,13 @@ html,body{
   min-height:100vh;
   gap:20px;
 }
+
+/* SIDEBAR */
 .sidebar{
   background:linear-gradient(180deg,var(--card),#0b0b0b);
   padding:18px;
   border-radius:var(--radius);
+  height:100%;
 }
 .brand{
   display:flex;
@@ -59,9 +62,25 @@ html,body{
 .nav a:hover{background: rgba(0,204,255,0.06);}
 .nav a.active{background: rgba(0,204,255,0.12);color:#fff;}
 .small{margin-top:18px;font-size:13px;color:var(--muted);}
-.main{padding:18px;display:flex;flex-direction:column;gap:18px;}
-.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;}
-.top-title{font-size:18px;color:var(--accent);font-weight:700;}
+
+/* MAIN CONTENT */
+.main{
+  padding:18px;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+.top-title{
+  font-size:18px;
+  color:var(--accent);
+  font-weight:700;
+}
 .card{
   background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
   padding:20px;
@@ -87,6 +106,8 @@ html,body{
   font-weight:700;
   margin-top:12px;
 }
+
+/* BANK CARDS */
 .bank-card{
   background:#111;
   padding:16px;
@@ -119,21 +140,69 @@ html,body{
   background:linear-gradient(90deg,#00ffcc,#00ccff);
   color:#000;
 }
-.note{margin-top:12px;font-size:13px;color:#aaa;}
+
+.note{
+  margin-top:12px;
+  font-size:13px;
+  color:#aaa;
+}
+
+
+/* --------------------------------------- */
+/* MOBILE FIX - SIDEBAR COLLAPSE */
+/* --------------------------------------- */
+.menu-btn{
+  display:none;
+  background:#00ccff;
+  color:#000;
+  padding:10px 15px;
+  font-weight:700;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+}
+
 @media(max-width:900px){
-  .app{grid-template-columns:1fr;gap:0;}
+  .app{
+    grid-template-columns:1fr;
+  }
+
+  .sidebar{
+    position:fixed;
+    left:-260px;
+    top:0;
+    width:240px;
+    height:100%;
+    transition:left .3s ease;
+    z-index:99;
+  }
+
+  .sidebar.show{
+    left:0;
+  }
+
+  .menu-btn{
+    display:block;
+    margin-bottom:10px;
+  }
+
+  .main{
+    padding:15px;
+  }
 }
 </style>
 </head>
 <body>
+
 <div class="app">
 
-  <!-- Sidebar -->
-  <aside class="sidebar">
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
     <div class="brand">
       <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png">
       <h1>Trade With Bots</h1>
     </div>
+
     <nav class="nav">
       <a href="dashboard.html">🏠 Dashboard</a>
       <a href="startearning.html">💳 Start Earning</a>
@@ -141,16 +210,24 @@ html,body{
       <a href="profile.html">👤 Profile</a>
       <a href="settings.html">⚙️ Settings</a>
     </nav>
+
     <div class="small">Logged in as <strong>User</strong></div>
   </aside>
 
-  <!-- Main Content -->
+
+
+  <!-- MAIN CONTENT -->
   <main class="main">
+
+    <!-- Mobile Menu Button -->
+    <button class="menu-btn" onclick="toggleMenu()">☰ Menu</button>
+
     <div class="topbar">
       <div class="top-title">Withdraw</div>
     </div>
 
     <div class="card">
+
       <div class="label">Available Balance</div>
       <div class="value" id="balanceVal">$0</div>
 
@@ -162,7 +239,7 @@ html,body{
       <div class="bank-card">
         <img src="images/jazzcash.png" alt="JazzCash Logo">
         <h3>JazzCash</h3>
-        <input type="text" placeholder="Enter your JazzCash account number" id="jazzcashNum">
+        <input type="text" id="jazzcashNum" placeholder="Enter your JazzCash number">
         <button onclick="submitBank('JazzCash')">Submit</button>
       </div>
 
@@ -170,28 +247,21 @@ html,body{
       <div class="bank-card">
         <img src="images/easypaisa.png" alt="Easypaisa Logo">
         <h3>Easypaisa</h3>
-        <input type="text" placeholder="Enter your Easypaisa account number" id="easypaisaNum">
+        <input type="text" id="easypaisaNum" placeholder="Enter your Easypaisa number">
         <button onclick="submitBank('Easypaisa')">Submit</button>
       </div>
 
     
+
 <script>
 let balance = 124.30;
 
-function withdrawBalance() {
+function withdrawBalance(){
   const amt = parseFloat(document.getElementById("withdrawAmt").value);
-  if(isNaN(amt) || amt <= 0){
-    alert("Enter a valid amount!");
-    return;
-  }
-  if(amt < 15){
-    alert("Minimum withdrawal is $15");
-    return;
-  }
-  if(amt > balance){
-    alert("Insufficient balance!");
-    return;
-  }
+  if(isNaN(amt) || amt <= 0){ alert("Enter a valid amount!"); return; }
+  if(amt < 15){ alert("Minimum withdrawal is $15"); return; }
+  if(amt > balance){ alert("Insufficient balance!"); return; }
+
   balance -= amt;
   document.getElementById("balanceVal").innerText = "$" + balance.toFixed(2);
   document.getElementById("withdrawAmt").value = "";
@@ -202,7 +272,7 @@ function submitBank(type){
   let accNum;
   if(type==='JazzCash') accNum = document.getElementById("jazzcashNum").value;
   if(type==='Easypaisa') accNum = document.getElementById("easypaisaNum").value;
-  if(type==='UBL Bank') accNum = document.getElementById("ublNum").value;
+  
 
   if(!accNum){
     alert("Please enter your account number for " + type);
@@ -210,7 +280,13 @@ function submitBank(type){
   }
   alert(type + " account submitted: " + accNum);
 }
+
+/* Mobile Sidebar Toggle */
+function toggleMenu(){
+  document.getElementById("sidebar").classList.toggle("show");
+}
 </script>
 
 </body>
 </html>
+
