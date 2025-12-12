@@ -127,6 +127,8 @@ html,body{
 </head>
 <body>
 <div class="app">
+
+  <!-- Sidebar -->
   <aside class="sidebar">
     <div class="brand">
       <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png">
@@ -142,6 +144,7 @@ html,body{
     <div class="small">Logged in as <strong>User</strong></div>
   </aside>
 
+  <!-- Main Content -->
   <main class="main">
     <div class="topbar">
       <div class="top-title">Withdraw</div>
@@ -150,11 +153,12 @@ html,body{
     <div class="card">
       <div class="label">Available Balance</div>
       <div class="value" id="balanceVal">$0</div>
+
       <input type="number" id="withdrawAmt" class="input-amount" placeholder="Amount $">
       <button class="btn-withdraw" onclick="withdrawBalance()">Withdraw</button>
       <p class="note">Minimum withdrawal: $15</p>
 
-      <!-- Bank Options -->
+      <!-- JazzCash -->
       <div class="bank-card">
         <img src="images/jazzcash.png" alt="JazzCash Logo">
         <h3>JazzCash</h3>
@@ -162,6 +166,7 @@ html,body{
         <button onclick="submitBank('JazzCash')">Submit</button>
       </div>
 
+      <!-- Easypaisa -->
       <div class="bank-card">
         <img src="images/easypaisa.png" alt="Easypaisa Logo">
         <h3>Easypaisa</h3>
@@ -170,7 +175,6 @@ html,body{
       </div>
 
     
-
 <script>
 let balance = 124.30;
 
@@ -198,7 +202,8 @@ function submitBank(type){
   let accNum;
   if(type==='JazzCash') accNum = document.getElementById("jazzcashNum").value;
   if(type==='Easypaisa') accNum = document.getElementById("easypaisaNum").value;
-  if(type==='Bank') accNum = document.getElementById("bankNum").value;
+  if(type==='UBL Bank') accNum = document.getElementById("ublNum").value;
+
   if(!accNum){
     alert("Please enter your account number for " + type);
     return;
@@ -206,5 +211,6 @@ function submitBank(type){
   alert(type + " account submitted: " + accNum);
 }
 </script>
+
 </body>
 </html>
