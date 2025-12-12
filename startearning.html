@@ -50,7 +50,6 @@
         margin-bottom: 25px;
         border: 1px solid #222;
         box-shadow: 0 6px 20px rgba(0,204,255,0.1);
-        text-align: center;
     }
 
     .converter input {
@@ -86,11 +85,6 @@
         box-shadow: 0 8px 30px rgba(0,204,255,0.2);
     }
 
-    .option-card img {
-        height: 50px;
-        margin-bottom: 12px;
-    }
-
     .option-card h3 {
         font-size: 22px;
         margin-bottom: 10px;
@@ -101,6 +95,12 @@
         opacity: 0.75;
         margin-bottom: 15px;
         line-height: 1.5;
+    }
+
+    .option-card img {
+        max-width: 150px;
+        margin-bottom: 15px;
+        border-radius: 8px;
     }
 
     button {
@@ -136,6 +136,7 @@
         .option-card, .converter { padding: 16px; }
         button { padding: 12px; font-size: 15px; }
         .converter input { width: 100%; margin-bottom: 10px; }
+        .option-card img { max-width: 120px; }
     }
 </style>
 </head>
@@ -161,10 +162,11 @@
 
     <!-- JazzCash Card -->
     <div class="option-card">
-        <img src="https://upload.wikimedia.org/wikipedia/en/6/6b/JazzCash_Logo.svg" alt="JazzCash Logo">
+        <img src="https://images.seeklogo.com/logo-png/61/2/jazz-cash-new-logo-png_seeklogo-613046.png" alt="JazzCash Logo">
         <h3>JazzCash</h3>
         <p class="detail">
-            Buy USDT to start your safe trading journey: <strong>03045724897</strong><br>
+            Buy USDT to start your safe trading journey:<br>
+            <strong>03045724897</strong><br>
             Account Holder: Rehaman Ali Bajwa
         </p>
         <button class="active" onclick="window.location.href='payment.html'">Continue with JazzCash</button>
@@ -182,9 +184,7 @@
 <script>
     const pkrInput = document.getElementById('pkr');
     const usdtOutput = document.getElementById('usdt');
-
-    // Example conversion rate
-    const rate = 0.0043; // 1 PKR = 0.0043 USDT (update as needed)
+    const rate = 0.0043; // 1 PKR = 0.0043 USDT
 
     pkrInput.addEventListener('input', () => {
         const pkr = parseFloat(pkrInput.value) || 0;
