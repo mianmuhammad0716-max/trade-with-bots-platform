@@ -1,5 +1,4 @@
-
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -15,30 +14,11 @@
         font-family: 'Inter', Arial, sans-serif;
         color: #fff;
         padding: 20px;
-        overflow-x: hidden;
-        position: relative;
-    }
-
-    /* Floating crypto particles */
-    .particle {
-        position: absolute;
-        border-radius: 50%;
-        opacity: 0.2;
-        animation: float 20s linear infinite;
-        background: linear-gradient(45deg, #00ffcc, #00ccff);
-    }
-
-    @keyframes float {
-        0% { transform: translateY(0) translateX(0); opacity:0.2; }
-        50% { transform: translateY(-500px) translateX(100px); opacity:0.4; }
-        100% { transform: translateY(0) translateX(0); opacity:0.2; }
     }
 
     .container {
         max-width: 520px;
         margin: auto;
-        position: relative;
-        z-index: 2;
     }
 
     h2 {
@@ -77,12 +57,6 @@
         padding: 10px 20px;
         border-radius: 25px;
         box-shadow: 0 4px 15px rgba(0,204,255,0.4);
-        animation: pulse 2s infinite alternate;
-    }
-
-    @keyframes pulse {
-        0% { transform: scale(1); box-shadow: 0 4px 15px rgba(0,204,255,0.4);}
-        100% { transform: scale(1.05); box-shadow: 0 6px 25px rgba(0,204,255,0.7);}
     }
 
     /* Converter */
@@ -92,25 +66,7 @@
         padding: 20px;
         margin-bottom: 25px;
         border: 1px solid #222;
-        box-shadow: 0 6px 20px rgba(0,204,255,0.1);
         text-align: center;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .converter img.bot {
-        width: 40px;
-        position: absolute;
-        top: 50%;
-        left: -50px;
-        transform: translateY(-50%);
-        animation: moveBot 4s linear infinite;
-    }
-
-    @keyframes moveBot {
-        0% { left: -50px; }
-        50% { left: 100%; }
-        100% { left: -50px; }
     }
 
     .converter input {
@@ -119,13 +75,10 @@
         margin: 5px;
         border-radius: 12px;
         border: none;
-        background: linear-gradient(145deg, #1e1e1e, #111);
+        background: #1a1a1a;
         color: #00ffcc;
         font-size: 16px;
         font-weight: 600;
-        box-shadow: inset 2px 2px 6px rgba(0,255,204,0.2),
-                    inset -2px -2px 6px rgba(0,204,255,0.2);
-        transition: 0.3s;
     }
 
     .converter input:focus {
@@ -151,8 +104,6 @@
         box-shadow: 0 6px 25px rgba(0,204,255,0.1);
         transition: transform 0.2s, box-shadow 0.2s;
         text-align: center;
-        position: relative;
-        overflow: hidden;
     }
 
     .option-card:hover {
@@ -164,16 +115,12 @@
         max-width: 120px;
         height: auto;
         margin-bottom: 12px;
-        position: relative;
-        z-index: 1;
     }
 
     .option-card h3 {
         font-size: 22px;
         margin-bottom: 10px;
         color: #00ccff;
-        position: relative;
-        z-index: 1;
     }
 
     .option-card .detail {
@@ -181,10 +128,14 @@
         opacity: 0.95;
         margin-bottom: 15px;
         line-height: 1.5;
-        color: #00ccff !important;
+        color: #fff !important;
         word-break: break-word;
-        position: relative;
-        z-index: 1;
+    }
+
+    /* Bright JazzCash account number */
+    .option-card .detail strong {
+        color: #00ffdd; /* bright cyan */
+        text-shadow: 0 0 3px #00ffdd;
     }
 
     button {
@@ -221,16 +172,13 @@
         .option-card, .converter { padding: 16px; }
         button { padding: 12px; font-size: 15px; }
         .converter input { width: 100%; margin-bottom: 10px; }
-        .option-card .detail { font-size: 15px; color: #00ffcc; }
+        .option-card .detail { font-size: 15px; }
         .start-note { font-size: 14px; padding: 8px 16px; }
     }
 </style>
 </head>
 
 <body>
-
-<!-- Floating particles -->
-<div id="particles"></div>
 
 <div class="container">
 
@@ -246,7 +194,6 @@
 
     <!-- PKR to USDT Converter -->
     <div class="converter">
-        <img src="images/bot.png" class="bot" alt="Bot">
         <label>Enter amount in PKR:</label>
         <input type="number" id="pkr" placeholder="PKR">
         <input type="text" id="usdt" placeholder="USDT" readonly>
@@ -273,31 +220,16 @@
 </div>
 
 <script>
-    // PKR to USDT converter
     const pkrInput = document.getElementById('pkr');
     const usdtOutput = document.getElementById('usdt');
-    const rate = 0.0043; // 1 PKR = 0.0043 USDT
+
+    const rate = 0.0043; // 1 PKR = 0.0043 USDT (update as needed)
 
     pkrInput.addEventListener('input', () => {
         const pkr = parseFloat(pkrInput.value) || 0;
         const usdt = (pkr * rate).toFixed(4);
         usdtOutput.value = usdt;
     });
-
-    // Generate floating particles
-    const particlesContainer = document.getElementById('particles');
-    const particleCount = 15;
-    for (let i = 0; i < particleCount; i++) {
-        const p = document.createElement('div');
-        p.className = 'particle';
-        const size = Math.random() * 6 + 4 + 'px';
-        p.style.width = size;
-        p.style.height = size;
-        p.style.top = Math.random() * window.innerHeight + 'px';
-        p.style.left = Math.random() * window.innerWidth + 'px';
-        p.style.animationDuration = (Math.random() * 15 + 10) + 's';
-        document.body.appendChild(p);
-    }
 </script>
 
 </body>
