@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -14,7 +13,7 @@
       color: #fff;
     }
 
-    /* Header with bot logo */
+    /* Header */
     header {
       background-color: #111;
       color: #00ccff;
@@ -124,6 +123,12 @@
     }
 
     /* Mobile adjustments */
+    @media (max-width: 1024px) {
+      .chart-grid { grid-template-columns: 1fr; }
+      .big-chart { min-height: 400px; }
+      .small-chart { min-height: 300px; }
+    }
+
     @media (max-width: 768px) {
       header span { font-size: 1.4em; }
       header img { height: 32px; width: 32px; }
@@ -131,10 +136,14 @@
       .hero p { font-size: 0.9em; }
       .hero button { padding: 8px 16px; font-size: 0.9em; }
       .win-badge { font-size: 0.9em; padding: 6px 12px; }
+      .chart-grid { gap: 12px; padding: 8px; }
+    }
 
-      .chart-grid { grid-template-columns: 1fr; gap: 12px; }
-      .big-chart { min-height: 400px; }
-      .small-chart { min-height: 300px; }
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 1.4em; }
+      .hero p { font-size: 0.8em; }
+      .hero button { padding: 6px 14px; font-size: 0.85em; }
+      .win-badge { font-size: 0.8em; padding: 5px 10px; }
     }
 
     footer {
@@ -146,10 +155,9 @@
       font-size: 0.9em;
     }
   </style>
-
 </head>
-<body>
 
+<body>
   <header>
     <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="Bot Logo">
     <span>Trade With Bots</span>
@@ -163,15 +171,11 @@
     <button class="register-btn" title="Coming Soon">Register</button>
   </div>
 
-  <!-- Chart Grid -->
-
   <div class="chart-grid">
     <div class="chart big-chart" id="btc_chart"></div>
     <div class="chart small-chart" id="eth_chart"></div>
     <div class="chart small-chart" id="sol_chart"></div>
   </div>
-
-  <!-- TradingView Widgets -->
 
   <script>
     const createChart = (symbol, container) => {
@@ -196,6 +200,5 @@
   </script>
 
   <footer>© 2025 Trade With Bots | All rights reserved</footer>
-
 </body>
 </html>
