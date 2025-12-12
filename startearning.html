@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Start Earning — Trade With Bots</title>
+<title>Start Earning — With Bots</title>
 
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
@@ -66,6 +66,7 @@
         padding: 20px;
         margin-bottom: 25px;
         border: 1px solid #222;
+        box-shadow: 0 6px 20px rgba(0,204,255,0.1);
         text-align: center;
     }
 
@@ -75,10 +76,13 @@
         margin: 5px;
         border-radius: 12px;
         border: none;
-        background: #1a1a1a;
+        background: linear-gradient(145deg, #1e1e1e, #111);
         color: #00ffcc;
         font-size: 16px;
         font-weight: 600;
+        box-shadow: inset 2px 2px 6px rgba(0,255,204,0.2),
+                    inset -2px -2px 6px rgba(0,204,255,0.2);
+        transition: 0.3s;
     }
 
     .converter input:focus {
@@ -102,13 +106,7 @@
         margin-bottom: 20px;
         border: 1px solid #222;
         box-shadow: 0 6px 25px rgba(0,204,255,0.1);
-        transition: transform 0.2s, box-shadow 0.2s;
         text-align: center;
-    }
-
-    .option-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 30px rgba(0,204,255,0.2);
     }
 
     .option-card img {
@@ -128,14 +126,8 @@
         opacity: 0.95;
         margin-bottom: 15px;
         line-height: 1.5;
-        color: #fff !important;
+        color: #fff;
         word-break: break-word;
-    }
-
-    /* Bright JazzCash account number */
-    .option-card .detail strong {
-        color: #00ffdd; /* bright cyan */
-        text-shadow: 0 0 3px #00ffdd;
     }
 
     button {
@@ -166,14 +158,12 @@
         color: #888;
     }
 
+    /* Make JazzCash account number bright on mobile */
     @media (max-width: 480px) {
-        h2 { font-size: 24px; }
-        h3.urdu { font-size: 20px; }
-        .option-card, .converter { padding: 16px; }
-        button { padding: 12px; font-size: 15px; }
-        .converter input { width: 100%; margin-bottom: 10px; }
-        .option-card .detail { font-size: 15px; }
-        .start-note { font-size: 14px; padding: 8px 16px; }
+        .option-card .detail strong {
+            color: #00ffcc !important; /* bright cyan matching theme */
+            font-weight: 700;
+        }
     }
 </style>
 </head>
@@ -234,3 +224,4 @@
 
 </body>
 </html>
+
