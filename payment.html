@@ -1,163 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>Payments — Trade With Bots</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <style>
-    :root{
-      --bg:#000;
-      --card:#0f1113;
-      --panel:#0b0b0c;
-      --accent:#00ccff;
-      --muted:#9aa;
-      --glass: rgba(255,255,255,0.03);
-      --glass-2: rgba(255,255,255,0.02);
-      --success:#2ee6a7;
-      --danger:#ff6b6b;
-      --radius:12px;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment — Trade With Bots</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
-    html,body{
-      height:100%;
-      margin:0;
-      background:var(--bg);
-      color:#fff;
-      font-family: Inter, "Segoe UI", Roboto, system-ui, Arial;
-    }
+body {
+    margin: 0;
+    font-family: 'Inter', Arial, sans-serif;
+    background: #0d0d0d;
+    color: #fff;
+    padding: 20px;
+}
 
-    .app {
-      display:grid;
-      grid-template-columns:260px 1fr;
-      min-height:100vh;
-      gap:20px;
-    }
+.container {
+    max-width: 520px;
+    margin: auto;
+}
 
-    .sidebar {
-      background:linear-gradient(180deg,var(--card),#0b0b0b);
-      padding:18px;
-      border-radius:var(--radius);
-      box-shadow:0 6px 30px rgba(0,204,255,0.03);
-    }
-    .brand { display:flex; gap:12px; align-items:center; margin-bottom:18px; }
-    .brand img{height:44px; width:44px; border-radius:8px;}
-    .brand h1{font-size:18px; margin:0; color:var(--accent);}
-    .nav { display:flex; flex-direction:column; gap:6px; margin-top:16px; }
-    .nav a{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      padding:10px;
-      border-radius:10px;
-      font-weight:600;
-      font-size:14px;
-      color:#cfeff6;
-      text-decoration:none;
-      transition: background .15s, transform .12s;
-    }
-    .nav a:hover{ background: rgba(0,204,255,0.06); transform: translateY(-2px); }
-    .nav a.active{ background: rgba(0,204,255,0.12); color:#fff; }
-    .small { margin-top:18px; font-size:13px; color:var(--muted);}
-    .main { padding:18px; display:flex; flex-direction:column; gap:18px;}
-    .topbar { display:flex; align-items:center; justify-content:space-between; gap:12px;}
-    .top-title { font-size:18px; color:var(--accent); font-weight:700;}
-    .btn {
-      background:linear-gradient(90deg,var(--accent),#00a8e6);
-      color:#000;
-      padding:10px 14px;
-      border-radius:10px;
-      border:none;
-      cursor:pointer;
-      font-weight:700;
-      transition: background .15s, transform .15s;
-    }
-    .btn:hover { transform: scale(1.05); }
-    .withdraw-btn {
-      background:linear-gradient(90deg,#ff4b4b,#ff2d2d);
-      color:#fff;
-      padding:10px 14px;
-      font-weight:700;
-      border-radius:10px;
-      border:none;
-      cursor:pointer;
-      transition: transform .15s;
-    }
-    .withdraw-btn:hover { transform: scale(1.05); }
-    .card {
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      padding:20px;
-      border-radius:12px;
-      box-shadow:0 6px 20px rgba(0,0,0,0.6);
-      margin-bottom: 0;
-    }
-    .label { font-size:14px; color:var(--muted);}
-    .value { font-size:26px; font-weight:800; margin:10px 0;}
-    input[type=number] {
-      padding:10px;
-      border-radius:10px;
-      border:none;
-      width:100%;
-      margin-top:10px;
-      font-size:16px;
-    }
-    ul li { margin-bottom:8px; font-size:14px; color:#cfeff6;}
-  </style>
+h2 {
+    text-align: center;
+    color: #00ccff;
+    margin-bottom: 5px;
+}
+
+h3 {
+    text-align: center;
+    color: #00ccff;
+    margin-top: 0;
+    font-weight: 600;
+}
+
+p {
+    text-align: center;
+    opacity: 0.85;
+    margin-bottom: 20px;
+}
+
+.bank-card {
+    background: #111;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #222;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.bank-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0,204,255,0.2);
+}
+
+.bank-card img {
+    max-width: 120px;
+    height: auto;
+    margin-bottom: 12px;
+}
+
+.bank-card h3 {
+    margin-bottom: 10px;
+    color: #00ccff;
+}
+
+.bank-card input {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 12px;
+    border: none;
+    font-size: 16px;
+    background: #1e1e1e;
+    color: #fff;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 10px;
+    background: linear-gradient(90deg, #00ffcc, #00ccff);
+    color: #000;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0,204,255,0.5);
+}
+
+@media(max-width:480px){
+    h2 { font-size: 22px; }
+    h3 { font-size: 20px; }
+    .bank-card input { font-size: 15px; }
+    button { font-size: 15px; padding: 12px; }
+}
+</style>
 </head>
 
 <body>
-<div class="app">
+<div class="container">
+    <h2>Provide Your Bank Details</h2>
+    <h3>اپنے بینک کی تفصیلات فراہم کریں</h3>
+    <p>Select your bank and enter your account number to proceed with payment.</p>
 
-  <aside class="sidebar">
-    <div class="brand">
-      <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png">
-      <h1>Trade With Bots</h1>
+    <!-- JazzCash -->
+    <div class="bank-card">
+        <img src="images/jazzcash.png" alt="JazzCash Logo">
+        <h3>JazzCash</h3>
+        <input type="text" placeholder="Enter your JazzCash account number">
+        <button onclick="alert('JazzCash account submitted!')">Submit</button>
     </div>
 
-    <nav class="nav">
-      <a href="dashboard.html">🏠 Dashboard</a>
-      <a href="bots.html">🤖 Bots</a>
-      <a href="signals.html">📈 Signals</a>
-      <a href="payment.html" class="active">💸 Payments</a>
-      <a href="profile.html">👤 Profile</a>
-      <a href="settings.html">⚙️ Settings</a>
-    </nav>
-
-    <div class="small">
-      Logged in as <strong>User</strong>
-    </div>
-  </aside>
-
-  <main class="main">
-
-    <div class="topbar">
-      <div class="top-title">Withdraw Funds</div>
-      <button class="btn" onclick="location.href='dashboard.html'">Back to Dashboard</button>
+    <!-- EasyPaisa -->
+    <div class="bank-card">
+        <img src="images/easypaisa.png" alt="EasyPaisa Logo">
+        <h3>EasyPaisa</h3>
+        <input type="text" placeholder="Enter your EasyPaisa account number">
+        <button onclick="alert('EasyPaisa account submitted!')">Submit</button>
     </div>
 
-    <div class="card" style="flex:1;">
-      <div class="label">Available Balance</div>
-
-      <!-- 👉 FIXED BALANCE = 0 -->
-      <div class="value" id="balanceVal">$0</div>
-
-      <input type="number" placeholder="Enter amount to withdraw" />
-      <button class="withdraw-btn">Confirm Withdraw</button>
+    <!-- Bank Transfer -->
+    <div class="bank-card">
+        <img src="images/bank.png" alt="Bank Logo">
+        <h3>Bank Transfer</h3>
+        <input type="text" placeholder="Enter your bank account number">
+        <button onclick="alert('Bank account submitted!')">Submit</button>
     </div>
-
-    <div class="card">
-      <h3 style="margin:0; color:var(--accent);">Withdrawal Info</h3>
-      <ul>
-        <li>Withdraw securely to your linked account</li>
-        <li>Minimum withdrawal: $15</li>
-        <li>Processing time: 24 hours</li>
-        <li>Support available 24/7</li>
-      </ul>
-    </div>
-
-  </main>
 </div>
-
-<!-- ✔ NO SCRIPT -->
 </body>
 </html>
-
