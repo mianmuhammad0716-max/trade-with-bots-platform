@@ -5,24 +5,124 @@
 <title>Withdraw — Trade With Bots</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <style>
-:root{--bg:#000;--card:#0f1113;--accent:#00ccff;--muted:#9aa;--radius:12px;}
-html,body{margin:0;height:100%;font-family:Inter,sans-serif;background:var(--bg);color:#fff;}
-.app{display:grid;grid-template-columns:260px 1fr;min-height:100vh;gap:20px;}
-.sidebar{background:linear-gradient(180deg,var(--card),#0b0b0b);padding:18px;border-radius:var(--radius);}
-.brand{display:flex;gap:12px;align-items:center;margin-bottom:18px;}
+:root{
+  --bg:#000;
+  --card:#0f1113;
+  --accent:#00ccff;
+  --muted:#9aa;
+  --radius:12px;
+}
+html,body{
+  margin:0;
+  height:100%;
+  font-family:Inter,sans-serif;
+  background:var(--bg);
+  color:#fff;
+}
+.app{
+  display:grid;
+  grid-template-columns:260px 1fr;
+  min-height:100vh;
+  gap:20px;
+}
+.sidebar{
+  background:linear-gradient(180deg,var(--card),#0b0b0b);
+  padding:18px;
+  border-radius:var(--radius);
+}
+.brand{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  margin-bottom:18px;
+}
 .brand img{height:44px;width:44px;border-radius:8px;}
 .brand h1{font-size:18px;margin:0;color:var(--accent);}
-.nav{display:flex;flex-direction:column;gap:6px;margin-top:16px;}
-.nav a{display:flex;align-items:center;gap:12px;padding:10px;border-radius:10px;font-weight:600;font-size:14px;color:#cfeff6;text-decoration:none;transition:background .15s;}
+.nav{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  margin-top:16px;
+}
+.nav a{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:10px;
+  border-radius:10px;
+  font-weight:600;
+  font-size:14px;
+  color:#cfeff6;
+  text-decoration:none;
+  transition:background .15s;
+}
 .nav a:hover{background: rgba(0,204,255,0.06);}
 .nav a.active{background: rgba(0,204,255,0.12);color:#fff;}
 .small{margin-top:18px;font-size:13px;color:var(--muted);}
 .main{padding:18px;display:flex;flex-direction:column;gap:18px;}
 .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;}
 .top-title{font-size:18px;color:var(--accent);font-weight:700;}
-.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:20px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.6);}
-.input-amount{margin-top:12px;padding:10px;border-radius:8px;border:none;width:120px;}
-.btn-withdraw{background:linear-gradient(90deg,#ff4b4b,#ff2d2d);color:#fff;padding:10px 14px;border-radius:10px;border:none;cursor:pointer;font-weight:700;margin-top:12px;}
+.card{
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  padding:20px;
+  border-radius:12px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.6);
+}
+.input-amount{
+  margin-top:12px;
+  padding:10px;
+  border-radius:8px;
+  border:none;
+  width:120px;
+  color:#fff;
+  background:#111;
+}
+.btn-withdraw{
+  background:linear-gradient(90deg,#ff4b4b,#ff2d2d);
+  color:#fff;
+  padding:10px 14px;
+  border-radius:10px;
+  border:none;
+  cursor:pointer;
+  font-weight:700;
+  margin-top:12px;
+}
+.bank-card{
+  background:#111;
+  padding:16px;
+  border-radius:12px;
+  margin-top:15px;
+  text-align:center;
+  border:1px solid #222;
+}
+.bank-card img{
+  max-width:120px;
+  height:auto;
+  margin-bottom:10px;
+}
+.bank-card input{
+  width:90%;
+  padding:10px;
+  border-radius:8px;
+  border:none;
+  margin-bottom:10px;
+  background:#0f1113;
+  color:#fff;
+}
+.bank-card button{
+  width:100%;
+  padding:10px;
+  border-radius:8px;
+  border:none;
+  font-weight:700;
+  cursor:pointer;
+  background:linear-gradient(90deg,#00ffcc,#00ccff);
+  color:#000;
+}
+.note{margin-top:12px;font-size:13px;color:#aaa;}
+@media(max-width:900px){
+  .app{grid-template-columns:1fr;gap:0;}
+}
 </style>
 </head>
 <body>
@@ -34,7 +134,7 @@ html,body{margin:0;height:100%;font-family:Inter,sans-serif;background:var(--bg)
     </div>
     <nav class="nav">
       <a href="dashboard.html">🏠 Dashboard</a>
-      <a href="start-earning.html">💳 Start Earning</a>
+      <a href="startearning.html">💳 Start Earning</a>
       <a href="withdraw.html" class="active">💸 Withdraw</a>
       <a href="profile.html">👤 Profile</a>
       <a href="settings.html">⚙️ Settings</a>
@@ -49,23 +149,69 @@ html,body{margin:0;height:100%;font-family:Inter,sans-serif;background:var(--bg)
 
     <div class="card">
       <div class="label">Available Balance</div>
-      <div class="value" id="balanceVal">$0</div>
+      <div class="value" id="balanceVal">$124.30</div>
       <input type="number" id="withdrawAmt" class="input-amount" placeholder="Amount $">
       <button class="btn-withdraw" onclick="withdrawBalance()">Withdraw</button>
-      <p class="note">Withdraw your balance to your bank or crypto wallet.</p>
+      <p class="note">Minimum withdrawal: $15</p>
+
+      <!-- Bank Options -->
+      <div class="bank-card">
+        <img src="images/jazzcash.png" alt="JazzCash Logo">
+        <h3>JazzCash</h3>
+        <input type="text" placeholder="Enter your JazzCash account number" id="jazzcashNum">
+        <button onclick="submitBank('JazzCash')">Submit</button>
+      </div>
+
+      <div class="bank-card">
+        <img src="images/easypaisa.png" alt="Easypaisa Logo">
+        <h3>Easypaisa</h3>
+        <input type="text" placeholder="Enter your Easypaisa account number" id="easypaisaNum">
+        <button onclick="submitBank('Easypaisa')">Submit</button>
+      </div>
+
+      <div class="bank-card">
+        <img src="images/ubl.png" alt="Bank Logo">
+        <h3>Bank Transfer (UBL)</h3>
+        <input type="text" placeholder="Enter your Bank account number" id="bankNum">
+        <button onclick="submitBank('Bank')">Submit</button>
+      </div>
     </div>
   </main>
 </div>
 
 <script>
-let bal=12430;
-function withdrawBalance(){
-  const amt=parseFloat(document.getElementById("withdrawAmt").value);
-  if(isNaN(amt)||amt<=0||amt>bal){alert("Invalid amount");return;}
-  bal-=amt;
-  document.getElementById("withdrawAmt").value="";
-  document.getElementById("balanceVal").innerText="$"+Math.round(bal);
-  alert("$"+amt+" withdrawn!");
+let balance = 124.30;
+
+function withdrawBalance() {
+  const amt = parseFloat(document.getElementById("withdrawAmt").value);
+  if(isNaN(amt) || amt <= 0){
+    alert("Enter a valid amount!");
+    return;
+  }
+  if(amt < 15){
+    alert("Minimum withdrawal is $15");
+    return;
+  }
+  if(amt > balance){
+    alert("Insufficient balance!");
+    return;
+  }
+  balance -= amt;
+  document.getElementById("balanceVal").innerText = "$" + balance.toFixed(2);
+  document.getElementById("withdrawAmt").value = "";
+  alert("$" + amt.toFixed(2) + " withdrawn successfully!");
+}
+
+function submitBank(type){
+  let accNum;
+  if(type==='JazzCash') accNum = document.getElementById("jazzcashNum").value;
+  if(type==='Easypaisa') accNum = document.getElementById("easypaisaNum").value;
+  if(type==='Bank') accNum = document.getElementById("bankNum").value;
+  if(!accNum){
+    alert("Please enter your account number for " + type);
+    return;
+  }
+  alert(type + " account submitted: " + accNum);
 }
 </script>
 </body>
