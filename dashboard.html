@@ -26,7 +26,6 @@ html,body{
   color:#fff;
   font-family: Inter, "Segoe UI", Roboto, system-ui, Arial;
   overflow-x:hidden;
-  overflow-y:hidden;
 }
 
 .app { 
@@ -43,7 +42,7 @@ html,body{
   border-radius:var(--radius);
   box-shadow:0 6px 30px rgba(0,204,255,0.03);
   height:100%;
-  transition:transform 0.3s ease;
+  transition: transform 0.3s ease;
   z-index:1000;
 }
 
@@ -68,7 +67,7 @@ html,body{
   width:100%;
   height:100%;
   background:rgba(0,0,0,0.4);
-  z-index:9999;
+  z-index:999;
 }
 .overlay.active { display:block; }
 
@@ -99,7 +98,7 @@ html,body{
   display:flex; 
   flex-direction:column; 
   gap:18px; 
-  overflow-y:auto;
+  overflow-y:auto; 
   max-height:100vh;
 }
 .topbar { display:flex; align-items:center; justify-content:space-between; gap:12px; }
@@ -140,11 +139,18 @@ html,body{
 .status-paused { background:#ffd166; }
 .status-off { background:var(--danger); color:#fff; }
 
-/* MOBILE */
 @media(max-width:900px){
   .app { grid-template-columns:1fr; gap:0; }
   .hamburger { display:block; }
-  .sidebar { transform:translateX(-100%); border-radius:0; width:240px; position:fixed; height:100%; }
+  .sidebar { 
+    transform:translateX(-100%);
+    position:fixed; 
+    width:240px; 
+    height:100%;
+    top:0;
+    left:0;
+    z-index:1000;
+  }
   .sidebar.mobile-show { transform:translateX(0); }
   .main.mobile-shift { filter:blur(3px); }
   .grid { grid-template-columns:1fr !important; gap:12px; }
@@ -153,32 +159,10 @@ html,body{
   .top-actions { justify-content:flex-end; }
   .chart-card { min-height:300px; }
   .bots-table { font-size:12px; }
-
-  /* hide card buttons on mobile */
   .card button { display:none; }
-
-  /* Mobile WhatsApp Button */
-  #mobileWhatsApp {
-    display:flex;
-    position:fixed;
-    bottom:18px;
-    right:18px;
-    background:#25D366;
-    color:#fff;
-    border-radius:50px;
-    padding:14px 18px;
-    font-weight:700;
-    font-size:16px;
-    align-items:center;
-    gap:8px;
-    box-shadow:0 6px 20px rgba(0,0,0,0.4);
-    text-decoration:none;
-    z-index:9999;
-  }
 }
 @media(min-width:901px){
   .sidebar { position:static !important; transform:translateX(0) !important; height:auto; }
-  #mobileWhatsApp { display:none; }
 }
 </style>
 </head>
@@ -203,6 +187,9 @@ html,body{
   <a href="withdraw.html">💸 Withdraw</a>
   <a href="profile.html">👤 Profile</a>
   <a href="settings.html">⚙️ Settings</a>
+  <a href="https://wa.me/923001234567" target="_blank" style="color:#25D366; font-weight:700; display:flex; align-items:center; gap:8px; padding:10px; border-radius:10px; margin-top:12px; background: rgba(37, 211, 102, 0.1);">
+    📱 WhatsApp Support
+  </a>
 </nav>
 
 <div class="small">Logged in as <strong>User</strong></div>
@@ -265,9 +252,6 @@ html,body{
 </main>
 </div>
 
-<!-- Mobile WhatsApp Button -->
-<a id="mobileWhatsApp" href="https://wa.me/923001234567" target="_blank">📱 WhatsApp Support</a>
-
 <script>
 /* TRADINGVIEW */
 new TradingView.widget({
@@ -289,22 +273,19 @@ const overlay = document.getElementById("overlay");
 const mainContent = document.getElementById("mainContent");
 
 menuBtn.onclick = () => {
-  if(window.innerWidth <= 900){
-    const isOpen = sidebar.classList.toggle("mobile-show");
-    overlay.classList.toggle("active", isOpen);
-    mainContent.classList.toggle("mobile-shift", isOpen);
-    document.body.style.overflow = isOpen ? 'hidden' : 'hidden';
-  }
+  const isOpen = sidebar.classList.toggle("mobile-show");
+  overlay.classList.toggle("active", isOpen);
+  mainContent.classList.toggle("mobile-shift", isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : 'auto';
 };
 
 overlay.onclick = () => {
   sidebar.classList.remove("mobile-show");
   overlay.classList.remove("active");
   mainContent.classList.remove("mobile-shift");
-  document.body.style.overflow = 'hidden';
+  document.body.style.overflow = 'auto';
 };
 </script>
 
 </body>
 </html>
-
