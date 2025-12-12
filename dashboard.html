@@ -26,6 +26,7 @@ html,body{
   color:#fff;
   font-family: Inter, "Segoe UI", Roboto, system-ui, Arial;
   overflow-x:hidden;
+  overflow-y:hidden; /* prevent body scroll */
 }
 
 .app { 
@@ -67,7 +68,7 @@ html,body{
   width:100%;
   height:100%;
   background:rgba(0,0,0,0.4);
-  z-index:900;
+  z-index:9999;
 }
 .overlay.active { display:block; }
 
@@ -93,7 +94,14 @@ html,body{
 
 .small { margin-top:18px; font-size:13px; color:var(--muted); }
 
-.main { padding:18px; display:flex; flex-direction:column; gap:18px; }
+.main { 
+  padding:18px; 
+  display:flex; 
+  flex-direction:column; 
+  gap:18px; 
+  overflow-y:auto; /* main scrolls, not body */
+  max-height:100vh;
+}
 .topbar { display:flex; align-items:center; justify-content:space-between; gap:12px; }
 
 .top-title { font-size:18px; color:var(--accent); font-weight:700; }
@@ -111,22 +119,7 @@ html,body{
   font-weight:800; color:#000; 
 }
 
-/* ----------------------------------------- */
-/*       FIXED RESPONSIVE GRID LAYOUT        */
-/* ----------------------------------------- */
-
-.grid { 
-  display:grid; 
-  grid-template-columns:1fr;     /* mobile default */
-  gap:18px; 
-}
-
-@media(min-width:1100px){
-  .grid { 
-    grid-template-columns:1fr 420px;   /* desktop layout */
-  }
-}
-
+.grid { display:grid; grid-template-columns:1fr 420px; gap:18px; }
 .left-col { display:flex; flex-direction:column; gap:18px; }
 
 .cards-row { display:flex; gap:12px; flex-wrap:wrap; }
@@ -147,18 +140,20 @@ html,body{
 .status-paused { background:#ffd166; }
 .status-off { background:var(--danger); color:#fff; }
 
-/* MOBILE FIXES */
 @media(max-width:900px){
   .app { grid-template-columns:1fr; gap:0; }
   .hamburger { display:block; }
-  .sidebar { transform:translateX(-100%); border-radius:0; width:240px; }
+  .sidebar { transform:translateX(-100%); border-radius:0; width:240px; position:fixed; height:100%; }
   .sidebar.mobile-show { transform:translateX(0); }
   .main.mobile-shift { filter:blur(3px); }
+  .grid { grid-template-columns:1fr !important; gap:12px; }
   .cards-row { flex-direction:column; }
   .card { width:100% !important; }
   .top-actions { justify-content:flex-end; }
   .chart-card { min-height:300px; }
   .bots-table { font-size:12px; }
+
+  /* hide card buttons on mobile */
   .card button { display:none; }
 }
 
@@ -216,12 +211,10 @@ html,body{
       <button class="btn" style="margin-top:12px;" onclick="location.href='startearning.html'">Start Earning</button>
       <button class="withdraw-btn" style="margin-top:12px;" onclick="location.href='withdraw.html'">Withdraw</button>
     </div>
-
     <div class="card" style="width:180px;">
       <div class="label">Active Bots</div>
       <div class="value">0</div>
     </div>
-
     <div class="card" style="width:180px;">
       <div class="label">Profit Today</div>
       <div class="value" id="profitToday">0</div>
@@ -256,6 +249,7 @@ html,body{
 </div>
 
 <script>
+/* TRADINGVIEW */
 new TradingView.widget({
   autosize:true,
   symbol:"BINANCE:BTCUSDT",
@@ -265,10 +259,10 @@ new TradingView.widget({
   container_id:"tradingview_main"
 });
 
-document.getElementById("notifBtn").onclick = () => { 
-  alert("Notifications coming soon"); 
-};
+/* NOTIFICATION */
+document.getElementById("notifBtn").onclick = () => { alert("Notifications coming soon"); };
 
+/* SIDEBAR TOGGLE MOBILE */
 const menuBtn = document.getElementById("menuBtn");
 const sidebar = document.getElementById("sidebar");
 const overlay = document.getElementById("overlay");
@@ -279,6 +273,7 @@ menuBtn.onclick = () => {
     const isOpen = sidebar.classList.toggle("mobile-show");
     overlay.classList.toggle("active", isOpen);
     mainContent.classList.toggle("mobile-shift", isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : 'hidden'; // prevent body scroll
   }
 };
 
@@ -286,6 +281,7 @@ overlay.onclick = () => {
   sidebar.classList.remove("mobile-show");
   overlay.classList.remove("active");
   mainContent.classList.remove("mobile-shift");
+  document.body.style.overflow = 'hidden';
 };
 </script>
 
