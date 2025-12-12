@@ -87,7 +87,7 @@
 
     .option-card img {
         height: 50px;
-        margin-bottom: 12px;
+        margin-bottom: 10px;
     }
 
     .option-card h3 {
@@ -160,11 +160,10 @@
 
     <!-- JazzCash Card -->
     <div class="option-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/7/70/JazzCash_Logo.png" alt="JazzCash Logo">
+        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/JazzCash_Logo.svg/1200px-JazzCash_Logo.svg.png" alt="JazzCash Logo">
         <h3>JazzCash</h3>
         <p class="detail">
-            Buy USDT to start your safe trading journey.<br>
-            <strong>03045724897</strong><br>
+            Buy USDT to start your safe trading journey: <strong>03045724897</strong><br>
             Account Holder: Rehaman Ali Bajwa
         </p>
         <button class="active" onclick="window.location.href='payment.html'">Continue with JazzCash</button>
@@ -183,7 +182,8 @@
     const pkrInput = document.getElementById('pkr');
     const usdtOutput = document.getElementById('usdt');
 
-    const rate = 0.0043; // 1 PKR = 0.0043 USDT (update if needed)
+    // Example conversion rate
+    const rate = 0.0043; // 1 PKR = 0.0043 USDT (update as needed)
 
     pkrInput.addEventListener('input', () => {
         const pkr = parseFloat(pkrInput.value) || 0;
