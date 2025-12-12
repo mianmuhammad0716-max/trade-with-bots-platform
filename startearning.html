@@ -57,24 +57,24 @@
         padding: 10px 20px;
         border-radius: 25px;
         box-shadow: 0 4px 15px rgba(0,204,255,0.4);
-        animation: gradientMove 3s infinite alternate;
+        animation: pulse 2s infinite;
     }
 
-    @keyframes gradientMove {
-        0% { background-position: 0% 50%; }
-        100% { background-position: 100% 50%; }
+    @keyframes pulse {
+        0% { transform: scale(1); box-shadow: 0 4px 15px rgba(0,204,255,0.4); }
+        50% { transform: scale(1.05); box-shadow: 0 6px 20px rgba(0,255,204,0.5); }
+        100% { transform: scale(1); box-shadow: 0 4px 15px rgba(0,204,255,0.4); }
     }
 
     /* Converter */
     .converter {
-        background: #111;
+        background: linear-gradient(135deg, #0d0d0d, #111);
         border-radius: 15px;
         padding: 20px;
         margin-bottom: 25px;
         border: 1px solid #222;
         box-shadow: 0 6px 20px rgba(0,204,255,0.1);
         text-align: center;
-        background: linear-gradient(135deg, #0d0d0d, #111);
         position: relative;
         overflow: hidden;
     }
@@ -116,7 +116,7 @@
 
     .converter input:focus {
         outline: none;
-        box-shadow: 0 0 10px #00ffcc;
+        box-shadow: 0 0 12px #00ffcc;
         color: #fff;
     }
 
@@ -129,50 +129,40 @@
 
     /* Option Card */
     .option-card {
-        background: #111;
+        background: linear-gradient(145deg, #111, #1a1a1a);
         border-radius: 15px;
         padding: 20px;
         margin-bottom: 20px;
         border: 1px solid #222;
-        box-shadow: 0 6px 25px rgba(0,204,255,0.1);
-        transition: transform 0.2s, box-shadow 0.2s;
+        box-shadow: 0 0 20px rgba(0,204,255,0.2), 0 8px 30px rgba(0,204,255,0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
         text-align: center;
         position: relative;
         overflow: hidden;
+        animation: cardGlow 6s infinite;
     }
 
-    .option-card::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: linear-gradient(120deg, rgba(0,255,204,0.05), rgba(0,204,255,0.05), rgba(0,255,204,0.05));
-        transform: rotate(45deg);
-        animation: shine 4s infinite linear;
-        pointer-events: none;
+    @keyframes cardGlow {
+        0% { box-shadow: 0 0 15px rgba(0,204,255,0.3); }
+        50% { box-shadow: 0 0 25px rgba(0,255,204,0.5); }
+        100% { box-shadow: 0 0 15px rgba(0,204,255,0.3); }
     }
 
     .option-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 30px rgba(0,204,255,0.2);
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 0 30px rgba(0,204,255,0.5), 0 10px 40px rgba(0,204,255,0.2);
     }
 
     .option-card img {
         max-width: 120px;
         height: auto;
         margin-bottom: 12px;
-        position: relative;
-        z-index: 1;
     }
 
     .option-card h3 {
         font-size: 22px;
         margin-bottom: 10px;
         color: #00ccff;
-        position: relative;
-        z-index: 1;
     }
 
     .option-card .detail {
@@ -182,8 +172,12 @@
         line-height: 1.5;
         color: #fff !important;
         word-break: break-word;
-        position: relative;
-        z-index: 1;
+    }
+
+    .option-card .bank-number {
+        color: #00ffff;
+        font-weight: 700;
+        text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
     }
 
     button {
@@ -194,7 +188,7 @@
         font-size: 16px;
         font-weight: 700;
         cursor: pointer;
-        transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+        transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
     }
 
     button.active {
@@ -204,8 +198,8 @@
     }
 
     button.active:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 25px rgba(0,204,255,0.7);
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 0 6px 25px rgba(0,204,255,0.7), 0 0 20px rgba(0,255,204,0.5);
     }
 
     button.disabled {
@@ -252,7 +246,8 @@
         <img src="images/jazzcash.png" alt="JazzCash Logo">
         <h3>JazzCash</h3>
         <p class="detail">
-            Buy USDT to start your safe trading journey: <strong style="color:#00ffcc;">03045724897</strong><br>
+            Buy USDT to start your safe trading journey: 
+            <span class="bank-number">03045724897</span><br>
             Account Holder: <strong>Rehaman Ali Bajwa</strong>
         </p>
         <button class="active" onclick="window.location.href='payment.html'">Continue with JazzCash</button>
