@@ -10,133 +10,122 @@
   --card:#0f1113;
   --accent:#00ccff;
   --muted:#9aa;
+  --radius:12px;
   --success:#2ee6a7;
   --danger:#ff6b6b;
-  --neutral:#fff;
-  --radius:12px;
+  --signal-buy:#2ee6a7;
+  --signal-sell:#ff4b4b;
+  --signal-hold:#aaa;
 }
-html,body{
+html, body {
   margin:0;
+  height:100%;
   font-family:Inter,sans-serif;
   background:var(--bg);
   color:#fff;
-  height:100%;
 }
-.app{
+.app {
   display:grid;
   grid-template-columns:260px 1fr;
   min-height:100vh;
   gap:20px;
 }
-/* Sidebar */
-.sidebar{
+.sidebar {
   background:linear-gradient(180deg,var(--card),#0b0b0b);
   padding:18px;
+  border-radius:var(--radius);
   display:flex;
   flex-direction:column;
-  gap:10px;
-  border-radius:var(--radius);
 }
-.brand{
+.brand {
   display:flex;
   align-items:center;
   gap:10px;
   margin-bottom:18px;
 }
-.brand img{height:44px;width:44px;border-radius:8px;}
-.brand h1{margin:0;color:var(--accent);font-size:18px;}
-.nav{display:flex;flex-direction:column;gap:6px;}
-.nav a{
-  display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;
-  color:#cfeff6;text-decoration:none;transition:0.2s;
-}
-.nav a.active{background: rgba(0,204,255,0.12);color:#fff;}
-.nav a:hover{background: rgba(0,204,255,0.06);}
-.nav a.whatsapp{background:#25D366;color:#fff;font-weight:700;justify-content:flex-start;box-shadow:0 0 10px #25D366;}
-.nav a.whatsapp:hover{box-shadow:0 0 20px #25D366;transform:translateY(-2px);}
-.small{margin-top:auto;font-size:13px;color:var(--muted);}
-
-/* Hamburger + Mobile */
-.hamburger{
-  display:none;
-  font-size:26px;
+.brand img {height:44px;width:44px;border-radius:8px;}
+.brand h1 {margin:0;color:var(--accent);font-size:18px;}
+.nav {display:flex;flex-direction:column;gap:6px;}
+.nav a {
+  display:flex;
+  align-items:center;
+  gap:10px;
   padding:10px;
-  cursor:pointer;
-  background:none;
-  border:none;
-  color:#fff;
-  position:fixed;
-  top:12px;
-  left:12px;
-  z-index:2000;
+  border-radius:10px;
+  color:#cfeff6;
+  text-decoration:none;
+  transition:0.2s;
 }
-.overlay{
-  display:none;
-  position:fixed;top:0;left:0;width:100%;height:100%;
-  background:rgba(0,0,0,0.4);z-index:999;
+.nav a.active {background: rgba(0,204,255,0.12);color:#fff;}
+.nav a:hover {background: rgba(0,204,255,0.06);}
+.nav a.whatsapp {
+  background:#25D366;color:#fff;font-weight:700;justify-content:flex-start;text-align:left;
+  box-shadow:0 0 10px #25D366;transition:0.3s;margin-top:10px;
 }
-
-/* Main */
-.main{
+.nav a.whatsapp:hover {box-shadow:0 0 20px #25D366;transform:translateY(-2px);}
+.small {margin-top:auto;font-size:13px;color:var(--muted);}
+.main {
   padding:18px;
   display:flex;
   flex-direction:column;
-  gap:16px;
-  margin-left:260px;
+  gap:18px;
 }
-.topbar{
-  font-size:20px;
-  font-weight:700;
+.topbar {
+  font-size:18px;
   color:var(--accent);
+  font-weight:700;
+  margin-bottom:12px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
-
-/* Table */
-.table-wrapper{
+.table-wrapper {
   background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
   padding:18px;
   border-radius:12px;
   box-shadow:0 6px 20px rgba(0,0,0,0.6);
   overflow-x:auto;
 }
-.table{
+.table {
   width:100%;
   border-collapse:collapse;
 }
-.table th, .table td{
-  padding:10px 12px;
+.table th, .table td {
+  padding:12px 10px;
+  font-size:14px;
   text-align:left;
 }
-.table th{
-  color:var(--muted);
-  border-bottom:1px solid rgba(255,255,255,0.1);
-  font-size:13px;
+.table th {color:var(--muted);}
+.table tr {border-bottom:1px solid rgba(255,255,255,0.05);}
+.table tr:last-child {border-bottom:0;}
+.change-up {color:var(--success);}
+.change-down {color:var(--danger);}
+.signal-buy {color:var(--signal-buy); font-weight:700;}
+.signal-sell {color:var(--signal-sell); font-weight:700;}
+.signal-hold {color:var(--signal-hold); font-weight:700;}
+.btn-refresh {
+  background:linear-gradient(90deg,var(--accent),#00a8e6);
+  border:none;padding:8px 12px;color:#000;border-radius:8px;
+  cursor:pointer;font-weight:700;
 }
-.table td{font-size:14px;}
-.price{font-weight:700;}
-.change-up{color:var(--success);}
-.change-down{color:var(--danger);}
-.signal-buy{color:var(--success);font-weight:700;}
-.signal-sell{color:var(--danger);font-weight:700;}
-.signal-hold{color:var(--neutral);font-weight:700;}
-
-/* Responsive */
 @media(max-width:900px){
-  .app{grid-template-columns:1fr;}
-  .sidebar{position:fixed;top:0;left:-260px;height:100%;z-index:1000;transition:0.3s;}
-  .sidebar.active{left:0;}
-  .main{margin-left:0;}
-  .hamburger{display:block;}
-  .overlay.active{display:block;}
+  .app{grid-template-columns:1fr;gap:0;}
+  .sidebar{position:fixed;top:0;left:-260px;height:100%;z-index:999;transition:0.3s;}
+  .sidebar.show{left:0;}
+  .main{padding:12px;}
 }
+.hamburger {
+  display:none;font-size:28px;padding:10px;cursor:pointer;background:none;border:none;color:#fff;
+}
+@media(max-width:900px){.hamburger{display:block;position:fixed;top:10px;left:10px;z-index:1000;}}
 </style>
 </head>
 <body>
 
 <button class="hamburger" id="menuBtn">☰</button>
-<div class="overlay" id="overlay"></div>
 
 <div class="app">
-  <!-- Sidebar -->
+  <!-- SIDEBAR -->
   <aside class="sidebar" id="sidebar">
     <div class="brand">
       <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="Logo">
@@ -145,20 +134,25 @@ html,body{
     <nav class="nav">
       <a href="dashboard.html">🏠 Dashboard</a>
       <a href="bots.html">🤖 Bots</a>
-      <a class="active">📈 Signals</a>
+      <a href="signals.html" class="active">📈 Signals</a>
       <a href="profile.html">👤 Profile</a>
       <a href="settings.html">⚙ Settings</a>
       <a href="payment.html">💳 Payments</a>
       <a href="withdraw.html">💸 Withdraw</a>
       <a href="login.html">Logout</a>
-      <a href="https://wa.me/923001234567" target="_blank" class="whatsapp">💬 WhatsApp Support</a>
+      <a href="https://wa.me/923001234567" target="_blank" class="whatsapp">
+        💬 WhatsApp Support
+      </a>
     </nav>
     <div class="small">Logged in anonymously</div>
   </aside>
 
-  <!-- Main -->
+  <!-- MAIN -->
   <main class="main">
-    <div class="topbar">Live Crypto Prices & Signals</div>
+    <div class="topbar">
+      Live Crypto Signals & Prices
+      <button class="btn-refresh" onclick="fetchPrices()">🔄 Refresh</button>
+    </div>
 
     <div class="table-wrapper">
       <table class="table">
@@ -170,61 +164,34 @@ html,body{
             <th>Signal</th>
           </tr>
         </thead>
-        <tbody id="coinTable">
-          <!-- JS will fill here -->
-        </tbody>
+        <tbody id="coinTable"></tbody>
       </table>
     </div>
   </main>
 </div>
 
 <script>
-// Sidebar mobile
-const menuBtn = document.getElementById('menuBtn');
-const sidebar = document.getElementById('sidebar');
-const overlay = document.getElementById('overlay');
-menuBtn.onclick = () => {
-  sidebar.classList.toggle('active');
-  overlay.classList.toggle('active');
-};
-overlay.onclick = () => {
-  sidebar.classList.remove('active');
-  overlay.classList.remove('active');
-};
+const menuBtn = document.getElementById("menuBtn");
+const sidebar = document.getElementById("sidebar");
+menuBtn.onclick = () => sidebar.classList.toggle("show");
 
-// Coins to show
-const coinIds = [
-  "bitcoin","ethereum","binancecoin","solana",
-  "cardano","ripple","dogecoin","polkadot",
-  "matic-network","litecoin","chainlink","avalanche-2",
-  "tron","stellar","shiba-inu"
-];
-
-// Fetch live prices
 async function fetchPrices(){
   try{
-    const url = https://api.coingecko.com/api/v3/simple/price?ids=${coinIds.join()}&vs_currencies=usd&include_24hr_change=true;
-    const res = await fetch(url);
+    const res = await fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,ethereum,binancecoin,solana,cardano,ripple,dogecoin,polkadot,matic-network,litecoin,chainlink,avalanche-2,tron,stellar,shiba-inu&order=market_cap_desc&per_page=15&page=1&sparkline=false");
     const data = await res.json();
     const table = document.getElementById("coinTable");
     table.innerHTML = "";
 
-    coinIds.forEach(id => {
-      const coin = data[id];
-      if(!coin) return;
-      let price = coin.usd;
-      let change = coin.usd_24h_change;
-
-      // Signal logic
+    data.forEach(coin => {
       let signal = "Hold";
-      if(change >= 2) signal = "Buy";
-      else if(change <= -2) signal = "Sell";
+      if(coin.price_change_percentage_24h >= 2) signal = "Buy";
+      else if(coin.price_change_percentage_24h <= -2) signal = "Sell";
 
       const tr = document.createElement("tr");
       tr.innerHTML = `
-        <td>${id.replace("-"," ").toUpperCase()}</td>
-        <td class="price">$${price.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}</td>
-        <td class="${change>=0?'change-up':'change-down'}">${change>=0?"+":""}${change.toFixed(2)}%</td>
+        <td>${coin.name}</td>
+        <td class="price">$${coin.current_price.toLocaleString(undefined,{minimumFractionDigits:2, maximumFractionDigits:2})}</td>
+        <td class="${coin.price_change_percentage_24h>=0?'change-up':'change-down'}">${coin.price_change_percentage_24h>=0?"+":""}${coin.price_change_percentage_24h.toFixed(2)}%</td>
         <td class="signal-${signal.toLowerCase()}">${signal}</td>
       `;
       table.appendChild(tr);
@@ -234,9 +201,8 @@ async function fetchPrices(){
   }
 }
 
-// Initial fetch + auto refresh
+// Initial load
 fetchPrices();
-setInterval(fetchPrices, 60000);
 </script>
 
 </body>
