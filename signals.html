@@ -4,312 +4,227 @@
 <meta charset="UTF-8">
 <title>Signals — Trade With Bots</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <style>
 :root{
   --bg:#000;
   --card:#0f1113;
   --accent:#00ccff;
   --muted:#9aa;
-  --success:#2ee6a7;
-  --danger:#ff6b6b;
   --radius:14px;
 }
-
-html,body{
+body{
   margin:0;
   background:var(--bg);
   color:#fff;
-  font-family:Inter,system-ui,Arial;
+  font-family:Inter,system-ui;
+  overflow-x:hidden;
 }
-
-.app{
-  display:grid;
-  grid-template-columns:260px 1fr;
-  min-height:100vh;
-  gap:20px;
-  padding:20px;
-}
-
-/* SIDEBAR */
+.app{display:grid;grid-template-columns:260px 1fr;min-height:100vh;gap:20px;}
 .sidebar{
   background:linear-gradient(180deg,var(--card),#0b0b0b);
   padding:18px;
   border-radius:var(--radius);
+  box-shadow:0 6px 30px rgba(0,204,255,0.03);
+  height:100%;
+  transition: transform 0.3s ease;
+  z-index:1000;
+  position:fixed;
+  left:0;
+  top:0;
+  width:240px;
 }
-.brand{
-  display:flex;
-  gap:10px;
-  align-items:center;
-  margin-bottom:18px;
-}
-.brand img{
-  width:44px;
-  height:44px;
-  border-radius:8px;
-}
-.brand h1{
-  margin:0;
-  color:var(--accent);
-  font-size:18px;
-}
-
-.nav{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-}
+.sidebar.mobile-hide{transform:translateX(-100%);}
+.brand{display:flex;align-items:center;gap:10px;margin-bottom:18px;}
+.brand img{height:44px;width:44px;border-radius:8px;}
+.brand h1{margin:0;color:var(--accent);font-size:18px;}
+.nav{display:flex;flex-direction:column;gap:6px;}
 .nav a{
+  display:flex;
+  align-items:center;
+  gap:10px;
   padding:10px;
   border-radius:10px;
-  font-weight:600;
-  font-size:14px;
   color:#cfeff6;
   text-decoration:none;
+  transition:0.2s;
 }
-.nav a.active{
-  background:rgba(0,204,255,.12);
+.nav a.active{background: rgba(0,204,255,0.12);color:#fff;}
+.nav a:hover{background: rgba(0,204,255,0.06);}
+.nav a.whatsapp{
+  background:#25D366;color:#fff;font-weight:700;justify-content:flex-start;box-shadow:0 0 10px #25D366;
+  transition:0.3s;margin-top:12px;
 }
-.nav a:hover{
-  background:rgba(0,204,255,.06);
+.nav a.whatsapp:hover{box-shadow:0 0 20px #25D366;transform:translateY(-2px);}
+.small{margin-top:auto;font-size:13px;color:var(--muted);}
+.hamburger{
+  display:none;
+  font-size:26px;
+  padding:10px;
+  cursor:pointer;
+  background:none;
+  border:none;
+  color:#fff;
+  position:fixed;
+  top:12px;
+  left:12px;
+  z-index:2000;
 }
-
-.small{
-  margin-top:18px;
-  font-size:13px;
-  color:var(--muted);
+.overlay{
+  display:none;
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(0,0,0,0.4);
+  z-index:999;
 }
 
 /* MAIN */
 .main{
+  padding:18px;
   display:flex;
   flex-direction:column;
   gap:18px;
+  margin-left:260px;
 }
-
-.topbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-.title{
-  font-size:22px;
-  font-weight:800;
-  color:var(--accent);
-}
-.accuracy{
-  background:rgba(46,230,167,.15);
-  color:var(--success);
-  padding:8px 12px;
-  border-radius:20px;
-  font-weight:800;
-  font-size:13px;
-}
-
-/* SIGNAL GRID */
-.signals{
+.topbar{font-size:22px;color:var(--accent);font-weight:700;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;}
+.grid{
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-  gap:16px;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:14px;
 }
-
-.signal{
-  position:relative;
+.coin{
   background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01));
-  padding:16px;
-  border-radius:14px;
-  border:1px solid rgba(255,255,255,.05);
-  box-shadow:0 6px 20px rgba(0,0,0,.6);
+  padding:14px;
+  border-radius:var(--radius);
+  border:1px solid rgba(255,255,255,.06);
 }
-
-.signal.locked{
-  filter:blur(4px);
-  pointer-events:none;
-}
-
-.signal-header{
+.coin-header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:10px;
+  margin-bottom:8px;
 }
-
-.pair{
-  font-size:18px;
-  font-weight:800;
-}
-
-.buy{
-  background:var(--success);
-  color:#000;
-  padding:6px 10px;
-  border-radius:20px;
-  font-size:12px;
-  font-weight:800;
-}
-
-.sell{
-  background:var(--danger);
-  color:#fff;
-  padding:6px 10px;
-  border-radius:20px;
-  font-size:12px;
-  font-weight:800;
-}
-
-.body{
-  font-size:14px;
-  line-height:1.7;
-}
-.body span{
-  color:var(--muted);
-}
-
-.meta{
-  margin-top:10px;
-  display:flex;
-  justify-content:space-between;
-  font-size:12px;
-  color:var(--muted);
-}
-
-.status{
-  margin-top:12px;
-  text-align:center;
-  padding:8px;
-  border-radius:10px;
-  font-weight:800;
-  font-size:13px;
-}
-
-.active{
-  background:rgba(46,230,167,.15);
-  color:var(--success);
-}
-
-.hit{
-  background:rgba(0,204,255,.15);
-  color:var(--accent);
-}
-
-/* LOCK OVERLAY */
-.lock-overlay{
-  position:absolute;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:14px;
-  background:rgba(0,0,0,.75);
-}
-
-.lock-box{
-  text-align:center;
-}
-.lock-box h3{
-  margin:0 0 6px;
-  font-size:18px;
-}
-.lock-box p{
-  font-size:13px;
-  color:var(--muted);
-}
-.unlock-btn{
-  margin-top:10px;
-  padding:10px 16px;
-  border-radius:12px;
-  background:linear-gradient(90deg,var(--accent),#009ad6);
-  color:#000;
-  font-weight:900;
-  border:none;
-  cursor:pointer;
-}
+.coin h3{margin:0;font-size:15px;}
+.dex{font-size:12px;color:#00ffcc;text-decoration:none;}
+.price-box{margin-top:6px;}
+.price{font-size:18px;font-weight:800;}
+.change{font-size:13px;margin-top:2px;}
+.green{color:#2ee6a7;}
+.red{color:#ff6b6b;}
 
 /* MOBILE */
 @media(max-width:900px){
-  .app{
-    grid-template-columns:1fr;
-    padding:12px;
-  }
+  .app{grid-template-columns:1fr;}
+  .hamburger{display:block;}
+  .main{margin-left:0;}
+  .sidebar{transform:translateX(-100%);border-radius:0;}
+  .sidebar.mobile-show{transform:translateX(0);}
+  .overlay.active{display:block;}
 }
 </style>
 </head>
-
 <body>
 
+<button class="hamburger" id="menuBtn">☰</button>
+<div class="overlay" id="overlay"></div>
+
 <div class="app">
-
-<!-- SIDEBAR -->
-<aside class="sidebar">
-  <div class="brand">
-    <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png">
-    <h1>Trade With Bots</h1>
-  </div>
-
-  <nav class="nav">
-    <a href="dashboard.html">🏠 Dashboard</a>
-    <a href="bots.html">🤖 Bots</a>
-    <a class="active">📈 Signals</a>
-    <a href="startearning.html">💳 Start Earning</a>
-    <a href="withdraw.html">💸 Withdraw</a>
-  </nav>
-
-  <div class="small">Premium AI Signals</div>
-</aside>
-
-<!-- MAIN -->
-<main class="main">
-
-  <div class="topbar">
-    <div class="title">Live Trading Signals</div>
-    <div class="accuracy">Accuracy 87%</div>
-  </div>
-
-  <div class="signals">
-
-    <!-- UNLOCKED SIGNAL -->
-    <div class="signal">
-      <div class="signal-header">
-        <div class="pair">BTCUSDT</div>
-        <div class="buy">BUY</div>
-      </div>
-
-      <div class="body">
-        <div><span>Entry:</span> 42,500</div>
-        <div><span>Take Profit:</span> 43,800</div>
-        <div><span>Stop Loss:</span> 41,900</div>
-      </div>
-
-      <div class="meta">
-        <div>⏰ 15m ago</div>
-        <div>🎯 Scalping</div>
-      </div>
-
-      <div class="status active">ACTIVE</div>
+  <aside class="sidebar mobile-hide" id="sidebar">
+    <div class="brand">
+      <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png">
+      <h1>Trade With Bots</h1>
     </div>
+    <nav class="nav">
+      <a href="dashboard.html">🏠 Dashboard</a>
+      <a class="active">📈 Signals</a>
+      <a href="bots.html">🤖 Bots</a>
+      <a href="startearning.html">💳 Start Earning</a>
+      <a href="withdraw.html">💸 Withdraw</a>
+      <a href="profile.html">👤 Profile</a>
+      <a href="settings.html">⚙ Settings</a>
+      <a href="login.html">Logout</a>
+      <a href="https://wa.me/923001234567" target="_blank" class="whatsapp">
+        💬 WhatsApp Support
+      </a>
+    </nav>
+    <div class="small">Logged in anonymously</div>
+  </aside>
 
-    <!-- LOCKED SIGNAL -->
-    <div class="signal locked">
-      <div class="signal-header">
-        <div class="pair">ETHUSDT</div>
-        <div class="sell">SELL</div>
-      </div>
-
-      <div class="lock-overlay">
-        <div class="lock-box">
-          <h3>🔒 Premium Signal</h3>
-          <p>Unlock to view full details</p>
-          <button class="unlock-btn" onclick="location.href='payment.html'">
-            Unlock Premium
-          </button>
-        </div>
-      </div>
+  <main class="main">
+    <div class="topbar">Live Market Signals</div>
+    <div class="grid" id="coinsGrid">
+      <!-- Coin cards generated by JS -->
     </div>
-
-  </div>
-
-</main>
+  </main>
 </div>
+
+<script>
+// SIDEBAR TOGGLE
+const menuBtn = document.getElementById("menuBtn");
+const sidebar = document.getElementById("sidebar");
+const overlay = document.getElementById("overlay");
+
+menuBtn.onclick = () => {
+  sidebar.classList.toggle("mobile-show");
+  overlay.classList.toggle("active");
+};
+overlay.onclick = () => {
+  sidebar.classList.remove("mobile-show");
+  overlay.classList.remove("active");
+};
+
+// COINS DATA
+const coins = [
+  {symbol:'BTCUSDT', name:'BTC / USDT', base:27000},
+  {symbol:'ETHUSDT', name:'ETH / USDT', base:1700},
+  {symbol:'SOLUSDT', name:'SOL / USDT', base:22},
+  {symbol:'BNBUSDT', name:'BNB / USDT', base:330},
+  {symbol:'ADAUSDT', name:'ADA / USDT', base:0.36},
+  {symbol:'XRPUSDT', name:'XRP / USDT', base:0.48},
+  {symbol:'DOGEUSDT', name:'DOGE / USDT', base:0.07},
+  {symbol:'LTCUSDT', name:'LTC / USDT', base:85},
+  {symbol:'DOTUSDT', name:'DOT / USDT', base:5.5},
+  {symbol:'MATICUSDT', name:'MATIC / USDT', base:1.2}
+];
+
+// Generate coin cards
+const coinsGrid = document.getElementById("coinsGrid");
+coins.forEach(coin=>{
+  const card = document.createElement("div");
+  card.className="coin";
+  card.innerHTML=`
+    <div class="coin-header">
+      <h3>${coin.name}</h3>
+      <a class="dex" href="https://dexscreener.com" target="_blank">DEX</a>
+    </div>
+    <div class="price-box">
+      <div class="price" id="${coin.symbol}">$0</div>
+      <div class="change" id="${coin.symbol}Change">0%</div>
+    </div>
+  `;
+  coinsGrid.appendChild(card);
+});
+
+// Random price simulation
+function randomPrice(base){
+  let change = (Math.random()*2-1).toFixed(2);
+  let price = (base + parseFloat(change)).toFixed(2);
+  return {price, change};
+}
+
+// Update all coins
+function updatePrices(){
+  coins.forEach(c=>{
+    const p = randomPrice(c.base);
+    document.getElementById(c.symbol).innerText="$"+p.price;
+    const ch = document.getElementById(c.symbol+'Change');
+    ch.innerText=p.change+"%";
+    ch.className="change "+(p.change>=0?"green":"red");
+  });
+}
+setInterval(updatePrices,2000);
+updatePrices();
+</script>
 
 </body>
 </html>
