@@ -1,199 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trade With Bots</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  <style>
-    /* Global Styles */
-    body {
-      margin: 0;
-      font-family: 'Roboto', sans-serif;
-      background-color: #0B1B2A; /* Dark dashboard blue */
-      color: #ffffff;
-    }
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-    button {
-      cursor: pointer;
-      border: none;
-      border-radius: 5px;
-      font-weight: 600;
-    }
+<meta charset="utf-8" />
+<title>Trade With Bots — Landing Page</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 
-    /* Navbar */
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 50px;
-      background-color: #0B1B2A;
-      border-bottom: 1px solid #1C2C3F;
-    }
-    .navbar .logo {
-      font-size: 24px;
-      font-weight: 700;
-      color: #00BFFF; /* Accent blue */
-    }
-    .navbar .nav-links a {
-      margin-left: 30px;
-      font-weight: 500;
-      transition: color 0.3s;
-    }
-    .navbar .nav-links a:hover {
-      color: #00BFFF;
-    }
+<style>
+:root{
+  --bg:#000;
+  --card:#0f1113;
+  --panel:#0b0b0c;
+  --accent:#00ccff;
+  --muted:#9aa;
+  --glass: rgba(255,255,255,0.03);
+  --radius:12px;
+}
 
-    /* Hero Section */
-    .hero {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 100px 50px;
-      background: linear-gradient(90deg, #0B1B2A 0%, #11283C 100%);
-    }
-    .hero-content {
-      max-width: 600px;
-    }
-    .hero-content h1 {
-      font-size: 48px;
-      margin-bottom: 20px;
-      color: #00BFFF;
-    }
-    .hero-content p {
-      font-size: 18px;
-      margin-bottom: 30px;
-      line-height: 1.6;
-      color: #ffffff;
-    }
-    .hero-content button {
-      background-color: #00BFFF;
-      color: #0B1B2A;
-      padding: 15px 30px;
-      font-size: 16px;
-      transition: background 0.3s;
-    }
-    .hero-content button:hover {
-      background-color: #0091CC;
-    }
-    .hero-image img {
-      max-width: 500px;
-      width: 100%;
-    }
+html,body{
+  height:100%;
+  margin:0;
+  background:var(--bg);
+  color:#fff;
+  font-family: Inter, "Segoe UI", Roboto, system-ui, Arial;
+  overflow-x:hidden;
+}
 
-    /* Features Section */
-    .features {
-      display: flex;
-      justify-content: space-around;
-      padding: 80px 50px;
-      background-color: #0C2033;
-      flex-wrap: wrap;
-      gap: 40px;
-    }
-    .feature-card {
-      background-color: #11283C;
-      padding: 30px;
-      border-radius: 10px;
-      flex: 1 1 250px;
-      max-width: 300px;
-      transition: transform 0.3s;
-    }
-    .feature-card:hover {
-      transform: translateY(-10px);
-    }
-    .feature-card h3 {
-      color: #00BFFF;
-      margin-bottom: 15px;
-    }
-    .feature-card p {
-      color: #ffffff;
-      line-height: 1.5;
-    }
+.container{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  min-height:100vh;
+  padding:20px;
+  text-align:center;
+}
 
-    /* Footer */
-    .footer {
-      background-color: #0B1B2A;
-      padding: 50px;
-      text-align: center;
-      border-top: 1px solid #1C2C3F;
-    }
-    .footer p {
-      margin: 10px 0;
-      color: #ffffff;
-      font-size: 14px;
-    }
+h1{
+  font-size:48px;
+  color:var(--accent);
+  margin-bottom:12px;
+}
 
-    /* Responsive */
-    @media (max-width: 900px) {
-      .hero {
-        flex-direction: column;
-        text-align: center;
-        padding: 80px 20px;
-      }
-      .hero-image {
-        margin-top: 40px;
-      }
-      .features {
-        flex-direction: column;
-        align-items: center;
-      }
-    }
-  </style>
+p{
+  font-size:18px;
+  color:var(--muted);
+  margin-bottom:24px;
+  max-width:600px;
+}
+
+.btn{
+  background:linear-gradient(90deg,var(--accent),#00a8e6);
+  color:#000;
+  padding:14px 28px;
+  border-radius:12px;
+  font-weight:700;
+  font-size:16px;
+  border:none;
+  cursor:pointer;
+  transition:transform .2s;
+  text-decoration:none;
+}
+
+.btn:hover{ transform:scale(1.05); }
+
+.hero-image{
+  margin-top:40px;
+  max-width:600px;
+  width:100%;
+  border-radius:12px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.5);
+}
+
+footer{
+  margin-top:60px;
+  font-size:14px;
+  color:var(--muted);
+}
+
+@media(max-width:768px){
+  h1{ font-size:36px; }
+  p{ font-size:16px; }
+  .btn{ padding:12px 24px; font-size:15px; }
+  .hero-image{ margin-top:24px; }
+}
+</style>
 </head>
 <body>
 
-  <!-- Navbar -->
-  <nav class="navbar">
-    <div class="logo">Trade With Bots</div>
-    <div class="nav-links">
-      <a href="#">Home</a>
-      <a href="#">Features</a>
-      <a href="#">About</a>
-      <a href="#">Contact</a>
-      <a href="#"><button>Get Started</button></a>
-    </div>
-  </nav>
-
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-content">
-      <h1>Trade Smarter with Trade With Bots</h1>
-      <p>Automate your trading strategies, maximize your profits, and stay ahead in the crypto market. Experience seamless trading with our advanced bot solutions.</p>
-      <button>Start Trading</button>
-    </div>
-    <div class="hero-image">
-      <img src="https://i.ibb.co/xmLhV6S/crypto-hero.png" alt="Trading Illustration">
-    </div>
-  </section>
-
-  <!-- Features Section -->
-  <section class="features">
-    <div class="feature-card">
-      <h3>Automated Bots</h3>
-      <p>Run multiple trading bots with precision and efficiency without manual intervention.</p>
-    </div>
-    <div class="feature-card">
-      <h3>Real-Time Analytics</h3>
-      <p>Track market trends and make informed decisions with our advanced analytics dashboard.</p>
-    </div>
-    <div class="feature-card">
-      <h3>Secure & Reliable</h3>
-      <p>We prioritize security so your funds and trades remain safe 24/7.</p>
-    </div>
-    <div class="feature-card">
-      <h3>Multi-Exchange Support</h3>
-      <p>Connect multiple exchanges and manage all your trades from a single platform.</p>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <p>&copy; 2025 Trade With Bots. All Rights Reserved.</p>
-    <p>Designed with ❤ for crypto traders</p>
-  </footer>
+<div class="container">
+  <h1>Trade With Bots</h1>
+  <p>Trade cryptocurrencies effortlessly with our smart trading bots. Start trading safely and maximize your profits.</p>
+  <a href="login.html" class="btn">Start Trading</a>
+  <img class="hero-image" src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="Trading Illustration">
+  <footer>© 2025 Trade With Bots. All rights reserved.</footer>
+</div>
 
 </body>
 </html>
