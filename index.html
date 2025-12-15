@@ -2,199 +2,159 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Trade With Bots</title>
-<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<title>Trade With Bots</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap">
 <style>
-  body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #000;
-    color: #fff;
-  }
+    /* ===== Global Styles ===== */
+    body, html {
+        margin: 0;
+        padding: 0;
+        font-family: 'Roboto', sans-serif;
+        background-color: #f5f8fa;
+        color: #0a1f44;
+    }
+    a { text-decoration: none; color: inherit; }
+    h1,h2,h3,h4,h5,h6 { margin: 0; padding: 0; }
+    button { cursor: pointer; }
 
-  header {
-    background-color: #111;
-    color: #00ccff;
-    padding: 12px 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-bottom: 2px solid #00ccff;
-  }
-  header img { height: 40px; width: 40px; border-radius: 50%; }
-  header span { font-size: 1.8em; font-weight: bold; }
+    /* ===== Header ===== */
+    header {
+        background-color: #0a1f44;
+        color: white;
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+    header .logo { font-size: 1.8rem; font-weight: bold; color: #00aaff; }
+    header nav a {
+        margin-left: 25px;
+        font-weight: 500;
+        transition: color 0.3s;
+    }
+    header nav a:hover { color: #00aaff; }
 
-  /* Hero Section */
-  .hero { text-align: center; padding: 40px 15px; }
-  .hero h1 { font-size: 2.2em; color: #00ccff; margin-bottom: 15px; }
-  .hero p { font-size: 1.1em; color: #bbb; margin-bottom: 15px; }
-  .win-badge {
-    display: inline-block; margin: 15px auto 20px auto;
-    padding: 10px 20px; font-size: 1em;
-    border: 2px solid #00ccff; border-radius: 12px;
-    color: #00ccff; box-shadow: 0 0 15px #00ccff; font-weight: bold;
-  }
-  .hero button {
-    padding: 12px 28px; margin: 8px;
-    font-size: 1.1em; border-radius: 10px; border: none;
-    cursor: pointer; transition: 0.3s;
-  }
-  .login-btn {
-    background: linear-gradient(90deg, #00ffcc, #00ccff);
-    color: #000; font-weight: bold; box-shadow: 0 0 15px #00ffcc;
-    animation: pulse-login 2s infinite;
-  }
-  .login-btn:hover { background: linear-gradient(90deg, #00ccff, #00ffcc); transform: scale(1.05);}
-  @keyframes pulse-login { 0%,100% { box-shadow:0 0 10px #00ffcc;} 50% { box-shadow:0 0 25px #00ffcc;} }
-  .register-btn { background: #333; color: #888; cursor: not-allowed; border: 1px solid #555; }
+    /* ===== Hero Section ===== */
+    .hero {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 100px 20px;
+        background: linear-gradient(135deg, #0072ff 0%, #00aaff 100%);
+        color: white;
+    }
+    .hero h1 { font-size: 3rem; margin-bottom: 20px; }
+    .hero p { font-size: 1.2rem; margin-bottom: 30px; }
+    .hero .btn {
+        background-color: white;
+        color: #0072ff;
+        padding: 15px 30px;
+        font-size: 1rem;
+        font-weight: bold;
+        border: none;
+        border-radius: 5px;
+        transition: transform 0.3s;
+    }
+    .hero .btn:hover { transform: scale(1.05); }
 
-  /* Trust Section */
-  .trust-section {
-    text-align: center; margin: 20px 0; font-size: 1.2em;
-    color: #00ccff; font-weight: bold;
-  }
+    /* ===== Features Section ===== */
+    .features {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        padding: 80px 20px;
+        background-color: #f5f8fa;
+    }
+    .feature-card {
+        width: 300px;
+        background: white;
+        padding: 30px;
+        margin: 15px;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        text-align: center;
+        transition: transform 0.3s;
+    }
+    .feature-card:hover { transform: translateY(-10px); }
+    .feature-card h3 { margin-bottom: 15px; color: #0072ff; }
+    .feature-card p { font-size: 0.95rem; line-height: 1.5; }
 
-  /* Popular Crypto Section */
-  .crypto-grid {
-    display: flex; flex-wrap: wrap; justify-content: center;
-    gap: 15px; margin: 20px auto; max-width: 1100px;
-  }
-  .crypto-card {
-    background: #111; padding: 20px; border-radius: 12px;
-    width: 140px; text-align: center; box-shadow: 0 0 12px rgba(0,204,255,0.2);
-  }
-  .crypto-card img { width: 50px; height: 50px; margin-bottom: 10px; }
-  .crypto-card h4 { margin: 5px 0; color: #00ccff; }
-  .crypto-card p { font-size: 0.85em; color: #bbb; }
+    /* ===== Footer ===== */
+    footer {
+        background-color: #0a1f44;
+        color: white;
+        text-align: center;
+        padding: 50px 20px;
+    }
+    footer a { color: #00aaff; margin: 0 10px; }
+    footer p { margin-top: 20px; font-size: 0.9rem; }
 
-  /* Crypto News Section */
-  .news-section {
-    max-width: 1100px; margin: 30px auto; padding: 15px;
-  }
-  .news-section h2 { color: #00ccff; text-align: center; margin-bottom: 15px; }
-  .news-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 15px; }
-  .news-card {
-    background: #111; padding: 12px; border-radius: 12px;
-    box-shadow: 0 0 12px rgba(0,204,255,0.15); font-size: 0.9em;
-  }
-  .news-card h3 { margin: 0 0 8px 0; color: #00ccff; font-size: 1em; }
-  .news-card p { color: #bbb; font-size: 0.85em; }
-
-  /* TradingView Chart Section */
-  .chart-grid {
-    max-width: 1200px; margin: 20px auto 80px auto;
-    padding: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
-  }
-  .chart { background: #111; padding: 8px; border-radius: 12px; box-shadow: 0 0 12px rgba(0,255,255,0.15); min-height: 300px; }
-  .big-chart { grid-column: span 2; min-height: 450px; }
-
-  /* Mobile Adjustments */
-  @media (max-width: 900px) {
-    .chart-grid { grid-template-columns: 1fr; gap: 12px; }
-    .big-chart { min-height: 400px; }
-    .crypto-grid { flex-direction: column; }
-    .news-grid { grid-template-columns: 1fr; }
-    .hero h1 { font-size: 1.8em; }
-    .hero p { font-size: 1em; }
-  }
-
-  @media (max-width: 480px) {
-    .hero h1 { font-size: 1.4em; }
-    .hero p { font-size: 0.85em; }
-    .hero button { font-size: 0.85em; padding: 6px 12px; }
-    .win-badge { font-size: 0.8em; padding: 4px 10px; }
-  }
-
-  footer {
-    text-align: center; padding: 16px; background-color: #111;
-    color: #00ccff; border-top: 2px solid #00ccff; font-size: 0.9em;
-  }
+    /* ===== Responsive ===== */
+    @media(max-width: 768px){
+        .hero h1 { font-size: 2.2rem; }
+        .features { flex-direction: column; align-items: center; }
+        header { flex-direction: column; align-items: flex-start; }
+        header nav { margin-top: 10px; }
+    }
 </style>
 </head>
 <body>
 
+<!-- Header -->
 <header>
-  <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="Bot Logo">
-  <span>Trade With Bots</span>
+    <div class="logo">Trade With Bots</div>
+    <nav>
+        <a href="#features">Features</a>
+        <a href="#signup">Sign Up</a>
+        <a href="#contact">Contact</a>
+    </nav>
 </header>
 
-<div class="hero">
-  <h1>Invest, Watch, Grow</h1>
-  <p>Trade automatically with our intelligent bots and monitor your portfolio.</p>
-  <div class="win-badge">🔥 87% BOT WIN RATIO 🔥</div>
-  <button class="login-btn" onclick="window.location.href='login.html'">Login</button>
-  <button class="register-btn" title="Coming Soon">Register</button>
-</div>
+<!-- Hero Section -->
+<section class="hero">
+    <h1>Trade Smarter with Trade With Bots</h1>
+    <p>The ultimate crypto trading platform to maximize your profits with AI bots.</p>
+    <button class="btn">Get Started</button>
+</section>
 
-<div class="trust-section">🌟 300,883 users trust us 🌟</div>
-
-<div class="crypto-grid">
-  <div class="crypto-card">
-    <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="BTC">
-    <h4>Bitcoin</h4>
-    <p>BTC</p>
-  </div>
-  <div class="crypto-card">
-    <img src="https://cryptologos.cc/logos/ethereum-eth-logo.png" alt="ETH">
-    <h4>Ethereum</h4>
-    <p>ETH</p>
-  </div>
-  <div class="crypto-card">
-    <img src="https://cryptologos.cc/logos/solana-sol-logo.png" alt="SOL">
-    <h4>Solana</h4>
-    <p>SOL</p>
-  </div>
-</div>
-
-<div class="news-section">
-  <h2>Latest Crypto News</h2>
-  <div class="news-grid">
-    <div class="news-card">
-      <h3>Bitcoin hits $60k</h3>
-      <p>BTC surges after new market trend emerges...</p>
+<!-- Features Section -->
+<section class="features" id="features">
+    <div class="feature-card">
+        <h3>Automated Bots</h3>
+        <p>Trade with advanced AI-powered bots that execute strategies 24/7 without emotion.</p>
     </div>
-    <div class="news-card">
-      <h3>Ethereum 2.0 upgrade</h3>
-      <p>ETH network prepares for major upgrade to proof-of-stake...</p>
+    <div class="feature-card">
+        <h3>Real-Time Data</h3>
+        <p>Access live crypto market data and make smarter trading decisions instantly.</p>
     </div>
-    <div class="news-card">
-      <h3>Solana's new DApp</h3>
-      <p>SOL ecosystem grows with a new decentralized application...</p>
+    <div class="feature-card">
+        <h3>Secure Platform</h3>
+        <p>Top-tier security measures ensure your funds and data are always safe.</p>
     </div>
-  </div>
-</div>
+</section>
 
-<div class="chart-grid">
-  <div class="chart big-chart" id="btc_chart"></div>
-  <div class="chart small-chart" id="eth_chart"></div>
-  <div class="chart small-chart" id="sol_chart"></div>
-</div>
+<!-- Call to Action Section -->
+<section class="hero" id="signup">
+    <h2>Start Trading Today</h2>
+    <p>Join thousands of successful traders and automate your strategies now.</p>
+    <button class="btn">Sign Up Now</button>
+</section>
 
-<script>
-const createChart = (symbol, container) => {
-  new TradingView.widget({
-    container_id: container,
-    autosize: true,
-    symbol: "BINANCE:" + symbol,
-    interval: "60",
-    timezone: "Etc/UTC",
-    theme: "dark",
-    style: "1",
-    locale: "en",
-    toolbar_bg: "#111",
-    hide_top_toolbar: false,
-    hide_legend: false,
-    show_popup_button: true
-  });
-};
-createChart("BTCUSDT", "btc_chart");
-createChart("ETHUSDT", "eth_chart");
-createChart("SOLUSDT", "sol_chart");
-</script>
+<!-- Footer -->
+<footer id="contact">
+    <p>© 2025 Trade With Bots. All rights reserved.</p>
+    <div>
+        <a href="#">Facebook</a> |
+        <a href="#">Twitter</a> |
+        <a href="#">LinkedIn</a>
+    </div>
+</footer>
 
-<footer>© 2025 Trade With Bots | All rights reserved</footer>
 </body>
 </html>
