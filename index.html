@@ -13,7 +13,7 @@
   --muted:#9aa;
   --glass: rgba(255,255,255,0.03);
   --success:#2ee6a7;
-  --danger:#ff6b6b;
+  --danger:#ff4b4b;
   --radius:12px;
 }
 
@@ -82,45 +82,19 @@ body, html{
   font-weight:700;
 }
 
-/* Sections layout */
-.sections{
+/* Main layout */
+.main-sections{
   display:flex;
   gap:20px;
   flex-wrap:wrap;
-  justify-content:space-between;
 }
 
-/* News Section */
-.news-section{
-  background:var(--card);
-  padding:20px;
-  border-radius:12px;
-  flex:1 1 45%;
-  min-width:300px;
-}
-.news-section h2{
-  color:var(--accent);
-  margin-bottom:15px;
-}
-.news-item{
-  display:flex;
-  justify-content:space-between;
-  padding:10px;
-  border-radius:8px;
-  background:var(--panel);
-  color:#fff;
-  text-decoration:none;
-  margin-bottom:8px;
-  transition:0.2s;
-}
-.news-item:hover{ background:rgba(0,204,255,0.1); }
-
-/* Top Cryptos */
+/* Crypto Section */
 .crypto-section{
   background:var(--card);
   padding:20px;
   border-radius:12px;
-  flex:1 1 50%;
+  flex:1 1 55%;
   min-width:300px;
 }
 .crypto-section h2{
@@ -131,31 +105,57 @@ body, html{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:10px;
+  padding:12px 16px;
   border-radius:8px;
   background:var(--panel);
-  margin-bottom:8px;
+  margin-bottom:10px;
   transition:0.2s;
   text-decoration:none;
   color:#fff;
 }
 .crypto-item:hover{ background:rgba(0,204,255,0.1); }
 .crypto-item img{
-  width:28px;
-  height:28px;
+  width:32px;
+  height:32px;
   border-radius:8px;
   margin-right:10px;
 }
-.crypto-name{ display:flex; align-items:center; }
+.crypto-name{ display:flex; align-items:center; font-weight:600; }
 .crypto-price, .crypto-change{
   min-width:80px;
   text-align:right;
+  font-weight:600;
 }
+
+/* News Section */
+.news-section{
+  background:var(--card);
+  padding:20px;
+  border-radius:12px;
+  flex:1 1 40%;
+  min-width:250px;
+}
+.news-section h2{
+  color:var(--accent);
+  margin-bottom:15px;
+}
+.news-card{
+  background:var(--panel);
+  border-radius:10px;
+  padding:12px 16px;
+  margin-bottom:12px;
+  transition:0.2s;
+  text-decoration:none;
+  color:#fff;
+}
+.news-card:hover{ background:rgba(0,204,255,0.1); }
+.news-card .title{ font-weight:600; margin-bottom:5px; }
+.news-card .time{ font-size:13px; color:var(--muted); }
 
 /* Responsive */
 @media(max-width:768px){
-  .sections{ flex-direction:column; }
-  .crypto-item, .news-item{ flex-direction:column; align-items:flex-start; }
+  .main-sections{ flex-direction:column; }
+  .crypto-item, .news-card{ flex-direction:column; align-items:flex-start; }
   .crypto-price, .crypto-change{ text-align:left; margin-top:4px; }
   .hero h1{ font-size:28px; }
 }
@@ -177,38 +177,51 @@ body, html{
     <div class="trust-counter">User Assets: $<span id="userAssets">120,000,000</span></div>
   </div>
 
-  <!-- Sections: News + Top Cryptos -->
-  <div class="sections">
-    <!-- News Section -->
-    <div class="news-section">
-      <h2>Latest News</h2>
-      <a href="#" class="news-item"><div>Crypto Market Hits All-Time High</div><div>2h ago</div></a>
-      <a href="#" class="news-item"><div>Ethereum 2.0 Upgrade Announced</div><div>5h ago</div></a>
-      <a href="#" class="news-item"><div>New DeFi Platform Gains Popularity</div><div>1d ago</div></a>
-    </div>
-
-    <!-- Top Cryptos Section -->
+  <!-- Main sections -->
+  <div class="main-sections">
+    <!-- Crypto Coins -->
     <div class="crypto-section">
       <h2>Top Cryptos</h2>
       <a href="#" class="crypto-item">
-        <div class="crypto-name"><img src="https://bin.bnbstatic.com/image/admin_mgs_image_upload/20201110/87496d50-2408-43e1-ad4c-78b47b448a6a.png" alt="BTC">BTC - Bitcoin</div>
+        <div class="crypto-name"><img src="https://bin.bnbstatic.com/image/admin_mgs_image_upload/20201110/87496d50-2408-43e1-ad4c-78b47b448a6a.png" alt="BTC"> BTC - Bitcoin</div>
         <div class="crypto-price">$89,477.14</div>
         <div class="crypto-change" style="color:#ff4b4b;">-0.79%</div>
       </a>
       <a href="#" class="crypto-item">
-        <div class="crypto-name"><img src="https://bin.bnbstatic.com/image/admin_mgs_image_upload/20201110/3a8c9fe6-2a76-4ace-aa07-415d994de6f0.png" alt="ETH">ETH - Ethereum</div>
+        <div class="crypto-name"><img src="https://bin.bnbstatic.com/image/admin_mgs_image_upload/20201110/3a8c9fe6-2a76-4ace-aa07-415d994de6f0.png" alt="ETH"> ETH - Ethereum</div>
         <div class="crypto-price">$3,115.87</div>
         <div class="crypto-change" style="color:#00ccff;">+0.14%</div>
       </a>
       <a href="#" class="crypto-item">
-        <div class="crypto-name"><img src="https://bin.bnbstatic.com/image/admin_mgs_image_upload/20220218/94863af2-c980-42cf-a139-7b9f462a36c2.png" alt="BNB">BNB - BNB</div>
+        <div class="crypto-name"><img src="https://bin.bnbstatic.com/image/admin_mgs_image_upload/20220218/94863af2-c980-42cf-a139-7b9f462a36c2.png" alt="BNB"> BNB - BNB</div>
         <div class="crypto-price">$886.75</div>
         <div class="crypto-change" style="color:#ff4b4b;">-0.83%</div>
       </a>
       <a href="#" class="crypto-item">
-        <div class="crypto-name"><img src="https://bin.bnbstatic.com/image/admin_mgs_image_upload/20201110/4766a9cc-8545-4c2b-bfa4-cad2be91c135.png" alt="XRP">XRP - XRP</div>
+        <div class="crypto-name"><img src="https://bin.bnbstatic.com/image/admin_mgs_image_upload/20201110/4766a9cc-8545-4c2b-bfa4-cad2be91c135.png" alt="XRP"> XRP - XRP</div>
         <div class="crypto-price">$2.00</div>
         <div class="crypto-change" style="color:#ff4b4b;">-0.84%</div>
+      </a>
+    </div>
+
+    <!-- News -->
+    <div class="news-section">
+      <h2>Latest News</h2>
+      <a href="#" class="news-card">
+        <div class="title">Crypto Market Hits All-Time High</div>
+        <div class="time">2h ago</div>
+      </a>
+      <a href="#" class="news-card">
+        <div class="title">Ethereum 2.0 Upgrade Announced</div>
+        <div class="time">5h ago</div>
+      </a>
+      <a href="#" class="news-card">
+        <div class="title">New DeFi Platform Gains Popularity</div>
+        <div class="time">1d ago</div>
+      </a>
+      <a href="#" class="news-card">
+        <div class="title">Bitcoin Dominance Surges</div>
+        <div class="time">3h ago</div>
       </a>
     </div>
   </div>
