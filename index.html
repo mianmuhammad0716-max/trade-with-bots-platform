@@ -133,6 +133,57 @@ nav a:hover {
   font-size: 15px;
 }
 
+/* Crypto list section */
+.crypto-list {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.crypto-item {
+  display: flex;
+  justify-content: space-between;
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 12px 20px;
+  align-items: center;
+  transition: background .2s;
+}
+
+.crypto-item:hover {
+  background: rgba(0,204,255,0.06);
+}
+
+.crypto-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.crypto-left img {
+  height: 28px;
+  width: 28px;
+  border-radius: 8px;
+}
+
+.crypto-right {
+  display: flex;
+  gap: 40px;
+}
+
+.crypto-right .price {
+  color: #fff;
+  font-weight: 600;
+}
+
+.crypto-right .change {
+  font-weight: 600;
+}
+
+.crypto-right .change.positive { color: #2ee6a7; }
+.crypto-right .change.negative { color: #ff6b6b; }
+
 footer {
   text-align: center;
   padding: 40px 20px;
@@ -185,6 +236,71 @@ footer {
     <h3>Profit Tracking</h3>
     <p>Monitor your profits and trading performance in real-time easily.</p>
   </div>
+</section>
+
+<section class="crypto-list">
+  <!-- Your Popular / New Listing crypto list -->
+  <div class="crypto-item">
+    <div class="crypto-left">
+      <img src="https://bin.bnbstatic.com/image/admin_mgs_image_upload/20201110/87496d50-2408-43e1-ad4c-78b47b448a6a.png" alt="BTC">
+      <div>BTC</div>
+      <div>Bitcoin</div>
+    </div>
+    <div class="crypto-right">
+      <div class="price">$89,477.14</div>
+      <div class="change negative">-0.79%</div>
+    </div>
+  </div>
+
+  <div class="crypto-item">
+    <div class="crypto-left">
+      <img src="https://bin.bnbstatic.com/image/admin_mgs_image_upload/20201110/3a8c9fe6-2a76-4ace-aa07-415d994de6f0.png" alt="ETH">
+      <div>ETH</div>
+      <div>Ethereum</div>
+    </div>
+    <div class="crypto-right">
+      <div class="price">$3,115.87</div>
+      <div class="change positive">+0.14%</div>
+    </div>
+  </div>
+
+  <div class="crypto-item">
+    <div class="crypto-left">
+      <img src="https://bin.bnbstatic.com/image/admin_mgs_image_upload/20220218/94863af2-c980-42cf-a139-7b9f462a36c2.png" alt="BNB">
+      <div>BNB</div>
+      <div>BNB</div>
+    </div>
+    <div class="crypto-right">
+      <div class="price">$886.75</div>
+      <div class="change negative">-0.83%</div>
+    </div>
+  </div>
+
+  <div class="crypto-item">
+    <div class="crypto-left">
+      <img src="https://bin.bnbstatic.com/image/admin_mgs_image_upload/20201110/4766a9cc-8545-4c2b-bfa4-cad2be91c135.png" alt="XRP">
+      <div>XRP</div>
+      <div>XRP</div>
+    </div>
+    <div class="crypto-right">
+      <div class="price">$2.00</div>
+      <div class="change negative">-0.84%</div>
+    </div>
+  </div>
+
+  <div class="crypto-item">
+    <div class="crypto-left">
+      <img src="https://bin.bnbstatic.com/image/admin_mgs_image_upload/20251006/5dc769cc-c302-4e3e-a5d4-fe5199f1cb7e.png" alt="ASTER">
+      <div>ASTER</div>
+      <div>Aster</div>
+    </div>
+    <div class="crypto-right">
+      <div class="price">$0.937</div>
+      <div class="change negative">-1.37%</div>
+    </div>
+  </div>
+
+  <a href="#" style="text-align:center; margin-top:12px; display:block; color: var(--muted); text-decoration:none;">View All 350+ Coins →</a>
 </section>
 
 <footer>
