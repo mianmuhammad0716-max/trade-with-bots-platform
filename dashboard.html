@@ -15,6 +15,7 @@
   --muted:#9aa;
   --glass: rgba(255,255,255,0.03);
   --success:#2ee6a7;
+  --warning:#ffd166;
   --danger:#ff6b6b;
   --radius:12px;
 }
@@ -100,18 +101,20 @@ html,body{
   gap:18px; 
   overflow-y:auto; 
   max-height:100vh;
+  background: linear-gradient(180deg,#000,#111);
+  border-radius:12px;
 }
 .topbar { display:flex; align-items:center; justify-content:space-between; gap:12px; }
 
 .top-title { font-size:18px; color:var(--accent); font-weight:700; }
 .top-actions { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
 
-.btn { background:linear-gradient(90deg,var(--accent),#00a8e6); color:#000; padding:10px 14px; border-radius:10px; border:none; cursor:pointer; font-weight:700; }
-.withdraw-btn { background:linear-gradient(90deg,#ff4b4b,#ff2d2d); color:#fff; padding:10px 14px; border-radius:10px; border:none; cursor:pointer; font-weight:700; }
-.icon-btn { background: rgba(255,255,255,0.02); border-radius:10px; padding:10px; border:none; color:var(--muted); cursor:pointer; }
+.btn { background:linear-gradient(90deg,var(--accent),#00a8e6); color:#000; padding:8px 12px; border-radius:8px; border:none; cursor:pointer; font-weight:700; font-size:13px; }
+.withdraw-btn { background:linear-gradient(90deg,#ff4b4b,#ff2d2d); color:#fff; padding:8px 12px; border-radius:8px; border:none; cursor:pointer; font-weight:700; font-size:13px; }
+.icon-btn { background: rgba(255,255,255,0.02); border-radius:10px; padding:8px; border:none; color:var(--muted); cursor:pointer; }
 
 .avatar { 
-  height:40px; width:40px; 
+  height:36px; width:36px; 
   border-radius:8px; 
   background:linear-gradient(90deg,#0a84ff,#00ccff); 
   display:flex; align-items:center; justify-content:center; 
@@ -122,7 +125,8 @@ html,body{
 .left-col { display:flex; flex-direction:column; gap:18px; }
 
 .cards-row { display:flex; gap:12px; flex-wrap:wrap; }
-.card { background:var(--glass); padding:14px; border-radius:12px; box-shadow:0 6px 20px rgba(0,0,0,0.6); }
+.card { background:var(--glass); padding:14px; border-radius:12px; box-shadow:0 6px 20px rgba(0,0,0,0.6); transition: transform .2s; }
+.card:hover{ transform: translateY(-3px); }
 
 .label { font-size:13px; color:var(--muted); }
 .value { font-size:20px; font-weight:800; margin-top:6px; }
@@ -131,12 +135,15 @@ html,body{
 
 .panel h3 { margin:0 0 8px 0; color:var(--accent); }
 .bots-table { width:100%; border-collapse:collapse; display:block; overflow-x:auto; }
-.bots-table th, .bots-table td { padding:10px 8px; font-size:13px; color:#dceef7; }
+.bots-table th, .bots-table td { padding:10px 8px; font-size:13px; color:#dceef7; text-align:left; }
 .bots-table thead th { font-size:12px; color:var(--muted); }
+
+.bots-table tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+.bots-table tr:hover { background: rgba(0,204,255,0.06); }
 
 .status-pill { padding:6px 8px; border-radius:999px; font-weight:700; font-size:12px; color:#000; }
 .status-active { background:var(--success); }
-.status-paused { background:#ffd166; }
+.status-paused { background:var(--warning); }
 .status-off { background:var(--danger); color:#fff; }
 
 @media(max-width:900px){
@@ -159,7 +166,7 @@ html,body{
   .top-actions { justify-content:flex-end; }
   .chart-card { min-height:300px; }
   .bots-table { font-size:12px; }
-  .card button { display:none; }
+  .card button { display:block; width:100%; margin-top:8px; }
 }
 @media(min-width:901px){
   .sidebar { position:static !important; transform:translateX(0) !important; height:auto; }
@@ -186,7 +193,7 @@ html,body{
   <a href="startearning.html">💳 Start Earning</a>
   <a href="withdraw.html">💸 Withdraw</a>
   <a href="profile.html">👤 Profile</a>
-  <a href="settings.html">⚙️ Settings</a>
+  <a href="settings.html">⚙ Settings</a>
   <a href="https://wa.me/923001234567" target="_blank" style="color:#25D366; font-weight:700; display:flex; align-items:center; gap:8px; padding:10px; border-radius:10px; margin-top:12px; background: rgba(37, 211, 102, 0.1);">
     📱 WhatsApp Support
   </a>
@@ -211,21 +218,24 @@ html,body{
   <div class="cards-row">
     <div class="card" style="flex:1;">
       <div class="label">Total Balance</div>
-      <div class="value" id="balanceVal">$0</div>
-      <button class="btn" style="margin-top:12px;" onclick="location.href='startearning.html'">Start Earning</button>
-      <button class="withdraw-btn" style="margin-top:12px;" onclick="location.href='withdraw.html'">Withdraw</button>
+      <div class="value" id="balanceVal">$124.30</div>
+      <div style="display:flex; gap:8px; margin-top:8px;">
+        <button class="btn" onclick="location.href='startearning.html'">Start Earning</button>
+        <button class="withdraw-btn" onclick="location.href='withdraw.html'">Withdraw</button>
+      </div>
     </div>
     <div class="card" style="width:180px;">
       <div class="label">Active Bots</div>
-      <div class="value">0</div>
+      <div class="value">3</div>
     </div>
     <div class="card" style="width:180px;">
       <div class="label">Profit Today</div>
-      <div class="value" id="profitToday">0</div>
+      <div class="value" id="profitToday">$42.50</div>
     </div>
   </div>
 
   <div class="chart-card">
+    <h3 style="color:var(--accent); margin-bottom:8px;">Portfolio Performance</h3>
     <div id="tradingview_main" style="height:420px;"></div>
   </div>
 
@@ -239,9 +249,19 @@ html,body{
       </thead>
       <tbody>
         <tr>
-          <td>-</td><td>-</td><td>-</td>
-          <td><span class="status-pill status-off">Inactive</span></td>
-          <td style="text-align:right;"><button class="btn" disabled>Edit</button></td>
+          <td>Scalper Pro</td><td>Quick</td><td>12%</td>
+          <td><span class="status-pill status-active">Running</span></td>
+          <td style="text-align:right;"><button class="btn">Edit</button></td>
+        </tr>
+        <tr>
+          <td>Ether Wave</td><td>Swing</td><td>8%</td>
+          <td><span class="status-pill status-paused">Paused</span></td>
+          <td style="text-align:right;"><button class="btn">Edit</button></td>
+        </tr>
+        <tr>
+          <td>Solana AI</td><td>Trend</td><td>15%</td>
+          <td><span class="status-pill status-off">Stopped</span></td>
+          <td style="text-align:right;"><button class="btn">Edit</button></td>
         </tr>
       </tbody>
     </table>
@@ -289,3 +309,4 @@ overlay.onclick = () => {
 
 </body>
 </html>
+
