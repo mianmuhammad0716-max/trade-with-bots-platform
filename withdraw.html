@@ -18,12 +18,21 @@ html,body{
   font-family:Inter,sans-serif;
   background:var(--bg);
   color:#fff;
+  transition:all 0.3s ease;
+}
+body.light{
+  --bg:#f0f0f0;
+  --card:#fff;
+  --accent:#009bd1;
+  --muted:#555;
+  --text:#000;
 }
 .app{
   display:grid;
   grid-template-columns:260px 1fr;
   min-height:100vh;
   gap:20px;
+  padding:10px;
 }
 
 /* SIDEBAR */
@@ -32,6 +41,7 @@ html,body{
   padding:18px;
   border-radius:var(--radius);
   height:100%;
+  box-shadow:0 6px 30px rgba(0,204,255,0.05);
 }
 .brand{
   display:flex;
@@ -74,86 +84,71 @@ html,body{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:12px;
 }
 .top-title{
-  font-size:18px;
+  font-size:22px;
   color:var(--accent);
   font-weight:700;
 }
 .card{
   background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
   padding:20px;
-  border-radius:12px;
+  border-radius:var(--radius);
   box-shadow:0 6px 20px rgba(0,0,0,0.6);
+  display:flex;
+  flex-direction:column;
+  gap:15px;
 }
-.input-amount{
-  margin-top:12px;
-  padding:10px;
+.card input[type="text"], .card input[type="number"], .card input[type="file"]{
+  padding:12px;
   border-radius:8px;
   border:none;
-  width:120px;
-  color:#fff;
   background:#111;
+  color:#fff;
+  width:100%;
+}
+.card button{
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  font-weight:700;
+  cursor:pointer;
 }
 .btn-withdraw{
   background:linear-gradient(90deg,#ff4b4b,#ff2d2d);
   color:#fff;
-  padding:10px 14px;
-  border-radius:10px;
-  border:none;
-  cursor:pointer;
-  font-weight:700;
-  margin-top:12px;
 }
-
-/* BANK CARDS */
-.bank-card{
-  background:#111;
-  padding:16px;
-  border-radius:12px;
-  margin-top:15px;
-  text-align:center;
-  border:1px solid #222;
-}
-.bank-card img{
-  max-width:120px;
-  height:auto;
-  margin-bottom:10px;
-}
-.bank-card input{
-  width:90%;
-  padding:10px;
-  border-radius:8px;
-  border:none;
-  margin-bottom:10px;
-  background:#0f1113;
-  color:#fff;
-}
-.bank-card button{
-  width:100%;
-  padding:10px;
-  border-radius:8px;
-  border:none;
-  font-weight:700;
-  cursor:pointer;
+.btn-submit{
   background:linear-gradient(90deg,#00ffcc,#00ccff);
   color:#000;
 }
-
 .note{
-  margin-top:12px;
   font-size:13px;
   color:#aaa;
 }
 
+/* LIGHT MODE OVERRIDES */
+body.light .card{
+  background:#fff;
+  color:#000;
+}
+body.light .card input{
+  background:#f0f0f0;
+  color:#000;
+}
+body.light .btn-withdraw{
+  background:linear-gradient(90deg,#ff7b7b,#ff5b5b);
+  color:#000;
+}
+body.light .btn-submit{
+  background:linear-gradient(90deg,#00bfff,#00ccff);
+  color:#000;
+}
 
-/* --------------------------------------- */
-/* MOBILE FIX - SIDEBAR COLLAPSE */
-/* --------------------------------------- */
+/* MOBILE */
 .menu-btn{
   display:none;
-  background:#00ccff;
+  background:var(--accent);
   color:#000;
   padding:10px 15px;
   font-weight:700;
@@ -161,12 +156,10 @@ html,body{
   border-radius:10px;
   cursor:pointer;
 }
-
 @media(max-width:900px){
   .app{
     grid-template-columns:1fr;
   }
-
   .sidebar{
     position:fixed;
     left:-260px;
@@ -176,18 +169,12 @@ html,body{
     transition:left .3s ease;
     z-index:99;
   }
-
   .sidebar.show{
     left:0;
   }
-
   .menu-btn{
     display:block;
     margin-bottom:10px;
-  }
-
-  .main{
-    padding:15px;
   }
 }
 </style>
@@ -202,83 +189,84 @@ html,body{
       <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png">
       <h1>Trade With Bots</h1>
     </div>
-
     <nav class="nav">
       <a href="dashboard.html">🏠 Dashboard</a>
       <a href="startearning.html">💳 Start Earning</a>
       <a href="withdraw.html" class="active">💸 Withdraw</a>
       <a href="profile.html">👤 Profile</a>
-      <a href="settings.html">⚙️ Settings</a>
+      <a href="settings.html">⚙ Settings</a>
     </nav>
-
     <div class="small">Logged in as <strong>User</strong></div>
   </aside>
-
-
 
   <!-- MAIN CONTENT -->
   <main class="main">
 
-    <!-- Mobile Menu Button -->
     <button class="menu-btn" onclick="toggleMenu()">☰ Menu</button>
 
     <div class="topbar">
       <div class="top-title">Withdraw</div>
+      <button onclick="toggleDarkMode()">🌓 Dark/Light</button>
     </div>
 
     <div class="card">
+      <div>Available Balance: <strong id="balanceVal">$124.30</strong></div>
 
-      <div class="label">Available Balance</div>
-      <div class="value" id="balanceVal">$0</div>
-
-      <input type="number" id="withdrawAmt" class="input-amount" placeholder="Amount $">
+      <input type="number" id="withdrawAmt" placeholder="Amount $">
       <button class="btn-withdraw" onclick="withdrawBalance()">Withdraw</button>
       <p class="note">Minimum withdrawal: $15</p>
 
       <!-- JazzCash -->
       <div class="bank-card">
-        <img src="images/jazzcash.png" alt="JazzCash Logo">
         <h3>JazzCash</h3>
         <input type="text" id="jazzcashNum" placeholder="Enter your JazzCash number">
-        <button onclick="submitBank('JazzCash')">Submit</button>
+        <input type="file" id="jazzcashScreenshot" accept="image/*">
+        <button class="btn-submit" onclick="submitBank('JazzCash')">Submit</button>
       </div>
 
       <!-- Easypaisa -->
       <div class="bank-card">
-        <img src="images/easypaisa.png" alt="Easypaisa Logo">
         <h3>Easypaisa</h3>
         <input type="text" id="easypaisaNum" placeholder="Enter your Easypaisa number">
-        <button onclick="submitBank('Easypaisa')">Submit</button>
+        <input type="file" id="easypaisaScreenshot" accept="image/*">
+        <button class="btn-submit" onclick="submitBank('Easypaisa')">Submit</button>
       </div>
-
-    
+    </div>
+  </main>
+</div>
 
 <script>
 let balance = 124.30;
 
 function withdrawBalance(){
   const amt = parseFloat(document.getElementById("withdrawAmt").value);
-  if(isNaN(amt) || amt <= 0){ alert("Enter a valid amount!"); return; }
-  if(amt < 15){ alert("Minimum withdrawal is $15"); return; }
-  if(amt > balance){ alert("Insufficient balance!"); return; }
-
+  if(isNaN(amt) || amt <=0){alert("Enter a valid amount"); return;}
+  if(amt<15){alert("Minimum withdrawal is $15"); return;}
+  if(amt>balance){alert("Insufficient balance!"); return;}
   balance -= amt;
-  document.getElementById("balanceVal").innerText = "$" + balance.toFixed(2);
-  document.getElementById("withdrawAmt").value = "";
-  alert("$" + amt.toFixed(2) + " withdrawn successfully!");
+  document.getElementById("balanceVal").innerText="$"+balance.toFixed(2);
+  document.getElementById("withdrawAmt").value="";
+  alert("$"+amt.toFixed(2)+" withdrawn successfully!");
 }
 
 function submitBank(type){
-  let accNum;
-  if(type==='JazzCash') accNum = document.getElementById("jazzcashNum").value;
-  if(type==='Easypaisa') accNum = document.getElementById("easypaisaNum").value;
-  
-
-  if(!accNum){
-    alert("Please enter your account number for " + type);
-    return;
+  let accNum, screenshot;
+  if(type==='JazzCash'){
+    accNum=document.getElementById("jazzcashNum").value;
+    screenshot=document.getElementById("jazzcashScreenshot").files[0];
   }
-  alert(type + " account submitted: " + accNum);
+  if(type==='Easypaisa'){
+    accNum=document.getElementById("easypaisaNum").value;
+    screenshot=document.getElementById("easypaisaScreenshot").files[0];
+  }
+  if(!accNum){alert("Enter account number for "+type); return;}
+  if(!screenshot){alert("Please upload payment screenshot for "+type); return;}
+  alert(type+" submitted with account: "+accNum+" and screenshot: "+screenshot.name);
+}
+
+/* Dark/Light Mode */
+function toggleDarkMode(){
+  document.body.classList.toggle("light");
 }
 
 /* Mobile Sidebar Toggle */
@@ -286,7 +274,5 @@ function toggleMenu(){
   document.getElementById("sidebar").classList.toggle("show");
 }
 </script>
-
 </body>
 </html>
-
