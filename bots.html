@@ -4,27 +4,26 @@
 <meta charset="UTF-8">
 <title>Bots — Trade With Bots</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <style>
- :root{
-    --bg:#000;
-    --card:#0f1113;
-    --panel:#0b0b0c;
-    --accent:#00ccff;
-    --muted:#9aa;
-    --glass: rgba(255,255,255,0.04);
-    --glass-2: rgba(255,255,255,0.02);
-    --success:#2ee6a7;
-    --danger:#ff6b6b;
-    --radius:14px;
- }
+:root{
+  --bg:#000;
+  --card:#0f1113;
+  --panel:#0b0b0c;
+  --accent:#00ccff;
+  --muted:#9aa;
+  --glass: rgba(255,255,255,0.04);
+  --glass-2: rgba(255,255,255,0.02);
+  --success:#2ee6a7;
+  --danger:#ff6b6b;
+  --radius:14px;
+}
 
 html,body{
-  height:100%;
   margin:0;
-  background:var(--bg);
-  color:#fff;
+  height:100%;
   font-family: Inter, "Segoe UI", Roboto, Arial;
+  background: var(--bg);
+  color:#fff;
 }
 
 /* GRID LAYOUT */
@@ -43,14 +42,17 @@ html,body{
   border-radius:var(--radius);
   height:100%;
   box-shadow:0 6px 30px rgba(0,204,255,0.05);
+  transition: left .3s;
 }
 .brand{
   display:flex;
-  gap:12px;
   align-items:center;
+  gap:12px;
 }
 .brand img{
-  height:44px;width:44px;border-radius:10px;
+  height:44px;
+  width:44px;
+  border-radius:10px;
 }
 .brand h1{
   margin:0;
@@ -88,7 +90,7 @@ html,body{
   color:var(--muted);
 }
 
-/* TOPBAR */
+/* MAIN */
 .main{
   padding:10px;
   display:flex;
@@ -121,12 +123,13 @@ html,body{
   box-shadow:0 0 12px rgba(0,204,255,0.4);
 }
 
-/* TABLE WRAPPER */
+/* TABLE */
 .table-wrapper{
   background:var(--glass);
   padding:18px;
   border-radius:var(--radius);
   box-shadow:0 6px 20px rgba(0,0,0,0.6);
+  overflow-x:auto;
 }
 .table{
   width:100%;
@@ -150,7 +153,6 @@ html,body{
 .table tr:hover{
   background:rgba(255,255,255,0.03);
 }
-
 .online{ color:var(--success); font-weight:700; }
 .offline{ color:var(--danger); font-weight:700; }
 
@@ -166,13 +168,12 @@ html,body{
   margin-bottom:10px;
 }
 
-/* SIDEBAR MOBILE */
+/* MOBILE */
 @media(max-width:850px){
   .app{
     grid-template-columns:1fr;
     padding:15px;
   }
-
   .sidebar{
     position:fixed;
     top:0;
@@ -180,7 +181,6 @@ html,body{
     width:240px;
     height:100%;
     z-index:99;
-    transition:left .3s;
   }
   .sidebar.show{
     left:0;
@@ -190,16 +190,12 @@ html,body{
   }
 
   /* TABLE → CARDS */
-  .table{
-    display:none;
-  }
-
+  .table{ display:none; }
   .table-wrapper{
     display:flex;
     flex-direction:column;
     gap:16px;
   }
-
   .bot-card{
     background:#101113;
     padding:16px;
@@ -213,7 +209,6 @@ html,body{
   .bot-card .name{ font-size:17px; font-weight:700; color:var(--accent); }
 }
 </style>
-
 </head>
 <body>
 
@@ -239,7 +234,6 @@ html,body{
     <div class="small">Logged in as <strong>User</strong></div>
   </aside>
 
-
   <!-- MAIN -->
   <main class="main">
 
@@ -253,66 +247,52 @@ html,body{
     </div>
 
     <!-- BIG SCREEN TABLE -->
-    <div class="table-wrapper">
-
-      <table class="table">
+    <div class="table-wrapper" id="botsWrapper">
+      <table class="table" id="botsTable">
         <tr>
           <th>Bot Name</th>
           <th>Asset</th>
           <th>Status</th>
           <th>Profit</th>
         </tr>
-
-        <tr>
-          <td>Scalper Pro</td>
-          <td>BTC</td>
-          <td class="online">Running</td>
-          <td>+$142.33</td>
-        </tr>
-
-        <tr>
-          <td>Ether Wave</td>
-          <td>ETH</td>
-          <td class="offline">Stopped</td>
-          <td>+$32.12</td>
-        </tr>
-
-        <tr>
-          <td>Solana AI</td>
-          <td>SOL</td>
-          <td class="online">Running</td>
-          <td>+$67.90</td>
-        </tr>
       </table>
-
-      <!-- MOBILE CARDS -->
-      <div class="bot-card">
-        <div class="name">Scalper Pro</div>
-        <div>Asset: BTC</div>
-        <div>Status: <span class="online">Running</span></div>
-        <div>Profit: +$142.33</div>
-      </div>
-
-      <div class="bot-card">
-        <div class="name">Ether Wave</div>
-        <div>Asset: ETH</div>
-        <div>Status: <span class="offline">Stopped</span></div>
-        <div>Profit: +$32.12</div>
-      </div>
-
-      <div class="bot-card">
-        <div class="name">Solana AI</div>
-        <div>Asset: SOL</div>
-        <div>Status: <span class="online">Running</span></div>
-        <div>Profit: +$67.90</div>
-      </div>
-
     </div>
 
   </main>
 </div>
 
 <script>
+// BOT DATA
+const bots = [
+  {name:"Scalper Pro", asset:"BTC", status:"Running", profit:"+142.33"},
+  {name:"Ether Wave", asset:"ETH", status:"Stopped", profit:"+32.12"},
+  {name:"Solana AI", asset:"SOL", status:"Running", profit:"+67.90"},
+];
+
+// GENERATE TABLE AND CARDS
+const table = document.getElementById("botsTable");
+const wrapper = document.getElementById("botsWrapper");
+
+bots.forEach(bot=>{
+  // Table row
+  const tr = document.createElement("tr");
+  tr.innerHTML=`<td>${bot.name}</td>
+                <td>${bot.asset}</td>
+                <td class="${bot.status==="Running"?"online":"offline"}">${bot.status}</td>
+                <td>${bot.profit}</td>`;
+  table.appendChild(tr);
+
+  // Mobile card
+  const card = document.createElement("div");
+  card.className="bot-card";
+  card.innerHTML=`<div class="name">${bot.name}</div>
+                  <div>Asset: ${bot.asset}</div>
+                  <div>Status: <span class="${bot.status==="Running"?"online":"offline"}">${bot.status}</span></div>
+                  <div>Profit: ${bot.profit}</div>`;
+  wrapper.appendChild(card);
+});
+
+// SIDEBAR TOGGLE
 function toggleMenu(){
   document.getElementById("sidebar").classList.toggle("show");
 }
@@ -320,3 +300,4 @@ function toggleMenu(){
 
 </body>
 </html>
+
