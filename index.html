@@ -2,310 +2,220 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Trade With Bots — Landing Page</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trade With Bots — Landing</title>
 <style>
-:root {
+:root{
   --bg:#000;
   --card:#0f1113;
+  --panel:#0b0b0c;
   --accent:#00ccff;
   --muted:#9aa;
-  --radius:12px;
   --glass: rgba(255,255,255,0.03);
+  --success:#2ee6a7;
+  --danger:#ff6b6b;
+  --radius:12px;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/* General styles */
+body, html{
+  margin:0; padding:0;
+  font-family:Inter, "Segoe UI", Roboto, system-ui, Arial;
+  background:var(--bg);
+  color:#fff;
+}
+.container{
+  max-width:1200px;
+  margin:0 auto;
+  padding:20px;
 }
 
-body {
-  font-family: Inter, "Segoe UI", Roboto, system-ui, Arial;
-  background: var(--bg);
-  color: #fff;
-  overflow-x: hidden;
+/* Hero Section */
+.hero{
+  text-align:center;
+  padding:80px 20px;
+}
+.hero h1{
+  font-size:48px;
+  color:var(--accent);
+  margin-bottom:20px;
+}
+.hero p{
+  font-size:18px;
+  color:var(--muted);
+  margin-bottom:30px;
+}
+.glow-btn{
+  background:linear-gradient(90deg,var(--accent),#00a8e6);
+  color:#000;
+  padding:16px 36px;
+  font-size:18px;
+  font-weight:700;
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+  box-shadow:0 0 20px var(--accent);
+  transition:0.3s all;
+}
+.glow-btn:hover{
+  box-shadow:0 0 40px var(--accent);
+  transform:scale(1.05);
 }
 
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 40px;
-  background: var(--card);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+/* User Trust Counter */
+.trust-counter{
+  text-align:center;
+  margin-top:20px;
+  font-size:20px;
+  color:#fff;
+}
+.trust-counter span{
+  color:var(--accent);
+  font-weight:700;
 }
 
-header img {
-  height: 48px;
-  width: 48px;
-  border-radius: 8px;
+/* News Section */
+.news-section{
+  background:var(--card);
+  padding:30px 20px;
+  border-radius:12px;
+  margin:40px 0;
+}
+.news-section h2{
+  color:var(--accent);
+  margin-bottom:20px;
+}
+.news-item{
+  display:flex;
+  justify-content:space-between;
+  padding:12px;
+  border-radius:8px;
+  background:var(--panel);
+  color:#fff;
+  text-decoration:none;
+  margin-bottom:10px;
+  transition:0.2s;
+}
+.news-item:hover{
+  background:rgba(0,204,255,0.1);
 }
 
-nav a {
-  color: #fff;
-  text-decoration: none;
-  margin-left: 24px;
-  font-weight: 600;
-  transition: color .2s;
+/* Top Cryptos */
+.crypto-section{
+  background:var(--card);
+  padding:30px 20px;
+  border-radius:12px;
+}
+.crypto-section h2{
+  color:var(--accent);
+  margin-bottom:20px;
+}
+.crypto-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px;
+  border-radius:8px;
+  background:var(--panel);
+  margin-bottom:10px;
+  transition:0.2s;
+  text-decoration:none;
+  color:#fff;
+}
+.crypto-item:hover{
+  background:rgba(0,204,255,0.1);
+}
+.crypto-item img{
+  width:28px;
+  height:28px;
+  border-radius:8px;
+  margin-right:10px;
+}
+.crypto-name{
+  display:flex;
+  align-items:center;
+}
+.crypto-price, .crypto-change{
+  min-width:100px;
+  text-align:right;
 }
 
-nav a:hover {
-  color: var(--accent);
-}
-
-.hero {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 80px 40px;
-  flex-wrap: wrap;
-}
-
-.hero-text {
-  max-width: 600px;
-}
-
-.hero-text h1 {
-  font-size: 52px;
-  color: var(--accent);
-  margin-bottom: 20px;
-}
-
-.hero-text p {
-  font-size: 20px;
-  color: var(--muted);
-  margin-bottom: 30px;
-  line-height: 1.5;
-}
-
-.hero-text a {
-  display: inline-block;
-  background: linear-gradient(90deg, var(--accent), #00a8e6);
-  color: #000;
-  padding: 16px 32px;
-  border-radius: var(--radius);
-  font-weight: 700;
-  text-decoration: none;
-  transition: transform .2s;
-}
-
-.hero-text a:hover {
-  transform: scale(1.05);
-}
-
-.hero-image img {
-  max-width: 500px;
-  width: 100%;
-  border-radius: var(--radius);
-  box-shadow: 0 6px 30px rgba(0,0,0,0.5);
-}
-
-.features {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  padding: 60px 40px;
-  gap: 20px;
-}
-
-.feature-card {
-  background: var(--card);
-  border-radius: var(--radius);
-  padding: 24px;
-  width: 280px;
-  text-align: center;
-  transition: transform .2s, box-shadow .2s;
-}
-
-.feature-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 6px 20px rgba(0,204,255,0.2);
-}
-
-.feature-card h3 {
-  color: var(--accent);
-  margin-bottom: 12px;
-}
-
-.feature-card p {
-  color: var(--muted);
-  font-size: 15px;
-}
-
-/* Crypto list section */
-.crypto-list {
-  padding: 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.crypto-item {
-  display: flex;
-  justify-content: space-between;
-  background: var(--card);
-  border-radius: var(--radius);
-  padding: 12px 20px;
-  align-items: center;
-  transition: background .2s;
-}
-
-.crypto-item:hover {
-  background: rgba(0,204,255,0.06);
-}
-
-.crypto-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.crypto-left img {
-  height: 28px;
-  width: 28px;
-  border-radius: 8px;
-}
-
-.crypto-right {
-  display: flex;
-  gap: 40px;
-}
-
-.crypto-right .price {
-  color: #fff;
-  font-weight: 600;
-}
-
-.crypto-right .change {
-  font-weight: 600;
-}
-
-.crypto-right .change.positive { color: #2ee6a7; }
-.crypto-right .change.negative { color: #ff6b6b; }
-
-footer {
-  text-align: center;
-  padding: 40px 20px;
-  font-size: 14px;
-  color: var(--muted);
-}
-
-@media(max-width:900px){
-  .hero { flex-direction: column; text-align: center; }
-  .hero-image { margin-top: 40px; }
-  .features { flex-direction: column; align-items: center; }
+/* Responsive */
+@media(max-width:768px){
+  .hero h1{ font-size:36px; }
+  .glow-btn{ padding:14px 28px; font-size:16px; }
+  .crypto-item, .news-item{ flex-direction:column; align-items:flex-start; }
+  .crypto-price, .crypto-change{ text-align:left; margin-top:4px; }
 }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="logo">
-    <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="Trade With Bots Logo">
-  </div>
-  <nav>
-    <a href="#">Home</a>
-    <a href="#">Bots</a>
-    <a href="#">Signals</a>
-    <a href="login.html">Login</a>
-  </nav>
-</header>
+<div class="container">
 
-<section class="hero">
-  <div class="hero-text">
+  <!-- Hero Section -->
+  <div class="hero">
     <h1>Trade With Bots</h1>
-    <p>Trade cryptocurrencies effortlessly with smart trading bots. Start trading safely and maximize your profits today.</p>
-    <a href="login.html">Start Trading</a>
-  </div>
-  <div class="hero-image">
-    <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="Trading Illustration">
-  </div>
-</section>
-
-<section class="features">
-  <div class="feature-card">
-    <h3>Smart Bots</h3>
-    <p>Automate your trades using AI-powered bots that follow market trends efficiently.</p>
-  </div>
-  <div class="feature-card">
-    <h3>Secure</h3>
-    <p>Your funds are always safe with advanced security protocols and encryption.</p>
-  </div>
-  <div class="feature-card">
-    <h3>Profit Tracking</h3>
-    <p>Monitor your profits and trading performance in real-time easily.</p>
-  </div>
-</section>
-
-<section class="crypto-list">
-  <!-- Your Popular / New Listing crypto list -->
-  <div class="crypto-item">
-    <div class="crypto-left">
-      <img src="https://bin.bnbstatic.com/image/admin_mgs_image_upload/20201110/87496d50-2408-43e1-ad4c-78b47b448a6a.png" alt="BTC">
-      <div>BTC</div>
-      <div>Bitcoin</div>
-    </div>
-    <div class="crypto-right">
-      <div class="price">$89,477.14</div>
-      <div class="change negative">-0.79%</div>
+    <p>No.1 Trusted Crypto Trading Platform</p>
+    <button class="glow-btn" onclick="location.href='login.html'">Start Trading</button>
+    <div class="trust-counter">
+      User Assets: $<span id="userAssets">120,000,000</span>
     </div>
   </div>
 
-  <div class="crypto-item">
-    <div class="crypto-left">
-      <img src="https://bin.bnbstatic.com/image/admin_mgs_image_upload/20201110/3a8c9fe6-2a76-4ace-aa07-415d994de6f0.png" alt="ETH">
-      <div>ETH</div>
-      <div>Ethereum</div>
-    </div>
-    <div class="crypto-right">
-      <div class="price">$3,115.87</div>
-      <div class="change positive">+0.14%</div>
-    </div>
+  <!-- News Section -->
+  <div class="news-section">
+    <h2>Latest News</h2>
+    <a href="#" class="news-item">
+      <div>Crypto Market Hits All-Time High</div>
+      <div>2h ago</div>
+    </a>
+    <a href="#" class="news-item">
+      <div>Ethereum 2.0 Upgrade Announced</div>
+      <div>5h ago</div>
+    </a>
+    <a href="#" class="news-item">
+      <div>New DeFi Platform Gains Popularity</div>
+      <div>1d ago</div>
+    </a>
   </div>
 
-  <div class="crypto-item">
-    <div class="crypto-left">
-      <img src="https://bin.bnbstatic.com/image/admin_mgs_image_upload/20220218/94863af2-c980-42cf-a139-7b9f462a36c2.png" alt="BNB">
-      <div>BNB</div>
-      <div>BNB</div>
-    </div>
-    <div class="crypto-right">
-      <div class="price">$886.75</div>
-      <div class="change negative">-0.83%</div>
-    </div>
+  <!-- Top Cryptos -->
+  <div class="crypto-section">
+    <h2>Top Cryptos</h2>
+    <a href="#" class="crypto-item">
+      <div class="crypto-name"><img src="https://bin.bnbstatic.com/image/admin_mgs_image_upload/20201110/87496d50-2408-43e1-ad4c-78b47b448a6a.png" alt="BTC">BTC - Bitcoin</div>
+      <div class="crypto-price">$89,477.14</div>
+      <div class="crypto-change" style="color:#ff4b4b;">-0.79%</div>
+    </a>
+    <a href="#" class="crypto-item">
+      <div class="crypto-name"><img src="https://bin.bnbstatic.com/image/admin_mgs_image_upload/20201110/3a8c9fe6-2a76-4ace-aa07-415d994de6f0.png" alt="ETH">ETH - Ethereum</div>
+      <div class="crypto-price">$3,115.87</div>
+      <div class="crypto-change" style="color:#00ccff;">+0.14%</div>
+    </a>
+    <a href="#" class="crypto-item">
+      <div class="crypto-name"><img src="https://bin.bnbstatic.com/image/admin_mgs_image_upload/20220218/94863af2-c980-42cf-a139-7b9f462a36c2.png" alt="BNB">BNB - BNB</div>
+      <div class="crypto-price">$886.75</div>
+      <div class="crypto-change" style="color:#ff4b4b;">-0.83%</div>
+    </a>
+    <a href="#" class="crypto-item">
+      <div class="crypto-name"><img src="https://bin.bnbstatic.com/image/admin_mgs_image_upload/20201110/4766a9cc-8545-4c2b-bfa4-cad2be91c135.png" alt="XRP">XRP - XRP</div>
+      <div class="crypto-price">$2.00</div>
+      <div class="crypto-change" style="color:#ff4b4b;">-0.84%</div>
+    </a>
   </div>
 
-  <div class="crypto-item">
-    <div class="crypto-left">
-      <img src="https://bin.bnbstatic.com/image/admin_mgs_image_upload/20201110/4766a9cc-8545-4c2b-bfa4-cad2be91c135.png" alt="XRP">
-      <div>XRP</div>
-      <div>XRP</div>
-    </div>
-    <div class="crypto-right">
-      <div class="price">$2.00</div>
-      <div class="change negative">-0.84%</div>
-    </div>
-  </div>
+</div>
 
-  <div class="crypto-item">
-    <div class="crypto-left">
-      <img src="https://bin.bnbstatic.com/image/admin_mgs_image_upload/20251006/5dc769cc-c302-4e3e-a5d4-fe5199f1cb7e.png" alt="ASTER">
-      <div>ASTER</div>
-      <div>Aster</div>
-    </div>
-    <div class="crypto-right">
-      <div class="price">$0.937</div>
-      <div class="change negative">-1.37%</div>
-    </div>
-  </div>
-
-  <a href="#" style="text-align:center; margin-top:12px; display:block; color: var(--muted); text-decoration:none;">View All 350+ Coins →</a>
-</section>
-
-<footer>
-  © 2025 Trade With Bots. All rights reserved.
-</footer>
+<script>
+// User Assets counter increase slightly every minute
+let assetsElem = document.getElementById("userAssets");
+let assets = 120000000;
+setInterval(()=>{
+  assets += Math.floor(Math.random()*5000); // increase slightly
+  assetsElem.innerText = assets.toLocaleString();
+}, 60000);
+</script>
 
 </body>
 </html>
