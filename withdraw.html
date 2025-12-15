@@ -18,14 +18,6 @@ html,body{
   font-family:Inter,sans-serif;
   background:var(--bg);
   color:#fff;
-  transition:all 0.3s ease;
-}
-body.light{
-  --bg:#f0f0f0;
-  --card:#fff;
-  --accent:#009bd1;
-  --muted:#555;
-  --text:#000;
 }
 .app{
   display:grid;
@@ -41,7 +33,6 @@ body.light{
   padding:18px;
   border-radius:var(--radius);
   height:100%;
-  box-shadow:0 6px 30px rgba(0,204,255,0.05);
 }
 .brand{
   display:flex;
@@ -67,7 +58,6 @@ body.light{
   font-size:14px;
   color:#cfeff6;
   text-decoration:none;
-  transition:background .15s;
 }
 .nav a:hover{background: rgba(0,204,255,0.06);}
 .nav a.active{background: rgba(0,204,255,0.12);color:#fff;}
@@ -99,7 +89,9 @@ body.light{
   flex-direction:column;
   gap:15px;
 }
-.card input[type="text"], .card input[type="number"], .card input[type="file"]{
+
+/* Inputs & buttons */
+.card input[type="text"], .card input[type="number"]{
   padding:12px;
   border-radius:8px;
   border:none;
@@ -107,44 +99,33 @@ body.light{
   color:#fff;
   width:100%;
 }
-.card button{
-  padding:10px 18px; /* shorter width */
+.card input[type="file"]{
+  display:none;
+}
+.file-btn{
+  padding:10px 14px;
+  border-radius:8px;
   border:none;
-  border-radius:10px;
+  background:linear-gradient(90deg,#00ffcc,#00ccff);
+  color:#000;
   font-weight:700;
   cursor:pointer;
+  width:150px;
+  text-align:center;
 }
 .btn-withdraw{
   background:linear-gradient(90deg,#ff4b4b,#ff2d2d);
   color:#fff;
-  width:auto; /* make it only as wide as content */
-}
-.btn-submit{
-  background:linear-gradient(90deg,#00ffcc,#00ccff);
-  color:#000;
-  width:auto; /* button width fits content */
+  padding:10px 18px;
+  border:none;
+  border-radius:10px;
+  font-weight:700;
+  width:auto;
+  cursor:pointer;
 }
 .note{
   font-size:13px;
   color:#aaa;
-}
-
-/* LIGHT MODE OVERRIDES */
-body.light .card{
-  background:#fff;
-  color:#000;
-}
-body.light .card input{
-  background:#f0f0f0;
-  color:#000;
-}
-body.light .btn-withdraw{
-  background:linear-gradient(90deg,#ff7b7b,#ff5b5b);
-  color:#000;
-}
-body.light .btn-submit{
-  background:linear-gradient(90deg,#00bfff,#00ccff);
-  color:#000;
 }
 
 /* MOBILE */
@@ -221,16 +202,18 @@ body.light .btn-submit{
       <div class="bank-card">
         <h3>JazzCash</h3>
         <input type="text" id="jazzcashNum" placeholder="Enter your JazzCash number">
+        <label class="file-btn" for="jazzcashScreenshot">Upload Screenshot</label>
         <input type="file" id="jazzcashScreenshot" accept="image/*">
-        <button class="btn-submit" onclick="submitBank('JazzCash')">Submit</button>
+        <button class="file-btn" onclick="submitBank('JazzCash')">Submit</button>
       </div>
 
       <!-- Easypaisa -->
       <div class="bank-card">
         <h3>Easypaisa</h3>
         <input type="text" id="easypaisaNum" placeholder="Enter your Easypaisa number">
+        <label class="file-btn" for="easypaisaScreenshot">Upload Screenshot</label>
         <input type="file" id="easypaisaScreenshot" accept="image/*">
-        <button class="btn-submit" onclick="submitBank('Easypaisa')">Submit</button>
+        <button class="file-btn" onclick="submitBank('Easypaisa')">Submit</button>
       </div>
     </div>
   </main>
