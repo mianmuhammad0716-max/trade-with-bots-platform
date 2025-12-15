@@ -5,8 +5,6 @@
 <title>Trade With Bots — Smart Crypto Trading</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="icon" href="logo.png">
-
 <style>
 :root{
   --bg:#000;
@@ -14,7 +12,6 @@
   --glass:rgba(255,255,255,0.04);
   --accent:#00ccff;
   --muted:#9aa;
-  --success:#2ee6a7;
 }
 
 *{box-sizing:border-box}
@@ -32,16 +29,30 @@ header{
   align-items:center;
   padding:18px 32px;
 }
-header img{height:36px}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.brand img{
+  height:38px;
+  width:38px;
+  border-radius:8px;
+}
+.brand h1{
+  margin:0;
+  font-size:18px;
+  color:var(--accent);
+}
 header a{
   color:#fff;
   text-decoration:none;
   font-weight:700;
 }
 
-/* MARKET SENTIMENT BAR (A) */
+/* MARKET SENTIMENT */
 .sentiment{
-  background:linear-gradient(90deg,#0b1d24,#020b0f);
+  background:linear-gradient(90deg,#050d12,#020b0f);
   border-top:1px solid rgba(255,255,255,0.06);
   border-bottom:1px solid rgba(255,255,255,0.06);
   padding:10px 24px;
@@ -49,16 +60,16 @@ header a{
   gap:24px;
   font-size:14px;
 }
-.sentiment span strong{color:var(--accent)}
+.sentiment strong{color:var(--accent)}
 
 /* HERO */
 .hero{
   padding:40px 32px;
   text-align:center;
 }
-.hero h1{
-  font-size:38px;
-  margin-bottom:12px;
+.hero h2{
+  font-size:36px;
+  margin-bottom:10px;
 }
 .hero p{
   color:var(--muted);
@@ -67,7 +78,7 @@ header a{
 
 .hero button{
   margin-top:20px;
-  padding:14px 32px;
+  padding:14px 34px;
   font-size:16px;
   font-weight:800;
   border:none;
@@ -75,16 +86,16 @@ header a{
   background:linear-gradient(90deg,var(--accent),#00a8e6);
   color:#000;
   cursor:pointer;
-  box-shadow:0 0 20px rgba(0,204,255,0.6);
+  box-shadow:0 0 25px rgba(0,204,255,0.7);
   animation:pulse 1.6s infinite;
 }
 @keyframes pulse{
-  0%{box-shadow:0 0 10px rgba(0,204,255,0.4)}
-  50%{box-shadow:0 0 30px rgba(0,204,255,0.9)}
-  100%{box-shadow:0 0 10px rgba(0,204,255,0.4)}
+  0%{box-shadow:0 0 12px rgba(0,204,255,0.5)}
+  50%{box-shadow:0 0 35px rgba(0,204,255,0.9)}
+  100%{box-shadow:0 0 12px rgba(0,204,255,0.5)}
 }
 
-/* MAIN SECTION */
+/* MAIN */
 .main{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -97,6 +108,11 @@ header a{
   background:var(--glass);
   border-radius:14px;
   padding:18px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.6);
+}
+.card h3{
+  margin-top:0;
+  color:var(--accent);
 }
 
 /* COINS */
@@ -125,7 +141,7 @@ header a{
 .news-item strong{display:block}
 .news-item span{color:var(--muted);font-size:13px}
 
-/* SOCIAL PROOF (D) */
+/* TRUST */
 .trust{
   background:linear-gradient(90deg,#020b0f,#000);
   padding:26px;
@@ -135,11 +151,11 @@ header a{
   justify-content:space-around;
   text-align:center;
 }
-.trust div strong{
+.trust strong{
   font-size:22px;
   color:var(--accent);
 }
-.trust div span{
+.trust span{
   color:var(--muted);
   font-size:13px;
 }
@@ -156,28 +172,31 @@ header a{
 
 <!-- HEADER -->
 <header>
-  <img src="logo.png" alt="Trade With Bots">
+  <div class="brand">
+    <!-- 🔁 REPLACE THIS LOGO URL WITH YOUR OWN -->
+    <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png">
+    <h1>Trade With Bots</h1>
+  </div>
   <a href="login.html">Login</a>
 </header>
 
-<!-- MARKET SENTIMENT (A) -->
+<!-- SENTIMENT -->
 <div class="sentiment">
   <span>BTC: <strong>65% Bullish</strong></span>
   <span>ETH: <strong>58% Bullish</strong></span>
-  <span>Fear & Greed Index: <strong>72 (Greed)</strong></span>
+  <span>Fear & Greed: <strong>72</strong></span>
 </div>
 
 <!-- HERO -->
 <section class="hero">
-  <h1>No.1 Customer Asset Protection Platform</h1>
-  <p>Trade smarter using automated crypto bots trusted worldwide</p>
+  <h2>No.1 Customer Asset Protection Platform</h2>
+  <p>Automated crypto trading powered by smart bots</p>
   <button onclick="location.href='login.html'">Start Trading</button>
 </section>
 
 <!-- COINS + NEWS -->
 <section class="main">
 
-  <!-- COINS -->
   <div class="card">
     <h3>🔥 Popular Coins</h3>
 
@@ -185,24 +204,20 @@ header a{
       <span><img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png"> BTC</span>
       <strong>$89,477</strong>
     </div>
-
     <div class="coin">
       <span><img src="https://cryptologos.cc/logos/ethereum-eth-logo.png"> ETH</span>
       <strong>$3,115</strong>
     </div>
-
     <div class="coin">
       <span><img src="https://cryptologos.cc/logos/bnb-bnb-logo.png"> BNB</span>
       <strong>$886</strong>
     </div>
-
     <div class="coin">
       <span><img src="https://cryptologos.cc/logos/xrp-xrp-logo.png"> XRP</span>
       <strong>$2.00</strong>
     </div>
   </div>
 
-  <!-- NEWS -->
   <div class="card">
     <h3>📰 Crypto News</h3>
 
@@ -210,26 +225,23 @@ header a{
       <strong>Bitcoin holds above $89K</strong>
       <span>Institutional demand remains strong</span>
     </div>
-
     <div class="news-item">
       <strong>Ethereum ETF inflows rise</strong>
-      <span>ETH ecosystem gains momentum</span>
+      <span>Market confidence grows</span>
     </div>
-
     <div class="news-item">
-      <strong>BNB Chain activity surges</strong>
-      <span>DeFi volume hits monthly high</span>
+      <strong>BNB Chain volume surges</strong>
+      <span>DeFi activity increases</span>
     </div>
-
     <div class="news-item">
       <strong>Altcoins show recovery</strong>
-      <span>Market sentiment turns bullish</span>
+      <span>Bullish sentiment returns</span>
     </div>
   </div>
 
 </section>
 
-<!-- SOCIAL PROOF (D) -->
+<!-- TRUST -->
 <section class="trust">
   <div>
     <strong id="users">1,240,000+</strong><br>
@@ -241,12 +253,11 @@ header a{
   </div>
   <div>
     <strong>120+</strong><br>
-    <span>Countries Supported</span>
+    <span>Countries</span>
   </div>
 </section>
 
 <script>
-/* AUTO INCREASE USER TRUST NUMBER */
 setInterval(()=>{
   const el=document.getElementById("users");
   let n=parseInt(el.innerText.replace(/\D/g,''));
