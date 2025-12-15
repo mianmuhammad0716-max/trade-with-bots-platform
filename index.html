@@ -30,26 +30,21 @@ body, html{
   padding:20px;
 }
 
-/* Hero Section */
-.hero{
-  text-align:center;
-  padding:80px 20px;
+/* Header */
+.header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:16px 0;
 }
-.hero h1{
-  font-size:48px;
-  color:var(--accent);
-  margin-bottom:20px;
+.header img{
+  height:50px;
 }
-.hero p{
-  font-size:18px;
-  color:var(--muted);
-  margin-bottom:30px;
-}
-.glow-btn{
+.header .start-btn{
   background:linear-gradient(90deg,var(--accent),#00a8e6);
   color:#000;
-  padding:16px 36px;
-  font-size:18px;
+  padding:12px 28px;
+  font-size:16px;
   font-weight:700;
   border:none;
   border-radius:12px;
@@ -57,154 +52,166 @@ body, html{
   box-shadow:0 0 20px var(--accent);
   transition:0.3s all;
 }
-.glow-btn:hover{
+.header .start-btn:hover{
   box-shadow:0 0 40px var(--accent);
   transform:scale(1.05);
 }
 
-/* User Trust Counter */
-.trust-counter{
+/* Hero section */
+.hero{
   text-align:center;
-  margin-top:20px;
-  font-size:20px;
+  margin:20px 0;
+}
+.hero h1{
+  font-size:36px;
+  color:var(--accent);
+  margin-bottom:10px;
+}
+.hero p{
+  font-size:16px;
+  color:var(--muted);
+  margin-bottom:10px;
+}
+.trust-counter{
+  font-size:18px;
   color:#fff;
+  margin-top:5px;
 }
 .trust-counter span{
   color:var(--accent);
   font-weight:700;
 }
 
+/* Sections layout */
+.sections{
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+  justify-content:space-between;
+}
+
 /* News Section */
 .news-section{
   background:var(--card);
-  padding:30px 20px;
+  padding:20px;
   border-radius:12px;
-  margin:40px 0;
+  flex:1 1 45%;
+  min-width:300px;
 }
 .news-section h2{
   color:var(--accent);
-  margin-bottom:20px;
+  margin-bottom:15px;
 }
 .news-item{
   display:flex;
   justify-content:space-between;
-  padding:12px;
+  padding:10px;
   border-radius:8px;
   background:var(--panel);
   color:#fff;
   text-decoration:none;
-  margin-bottom:10px;
+  margin-bottom:8px;
   transition:0.2s;
 }
-.news-item:hover{
-  background:rgba(0,204,255,0.1);
-}
+.news-item:hover{ background:rgba(0,204,255,0.1); }
 
 /* Top Cryptos */
 .crypto-section{
   background:var(--card);
-  padding:30px 20px;
+  padding:20px;
   border-radius:12px;
+  flex:1 1 50%;
+  min-width:300px;
 }
 .crypto-section h2{
   color:var(--accent);
-  margin-bottom:20px;
+  margin-bottom:15px;
 }
 .crypto-item{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:12px;
+  padding:10px;
   border-radius:8px;
   background:var(--panel);
-  margin-bottom:10px;
+  margin-bottom:8px;
   transition:0.2s;
   text-decoration:none;
   color:#fff;
 }
-.crypto-item:hover{
-  background:rgba(0,204,255,0.1);
-}
+.crypto-item:hover{ background:rgba(0,204,255,0.1); }
 .crypto-item img{
   width:28px;
   height:28px;
   border-radius:8px;
   margin-right:10px;
 }
-.crypto-name{
-  display:flex;
-  align-items:center;
-}
+.crypto-name{ display:flex; align-items:center; }
 .crypto-price, .crypto-change{
-  min-width:100px;
+  min-width:80px;
   text-align:right;
 }
 
 /* Responsive */
 @media(max-width:768px){
-  .hero h1{ font-size:36px; }
-  .glow-btn{ padding:14px 28px; font-size:16px; }
+  .sections{ flex-direction:column; }
   .crypto-item, .news-item{ flex-direction:column; align-items:flex-start; }
   .crypto-price, .crypto-change{ text-align:left; margin-top:4px; }
+  .hero h1{ font-size:28px; }
 }
 </style>
 </head>
 <body>
 
 <div class="container">
+  <!-- Header with logo and button -->
+  <div class="header">
+    <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="Logo">
+    <button class="start-btn" onclick="location.href='login.html'">Start Trading</button>
+  </div>
 
-  <!-- Hero Section -->
+  <!-- Hero section -->
   <div class="hero">
     <h1>Trade With Bots</h1>
-    <p>No.1 Trusted Crypto Trading Platform</p>
-    <button class="glow-btn" onclick="location.href='login.html'">Start Trading</button>
-    <div class="trust-counter">
-      User Assets: $<span id="userAssets">120,000,000</span>
+    <p>No.1 Trusted Crypto Platform</p>
+    <div class="trust-counter">User Assets: $<span id="userAssets">120,000,000</span></div>
+  </div>
+
+  <!-- Sections: News + Top Cryptos -->
+  <div class="sections">
+    <!-- News Section -->
+    <div class="news-section">
+      <h2>Latest News</h2>
+      <a href="#" class="news-item"><div>Crypto Market Hits All-Time High</div><div>2h ago</div></a>
+      <a href="#" class="news-item"><div>Ethereum 2.0 Upgrade Announced</div><div>5h ago</div></a>
+      <a href="#" class="news-item"><div>New DeFi Platform Gains Popularity</div><div>1d ago</div></a>
+    </div>
+
+    <!-- Top Cryptos Section -->
+    <div class="crypto-section">
+      <h2>Top Cryptos</h2>
+      <a href="#" class="crypto-item">
+        <div class="crypto-name"><img src="https://bin.bnbstatic.com/image/admin_mgs_image_upload/20201110/87496d50-2408-43e1-ad4c-78b47b448a6a.png" alt="BTC">BTC - Bitcoin</div>
+        <div class="crypto-price">$89,477.14</div>
+        <div class="crypto-change" style="color:#ff4b4b;">-0.79%</div>
+      </a>
+      <a href="#" class="crypto-item">
+        <div class="crypto-name"><img src="https://bin.bnbstatic.com/image/admin_mgs_image_upload/20201110/3a8c9fe6-2a76-4ace-aa07-415d994de6f0.png" alt="ETH">ETH - Ethereum</div>
+        <div class="crypto-price">$3,115.87</div>
+        <div class="crypto-change" style="color:#00ccff;">+0.14%</div>
+      </a>
+      <a href="#" class="crypto-item">
+        <div class="crypto-name"><img src="https://bin.bnbstatic.com/image/admin_mgs_image_upload/20220218/94863af2-c980-42cf-a139-7b9f462a36c2.png" alt="BNB">BNB - BNB</div>
+        <div class="crypto-price">$886.75</div>
+        <div class="crypto-change" style="color:#ff4b4b;">-0.83%</div>
+      </a>
+      <a href="#" class="crypto-item">
+        <div class="crypto-name"><img src="https://bin.bnbstatic.com/image/admin_mgs_image_upload/20201110/4766a9cc-8545-4c2b-bfa4-cad2be91c135.png" alt="XRP">XRP - XRP</div>
+        <div class="crypto-price">$2.00</div>
+        <div class="crypto-change" style="color:#ff4b4b;">-0.84%</div>
+      </a>
     </div>
   </div>
-
-  <!-- News Section -->
-  <div class="news-section">
-    <h2>Latest News</h2>
-    <a href="#" class="news-item">
-      <div>Crypto Market Hits All-Time High</div>
-      <div>2h ago</div>
-    </a>
-    <a href="#" class="news-item">
-      <div>Ethereum 2.0 Upgrade Announced</div>
-      <div>5h ago</div>
-    </a>
-    <a href="#" class="news-item">
-      <div>New DeFi Platform Gains Popularity</div>
-      <div>1d ago</div>
-    </a>
-  </div>
-
-  <!-- Top Cryptos -->
-  <div class="crypto-section">
-    <h2>Top Cryptos</h2>
-    <a href="#" class="crypto-item">
-      <div class="crypto-name"><img src="https://bin.bnbstatic.com/image/admin_mgs_image_upload/20201110/87496d50-2408-43e1-ad4c-78b47b448a6a.png" alt="BTC">BTC - Bitcoin</div>
-      <div class="crypto-price">$89,477.14</div>
-      <div class="crypto-change" style="color:#ff4b4b;">-0.79%</div>
-    </a>
-    <a href="#" class="crypto-item">
-      <div class="crypto-name"><img src="https://bin.bnbstatic.com/image/admin_mgs_image_upload/20201110/3a8c9fe6-2a76-4ace-aa07-415d994de6f0.png" alt="ETH">ETH - Ethereum</div>
-      <div class="crypto-price">$3,115.87</div>
-      <div class="crypto-change" style="color:#00ccff;">+0.14%</div>
-    </a>
-    <a href="#" class="crypto-item">
-      <div class="crypto-name"><img src="https://bin.bnbstatic.com/image/admin_mgs_image_upload/20220218/94863af2-c980-42cf-a139-7b9f462a36c2.png" alt="BNB">BNB - BNB</div>
-      <div class="crypto-price">$886.75</div>
-      <div class="crypto-change" style="color:#ff4b4b;">-0.83%</div>
-    </a>
-    <a href="#" class="crypto-item">
-      <div class="crypto-name"><img src="https://bin.bnbstatic.com/image/admin_mgs_image_upload/20201110/4766a9cc-8545-4c2b-bfa4-cad2be91c135.png" alt="XRP">XRP - XRP</div>
-      <div class="crypto-price">$2.00</div>
-      <div class="crypto-change" style="color:#ff4b4b;">-0.84%</div>
-    </a>
-  </div>
-
 </div>
 
 <script>
@@ -212,7 +219,7 @@ body, html{
 let assetsElem = document.getElementById("userAssets");
 let assets = 120000000;
 setInterval(()=>{
-  assets += Math.floor(Math.random()*5000); // increase slightly
+  assets += Math.floor(Math.random()*5000);
   assetsElem.innerText = assets.toLocaleString();
 }, 60000);
 </script>
