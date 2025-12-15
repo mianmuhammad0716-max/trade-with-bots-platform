@@ -2,239 +2,206 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Trade With Bots — Landing</title>
+<title>Trade With Bots | Crypto Exchange</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- FONT (Binance-like) -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
 :root{
-  --bg:#000;
-  --card:#0f1113;
-  --panel:#0b0b0c;
-  --accent:#00ccff;
-  --muted:#9aa;
-  --glass: rgba(255,255,255,0.03);
-  --success:#2ee6a7;
-  --danger:#ff4b4b;
-  --radius:12px;
+  --bg:#0b0e11;
+  --card:#161a1e;
+  --text:#eaecef;
+  --muted:#848e9c;
+  --yellow:#f0b90b;
+  --green:#0ecb81;
+  --red:#f6465d;
 }
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+body{background:var(--bg);color:var(--text);}
 
-/* General styles */
-body, html{
-  margin:0; padding:0;
-  font-family:Inter, "Segoe UI", Roboto, system-ui, Arial;
-  background:var(--bg);
-  color:#fff;
-}
-.container{
-  max-width:1200px;
-  margin:0 auto;
-  padding:20px;
-}
-
-/* Header */
-.header{
+/* HEADER */
+header{
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  padding:16px 0;
+  align-items:center;
+  padding:18px 40px;
 }
-.header img{
-  height:50px;
-}
-.header .start-btn{
-  background:linear-gradient(90deg,var(--accent),#00a8e6);
-  color:#000;
-  padding:12px 28px;
-  font-size:16px;
+.logo{
+  font-size:22px;
   font-weight:700;
-  border:none;
-  border-radius:12px;
-  cursor:pointer;
-  box-shadow:0 0 20px var(--accent);
-  transition:0.3s all;
 }
-.header .start-btn:hover{
-  box-shadow:0 0 40px var(--accent);
-  transform:scale(1.05);
+.logo span{color:var(--yellow);}
+
+/* BUTTON */
+.btn{
+  background:var(--yellow);
+  color:#000;
+  padding:14px 28px;
+  border-radius:6px;
+  text-decoration:none;
+  font-weight:700;
+  animation:glow 1.5s infinite alternate;
+}
+@keyframes glow{
+  from{box-shadow:0 0 8px rgba(240,185,11,.5);}
+  to{box-shadow:0 0 22px rgba(240,185,11,1);}
 }
 
-/* Hero section */
+/* HERO */
 .hero{
-  text-align:center;
-  margin:20px 0;
+  padding:30px 40px 10px;
 }
 .hero h1{
-  font-size:36px;
-  color:var(--accent);
+  font-size:38px;
   margin-bottom:10px;
 }
 .hero p{
-  font-size:16px;
   color:var(--muted);
-  margin-bottom:10px;
-}
-.trust-counter{
-  font-size:18px;
-  color:#fff;
-  margin-top:5px;
-}
-.trust-counter span{
-  color:var(--accent);
-  font-weight:700;
+  max-width:650px;
 }
 
-/* Main layout */
-.main-sections{
+/* STATS */
+.stats{
   display:flex;
-  gap:20px;
-  flex-wrap:wrap;
+  gap:30px;
+  padding:10px 40px 25px;
+}
+.stat{
+  background:var(--card);
+  padding:14px 22px;
+  border-radius:10px;
+}
+.stat strong{color:var(--yellow);font-size:18px;}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+  padding:0 40px 40px;
+}
+.card{
+  background:var(--card);
+  border-radius:14px;
+  padding:20px;
 }
 
-/* Crypto Section */
-.crypto-section{
-  background:var(--card);
-  padding:20px;
-  border-radius:12px;
-  flex:1 1 55%;
-  min-width:300px;
-}
-.crypto-section h2{
-  color:var(--accent);
-  margin-bottom:15px;
-}
-.crypto-item{
+/* COINS */
+.coin{
   display:flex;
   justify-content:space-between;
-  align-items:center;
-  padding:12px 16px;
-  border-radius:8px;
-  background:var(--panel);
-  margin-bottom:10px;
-  transition:0.2s;
-  text-decoration:none;
-  color:#fff;
+  padding:12px 0;
+  border-bottom:1px solid #222;
 }
-.crypto-item:hover{ background:rgba(0,204,255,0.1); }
-.crypto-item img{
-  width:32px;
-  height:32px;
-  border-radius:8px;
-  margin-right:10px;
+.coin:last-child{border:none;}
+.green{color:var(--green);}
+.red{color:var(--red);}
+
+/* NEWS */
+.news-item{
+  padding:14px 0;
+  border-bottom:1px solid #222;
 }
-.crypto-name{ display:flex; align-items:center; font-weight:600; }
-.crypto-price, .crypto-change{
-  min-width:80px;
-  text-align:right;
+.news-item:last-child{border:none;}
+.news-item h4{
+  font-size:15px;
   font-weight:600;
 }
+.news-item span{
+  font-size:13px;
+  color:var(--muted);
+}
 
-/* News Section */
-.news-section{
-  background:var(--card);
-  padding:20px;
-  border-radius:12px;
-  flex:1 1 40%;
-  min-width:250px;
-}
-.news-section h2{
-  color:var(--accent);
-  margin-bottom:15px;
-}
-.news-card{
-  background:var(--panel);
-  border-radius:10px;
-  padding:12px 16px;
-  margin-bottom:12px;
-  transition:0.2s;
-  text-decoration:none;
-  color:#fff;
-}
-.news-card:hover{ background:rgba(0,204,255,0.1); }
-.news-card .title{ font-weight:600; margin-bottom:5px; }
-.news-card .time{ font-size:13px; color:var(--muted); }
-
-/* Responsive */
-@media(max-width:768px){
-  .main-sections{ flex-direction:column; }
-  .crypto-item, .news-card{ flex-direction:column; align-items:flex-start; }
-  .crypto-price, .crypto-change{ text-align:left; margin-top:4px; }
-  .hero h1{ font-size:28px; }
+/* RESPONSIVE */
+@media(max-width:900px){
+  .grid{grid-template-columns:1fr;}
+  .stats{flex-direction:column;}
 }
 </style>
 </head>
+
 <body>
 
-<div class="container">
-  <!-- Header with logo and button -->
-  <div class="header">
-    <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="Logo">
-    <button class="start-btn" onclick="location.href='login.html'">Start Trading</button>
+<header>
+  <div class="logo">⚡ <span>Trade With Bots</span></div>
+  <a href="login.html" class="btn">Start Trading</a>
+</header>
+
+<section class="hero">
+  <h1>Buy & Trade Crypto in Minutes</h1>
+  <p>No.1 Customer Asset Protection · Real-Time Market · Trusted Worldwide</p>
+</section>
+
+<!-- TRUST / STATS -->
+<section class="stats">
+  <div class="stat">
+    <strong>No.1</strong><br>
+    Customer Asset Protection
+  </div>
+  <div class="stat">
+    <strong id="users">1,250,000</strong><br>
+    Trusted Users
+  </div>
+</section>
+
+<section class="grid">
+
+  <!-- COINS -->
+  <div class="card">
+    <h3>🔥 Coins Prices</h3>
+
+    <div class="coin"><span>BTC</span><strong id="btc">$89,477</strong></div>
+    <div class="coin"><span>ETH</span><strong id="eth">$3,115</strong></div>
+    <div class="coin"><span>BNB</span><strong id="bnb">$886</strong></div>
+    <div class="coin"><span>XRP</span><strong id="xrp">$2.00</strong></div>
   </div>
 
-  <!-- Hero section -->
-  <div class="hero">
-    <h1>Trade With Bots</h1>
-    <p>No.1 Trusted Crypto Platform</p>
-    <div class="trust-counter">User Assets: $<span id="userAssets">120,000,000</span></div>
-  </div>
+  <!-- NEWS -->
+  <div class="card">
+    <h3>📰 Crypto News</h3>
 
-  <!-- Main sections -->
-  <div class="main-sections">
-    <!-- Crypto Coins -->
-    <div class="crypto-section">
-      <h2>Top Cryptos</h2>
-      <a href="#" class="crypto-item">
-        <div class="crypto-name"><img src="https://bin.bnbstatic.com/image/admin_mgs_image_upload/20201110/87496d50-2408-43e1-ad4c-78b47b448a6a.png" alt="BTC"> BTC - Bitcoin</div>
-        <div class="crypto-price">$89,477.14</div>
-        <div class="crypto-change" style="color:#ff4b4b;">-0.79%</div>
-      </a>
-      <a href="#" class="crypto-item">
-        <div class="crypto-name"><img src="https://bin.bnbstatic.com/image/admin_mgs_image_upload/20201110/3a8c9fe6-2a76-4ace-aa07-415d994de6f0.png" alt="ETH"> ETH - Ethereum</div>
-        <div class="crypto-price">$3,115.87</div>
-        <div class="crypto-change" style="color:#00ccff;">+0.14%</div>
-      </a>
-      <a href="#" class="crypto-item">
-        <div class="crypto-name"><img src="https://bin.bnbstatic.com/image/admin_mgs_image_upload/20220218/94863af2-c980-42cf-a139-7b9f462a36c2.png" alt="BNB"> BNB - BNB</div>
-        <div class="crypto-price">$886.75</div>
-        <div class="crypto-change" style="color:#ff4b4b;">-0.83%</div>
-      </a>
-      <a href="#" class="crypto-item">
-        <div class="crypto-name"><img src="https://bin.bnbstatic.com/image/admin_mgs_image_upload/20201110/4766a9cc-8545-4c2b-bfa4-cad2be91c135.png" alt="XRP"> XRP - XRP</div>
-        <div class="crypto-price">$2.00</div>
-        <div class="crypto-change" style="color:#ff4b4b;">-0.84%</div>
-      </a>
+    <div class="news-item">
+      <h4>Bitcoin volatility rises ahead of market open</h4>
+      <span>2 minutes ago</span>
     </div>
 
-    <!-- News -->
-    <div class="news-section">
-      <h2>Latest News</h2>
-      <a href="#" class="news-card">
-        <div class="title">Crypto Market Hits All-Time High</div>
-        <div class="time">2h ago</div>
-      </a>
-      <a href="#" class="news-card">
-        <div class="title">Ethereum 2.0 Upgrade Announced</div>
-        <div class="time">5h ago</div>
-      </a>
-      <a href="#" class="news-card">
-        <div class="title">New DeFi Platform Gains Popularity</div>
-        <div class="time">1d ago</div>
-      </a>
-      <a href="#" class="news-card">
-        <div class="title">Bitcoin Dominance Surges</div>
-        <div class="time">3h ago</div>
-      </a>
+    <div class="news-item">
+      <h4>Ethereum gas fees fall to monthly low</h4>
+      <span>15 minutes ago</span>
+    </div>
+
+    <div class="news-item">
+      <h4>BNB Chain announces major upgrade</h4>
+      <span>35 minutes ago</span>
+    </div>
+
+    <div class="news-item">
+      <h4>Altcoins show mixed momentum</h4>
+      <span>1 hour ago</span>
     </div>
   </div>
-</div>
 
+</section>
+
+<!-- JS -->
 <script>
-// User Assets counter increase slightly every minute
-let assetsElem = document.getElementById("userAssets");
-let assets = 120000000;
+// LIVE PRICE SIMULATION
+function rand(min,max){return (Math.random()*(max-min)+min).toFixed(2);}
 setInterval(()=>{
-  assets += Math.floor(Math.random()*5000);
-  assetsElem.innerText = assets.toLocaleString();
-}, 60000);
+  document.getElementById("btc").innerText="$"+rand(89000,90000);
+  document.getElementById("eth").innerText="$"+rand(3100,3200);
+  document.getElementById("bnb").innerText="$"+rand(880,900);
+  document.getElementById("xrp").innerText="$"+rand(1.95,2.05);
+},5000);
+
+// TRUST COUNTER
+let users=1250000;
+setInterval(()=>{
+  users+=Math.floor(Math.random()*20);
+  document.getElementById("users").innerText=users.toLocaleString();
+},60000);
 </script>
 
 </body>
