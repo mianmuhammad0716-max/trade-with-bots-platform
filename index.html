@@ -1,160 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Trade With Bots</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap">
-<style>
-    /* ===== Global Styles ===== */
-    body, html {
-        margin: 0;
-        padding: 0;
-        font-family: 'Roboto', sans-serif;
-        background-color: #f5f8fa;
-        color: #0a1f44;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trade With Bots</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* Global Styles */
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: #0B1B2A; /* Dark dashboard blue */
+      color: #ffffff;
     }
-    a { text-decoration: none; color: inherit; }
-    h1,h2,h3,h4,h5,h6 { margin: 0; padding: 0; }
-    button { cursor: pointer; }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    button {
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      font-weight: 600;
+    }
 
-    /* ===== Header ===== */
-    header {
-        background-color: #0a1f44;
-        color: white;
-        padding: 15px 30px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        position: sticky;
-        top: 0;
-        z-index: 1000;
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+      background-color: #0B1B2A;
+      border-bottom: 1px solid #1C2C3F;
     }
-    header .logo { font-size: 1.8rem; font-weight: bold; color: #00aaff; }
-    header nav a {
-        margin-left: 25px;
-        font-weight: 500;
-        transition: color 0.3s;
+    .navbar .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: #00BFFF; /* Accent blue */
     }
-    header nav a:hover { color: #00aaff; }
+    .navbar .nav-links a {
+      margin-left: 30px;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    .navbar .nav-links a:hover {
+      color: #00BFFF;
+    }
 
-    /* ===== Hero Section ===== */
+    /* Hero Section */
     .hero {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        padding: 100px 20px;
-        background: linear-gradient(135deg, #0072ff 0%, #00aaff 100%);
-        color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 100px 50px;
+      background: linear-gradient(90deg, #0B1B2A 0%, #11283C 100%);
     }
-    .hero h1 { font-size: 3rem; margin-bottom: 20px; }
-    .hero p { font-size: 1.2rem; margin-bottom: 30px; }
-    .hero .btn {
-        background-color: white;
-        color: #0072ff;
-        padding: 15px 30px;
-        font-size: 1rem;
-        font-weight: bold;
-        border: none;
-        border-radius: 5px;
-        transition: transform 0.3s;
+    .hero-content {
+      max-width: 600px;
     }
-    .hero .btn:hover { transform: scale(1.05); }
+    .hero-content h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+      color: #00BFFF;
+    }
+    .hero-content p {
+      font-size: 18px;
+      margin-bottom: 30px;
+      line-height: 1.6;
+      color: #ffffff;
+    }
+    .hero-content button {
+      background-color: #00BFFF;
+      color: #0B1B2A;
+      padding: 15px 30px;
+      font-size: 16px;
+      transition: background 0.3s;
+    }
+    .hero-content button:hover {
+      background-color: #0091CC;
+    }
+    .hero-image img {
+      max-width: 500px;
+      width: 100%;
+    }
 
-    /* ===== Features Section ===== */
+    /* Features Section */
     .features {
-        display: flex;
-        justify-content: space-around;
-        flex-wrap: wrap;
-        padding: 80px 20px;
-        background-color: #f5f8fa;
+      display: flex;
+      justify-content: space-around;
+      padding: 80px 50px;
+      background-color: #0C2033;
+      flex-wrap: wrap;
+      gap: 40px;
     }
     .feature-card {
-        width: 300px;
-        background: white;
-        padding: 30px;
-        margin: 15px;
-        border-radius: 10px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-        text-align: center;
-        transition: transform 0.3s;
+      background-color: #11283C;
+      padding: 30px;
+      border-radius: 10px;
+      flex: 1 1 250px;
+      max-width: 300px;
+      transition: transform 0.3s;
     }
-    .feature-card:hover { transform: translateY(-10px); }
-    .feature-card h3 { margin-bottom: 15px; color: #0072ff; }
-    .feature-card p { font-size: 0.95rem; line-height: 1.5; }
+    .feature-card:hover {
+      transform: translateY(-10px);
+    }
+    .feature-card h3 {
+      color: #00BFFF;
+      margin-bottom: 15px;
+    }
+    .feature-card p {
+      color: #ffffff;
+      line-height: 1.5;
+    }
 
-    /* ===== Footer ===== */
-    footer {
-        background-color: #0a1f44;
-        color: white;
-        text-align: center;
-        padding: 50px 20px;
+    /* Footer */
+    .footer {
+      background-color: #0B1B2A;
+      padding: 50px;
+      text-align: center;
+      border-top: 1px solid #1C2C3F;
     }
-    footer a { color: #00aaff; margin: 0 10px; }
-    footer p { margin-top: 20px; font-size: 0.9rem; }
+    .footer p {
+      margin: 10px 0;
+      color: #ffffff;
+      font-size: 14px;
+    }
 
-    /* ===== Responsive ===== */
-    @media(max-width: 768px){
-        .hero h1 { font-size: 2.2rem; }
-        .features { flex-direction: column; align-items: center; }
-        header { flex-direction: column; align-items: flex-start; }
-        header nav { margin-top: 10px; }
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+        padding: 80px 20px;
+      }
+      .hero-image {
+        margin-top: 40px;
+      }
+      .features {
+        flex-direction: column;
+        align-items: center;
+      }
     }
-</style>
+  </style>
 </head>
 <body>
 
-<!-- Header -->
-<header>
+  <!-- Navbar -->
+  <nav class="navbar">
     <div class="logo">Trade With Bots</div>
-    <nav>
-        <a href="#features">Features</a>
-        <a href="#signup">Sign Up</a>
-        <a href="#contact">Contact</a>
-    </nav>
-</header>
+    <div class="nav-links">
+      <a href="#">Home</a>
+      <a href="#">Features</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+      <a href="#"><button>Get Started</button></a>
+    </div>
+  </nav>
 
-<!-- Hero Section -->
-<section class="hero">
-    <h1>Trade Smarter with Trade With Bots</h1>
-    <p>The ultimate crypto trading platform to maximize your profits with AI bots.</p>
-    <button class="btn">Get Started</button>
-</section>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Trade Smarter with Trade With Bots</h1>
+      <p>Automate your trading strategies, maximize your profits, and stay ahead in the crypto market. Experience seamless trading with our advanced bot solutions.</p>
+      <button>Start Trading</button>
+    </div>
+    <div class="hero-image">
+      <img src="https://i.ibb.co/xmLhV6S/crypto-hero.png" alt="Trading Illustration">
+    </div>
+  </section>
 
-<!-- Features Section -->
-<section class="features" id="features">
+  <!-- Features Section -->
+  <section class="features">
     <div class="feature-card">
-        <h3>Automated Bots</h3>
-        <p>Trade with advanced AI-powered bots that execute strategies 24/7 without emotion.</p>
+      <h3>Automated Bots</h3>
+      <p>Run multiple trading bots with precision and efficiency without manual intervention.</p>
     </div>
     <div class="feature-card">
-        <h3>Real-Time Data</h3>
-        <p>Access live crypto market data and make smarter trading decisions instantly.</p>
+      <h3>Real-Time Analytics</h3>
+      <p>Track market trends and make informed decisions with our advanced analytics dashboard.</p>
     </div>
     <div class="feature-card">
-        <h3>Secure Platform</h3>
-        <p>Top-tier security measures ensure your funds and data are always safe.</p>
+      <h3>Secure & Reliable</h3>
+      <p>We prioritize security so your funds and trades remain safe 24/7.</p>
     </div>
-</section>
-
-<!-- Call to Action Section -->
-<section class="hero" id="signup">
-    <h2>Start Trading Today</h2>
-    <p>Join thousands of successful traders and automate your strategies now.</p>
-    <button class="btn">Sign Up Now</button>
-</section>
-
-<!-- Footer -->
-<footer id="contact">
-    <p>© 2025 Trade With Bots. All rights reserved.</p>
-    <div>
-        <a href="#">Facebook</a> |
-        <a href="#">Twitter</a> |
-        <a href="#">LinkedIn</a>
+    <div class="feature-card">
+      <h3>Multi-Exchange Support</h3>
+      <p>Connect multiple exchanges and manage all your trades from a single platform.</p>
     </div>
-</footer>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 Trade With Bots. All Rights Reserved.</p>
+    <p>Designed with ❤ for crypto traders</p>
+  </footer>
 
 </body>
 </html>
