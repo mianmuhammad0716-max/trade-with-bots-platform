@@ -6,7 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-/* ================= THEME VARIABLES ================= */
 :root{
   --bg:#000;
   --card:#0f1113;
@@ -27,17 +26,16 @@
   --border:#ddd;
 }
 
-/* ================= BASE ================= */
 html,body{
   margin:0;
   min-height:100%;
   background:var(--bg);
   color:var(--text);
   font-family:Inter,Segoe UI,Arial,sans-serif;
-  transition:background .3s,color .3s;
+  transition:.3s;
 }
 
-/* ================= LAYOUT ================= */
+/* ===== LAYOUT ===== */
 .app{
   display:grid;
   grid-template-columns:260px 1fr;
@@ -45,7 +43,7 @@ html,body{
   padding:20px;
 }
 
-/* ================= SIDEBAR ================= */
+/* ===== SIDEBAR ===== */
 .sidebar{
   background:var(--card);
   padding:18px;
@@ -65,23 +63,23 @@ html,body{
   font-weight:600;
 }
 .sidebar a.active{
-  background:rgba(0,102,255,0.15);
+  background:rgba(0,204,255,0.15);
 }
 .sidebar a:hover{
-  background:rgba(0,0,0,0.06);
+  background:rgba(255,255,255,0.06);
 }
 
-/* ================= MAIN ================= */
+/* ===== MAIN ===== */
 .main{
   display:flex;
   flex-direction:column;
   gap:20px;
 }
 
-/* ================= HEADER ================= */
+/* ===== TOP HEADER ===== */
 .profile-header{
   background:var(--glass);
-  padding:22px;
+  padding:20px;
   border-radius:14px;
   display:flex;
   justify-content:space-between;
@@ -91,19 +89,19 @@ html,body{
 
 .profile-left{
   display:flex;
-  gap:18px;
+  gap:16px;
   align-items:center;
 }
 
 .avatar{
-  width:80px;
-  height:80px;
+  width:70px;
+  height:70px;
   border-radius:50%;
   background:linear-gradient(135deg,var(--accent),#00c6ff);
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:30px;
+  font-size:28px;
   font-weight:800;
   color:#fff;
 }
@@ -116,12 +114,11 @@ html,body{
   color:var(--muted);
 }
 
-/* ================= TOGGLE ================= */
+/* ===== TOGGLE ===== */
 .toggle{
   display:flex;
   align-items:center;
   gap:10px;
-  font-weight:600;
 }
 .toggle input{
   appearance:none;
@@ -150,7 +147,7 @@ html,body{
   transform:translateX(20px);
 }
 
-/* ================= CARD ================= */
+/* ===== CARD ===== */
 .card{
   background:var(--glass);
   padding:22px;
@@ -164,9 +161,7 @@ html,body{
   padding:12px 0;
   border-bottom:1px solid var(--border);
 }
-.detail:last-child{
-  border-bottom:none;
-}
+.detail:last-child{border-bottom:none;}
 
 button{
   margin-top:18px;
@@ -179,14 +174,45 @@ button{
   cursor:pointer;
 }
 
-/* ================= MOBILE ================= */
+/* ===== MOBILE ===== */
+.menu-btn{
+  display:none;
+  background:var(--accent);
+  color:#000;
+  border:none;
+  padding:12px 16px;
+  border-radius:12px;
+  font-weight:700;
+}
+
 @media(max-width:850px){
   .app{
     grid-template-columns:1fr;
+    padding:16px;
   }
+
+  .sidebar{
+    position:fixed;
+    top:0;
+    left:-280px;
+    width:260px;
+    height:100%;
+    z-index:100;
+    transition:left .3s ease;
+  }
+  .sidebar.show{
+    left:0;
+  }
+
+  .menu-btn{
+    display:block;
+    margin-bottom:10px;
+  }
+
   .profile-header{
     flex-direction:column;
     gap:14px;
+    align-items:flex-start;
   }
 }
 </style>
@@ -196,7 +222,7 @@ button{
 <div class="app">
 
   <!-- SIDEBAR -->
-  <aside class="sidebar">
+  <aside class="sidebar" id="sidebar">
     <h2>⚡ TWB</h2>
     <a href="dashboard.html">Dashboard</a>
     <a href="bots.html">Bots</a>
@@ -211,7 +237,9 @@ button{
   <!-- MAIN -->
   <main class="main">
 
-    <!-- HEADER -->
+    <!-- MOBILE MENU -->
+    <button class="menu-btn" onclick="toggleMenu()">☰ Menu</button>
+
     <div class="profile-header">
       <div class="profile-left">
         <div class="avatar">U</div>
@@ -221,14 +249,12 @@ button{
         </div>
       </div>
 
-      <!-- THEME TOGGLE -->
       <div class="toggle">
         🌙 / ☀
         <input type="checkbox" id="themeToggle">
       </div>
     </div>
 
-    <!-- DETAILS -->
     <div class="card">
       <div class="detail"><span>Full Name</span><strong>User Name</strong></div>
       <div class="detail"><span>Email</span><strong>user@example.com</strong></div>
@@ -242,19 +268,21 @@ button{
 </div>
 
 <script>
-const toggle = document.getElementById("themeToggle");
-const body = document.body;
-
-// Load saved theme
-if(localStorage.getItem("theme")==="light"){
-  body.classList.add("light");
-  toggle.checked = true;
+function toggleMenu(){
+  document.getElementById("sidebar").classList.toggle("show");
 }
 
-// Toggle theme
+// theme
+const toggle=document.getElementById("themeToggle");
+if(localStorage.getItem("theme")==="light"){
+  document.body.classList.add("light");
+  toggle.checked=true;
+}
 toggle.addEventListener("change",()=>{
-  body.classList.toggle("light");
-  localStorage.setItem("theme", body.classList.contains("light") ? "light" : "dark");
+  document.body.classList.toggle("light");
+  localStorage.setItem("theme",
+    document.body.classList.contains("light")?"light":"dark"
+  );
 });
 </script>
 
