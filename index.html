@@ -2,160 +2,204 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Trade With Bots | Crypto Exchange</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trade With Bots — Smart Crypto Trading</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- FONT (Binance-like) -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="logo.png">
 
 <style>
 :root{
-  --bg:#0b0e11;
-  --card:#161a1e;
-  --text:#eaecef;
-  --muted:#848e9c;
-  --yellow:#f0b90b;
-  --green:#0ecb81;
-  --red:#f6465d;
+  --bg:#000;
+  --card:#0f1113;
+  --glass:rgba(255,255,255,0.04);
+  --accent:#00ccff;
+  --muted:#9aa;
+  --success:#2ee6a7;
 }
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
-body{background:var(--bg);color:var(--text);}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:#fff;
+  font-family:Inter,system-ui,Arial;
+}
 
 /* HEADER */
 header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:18px 40px;
+  padding:18px 32px;
 }
-.logo{
-  font-size:22px;
-  font-weight:700;
-}
-.logo span{color:var(--yellow);}
-
-/* BUTTON */
-.btn{
-  background:var(--yellow);
-  color:#000;
-  padding:14px 28px;
-  border-radius:6px;
+header img{height:36px}
+header a{
+  color:#fff;
   text-decoration:none;
   font-weight:700;
-  animation:glow 1.5s infinite alternate;
 }
-@keyframes glow{
-  from{box-shadow:0 0 8px rgba(240,185,11,.5);}
-  to{box-shadow:0 0 22px rgba(240,185,11,1);}
+
+/* MARKET SENTIMENT BAR (A) */
+.sentiment{
+  background:linear-gradient(90deg,#0b1d24,#020b0f);
+  border-top:1px solid rgba(255,255,255,0.06);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  padding:10px 24px;
+  display:flex;
+  gap:24px;
+  font-size:14px;
 }
+.sentiment span strong{color:var(--accent)}
 
 /* HERO */
 .hero{
-  padding:30px 40px 10px;
+  padding:40px 32px;
+  text-align:center;
 }
 .hero h1{
   font-size:38px;
-  margin-bottom:10px;
+  margin-bottom:12px;
 }
 .hero p{
   color:var(--muted);
-  max-width:650px;
+  font-size:16px;
 }
 
-/* STATS */
-.stats{
-  display:flex;
-  gap:30px;
-  padding:10px 40px 25px;
+.hero button{
+  margin-top:20px;
+  padding:14px 32px;
+  font-size:16px;
+  font-weight:800;
+  border:none;
+  border-radius:12px;
+  background:linear-gradient(90deg,var(--accent),#00a8e6);
+  color:#000;
+  cursor:pointer;
+  box-shadow:0 0 20px rgba(0,204,255,0.6);
+  animation:pulse 1.6s infinite;
 }
-.stat{
-  background:var(--card);
-  padding:14px 22px;
-  border-radius:10px;
+@keyframes pulse{
+  0%{box-shadow:0 0 10px rgba(0,204,255,0.4)}
+  50%{box-shadow:0 0 30px rgba(0,204,255,0.9)}
+  100%{box-shadow:0 0 10px rgba(0,204,255,0.4)}
 }
-.stat strong{color:var(--yellow);font-size:18px;}
 
-/* GRID */
-.grid{
+/* MAIN SECTION */
+.main{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:24px;
-  padding:0 40px 40px;
+  gap:20px;
+  padding:32px;
 }
+
+/* CARDS */
 .card{
-  background:var(--card);
+  background:var(--glass);
   border-radius:14px;
-  padding:20px;
+  padding:18px;
 }
 
 /* COINS */
 .coin{
   display:flex;
   justify-content:space-between;
+  align-items:center;
   padding:12px 0;
-  border-bottom:1px solid #222;
+  border-bottom:1px solid rgba(255,255,255,0.05);
 }
-.coin:last-child{border:none;}
-.green{color:var(--green);}
-.red{color:var(--red);}
+.coin:last-child{border:none}
+.coin span{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:700;
+}
+.coin img{height:22px}
 
 /* NEWS */
 .news-item{
   padding:14px 0;
-  border-bottom:1px solid #222;
+  border-bottom:1px solid rgba(255,255,255,0.05);
 }
-.news-item:last-child{border:none;}
-.news-item h4{
-  font-size:15px;
-  font-weight:600;
+.news-item:last-child{border:none}
+.news-item strong{display:block}
+.news-item span{color:var(--muted);font-size:13px}
+
+/* SOCIAL PROOF (D) */
+.trust{
+  background:linear-gradient(90deg,#020b0f,#000);
+  padding:26px;
+  margin:20px 32px;
+  border-radius:16px;
+  display:flex;
+  justify-content:space-around;
+  text-align:center;
 }
-.news-item span{
-  font-size:13px;
+.trust div strong{
+  font-size:22px;
+  color:var(--accent);
+}
+.trust div span{
   color:var(--muted);
+  font-size:13px;
 }
 
-/* RESPONSIVE */
+/* MOBILE */
 @media(max-width:900px){
-  .grid{grid-template-columns:1fr;}
-  .stats{flex-direction:column;}
+  .main{grid-template-columns:1fr}
+  header{flex-direction:column;gap:10px}
 }
 </style>
 </head>
 
 <body>
 
+<!-- HEADER -->
 <header>
-  <div class="logo">⚡ <span>Trade With Bots</span></div>
-  <a href="login.html" class="btn">Start Trading</a>
+  <img src="logo.png" alt="Trade With Bots">
+  <a href="login.html">Login</a>
 </header>
 
+<!-- MARKET SENTIMENT (A) -->
+<div class="sentiment">
+  <span>BTC: <strong>65% Bullish</strong></span>
+  <span>ETH: <strong>58% Bullish</strong></span>
+  <span>Fear & Greed Index: <strong>72 (Greed)</strong></span>
+</div>
+
+<!-- HERO -->
 <section class="hero">
-  <h1>Buy & Trade Crypto in Minutes</h1>
-  <p>No.1 Customer Asset Protection · Real-Time Market · Trusted Worldwide</p>
+  <h1>No.1 Customer Asset Protection Platform</h1>
+  <p>Trade smarter using automated crypto bots trusted worldwide</p>
+  <button onclick="location.href='login.html'">Start Trading</button>
 </section>
 
-<!-- TRUST / STATS -->
-<section class="stats">
-  <div class="stat">
-    <strong>No.1</strong><br>
-    Customer Asset Protection
-  </div>
-  <div class="stat">
-    <strong id="users">1,250,000</strong><br>
-    Trusted Users
-  </div>
-</section>
-
-<section class="grid">
+<!-- COINS + NEWS -->
+<section class="main">
 
   <!-- COINS -->
   <div class="card">
-    <h3>🔥 Coins Prices</h3>
+    <h3>🔥 Popular Coins</h3>
 
-    <div class="coin"><span>BTC</span><strong id="btc">$89,477</strong></div>
-    <div class="coin"><span>ETH</span><strong id="eth">$3,115</strong></div>
-    <div class="coin"><span>BNB</span><strong id="bnb">$886</strong></div>
-    <div class="coin"><span>XRP</span><strong id="xrp">$2.00</strong></div>
+    <div class="coin">
+      <span><img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png"> BTC</span>
+      <strong>$89,477</strong>
+    </div>
+
+    <div class="coin">
+      <span><img src="https://cryptologos.cc/logos/ethereum-eth-logo.png"> ETH</span>
+      <strong>$3,115</strong>
+    </div>
+
+    <div class="coin">
+      <span><img src="https://cryptologos.cc/logos/bnb-bnb-logo.png"> BNB</span>
+      <strong>$886</strong>
+    </div>
+
+    <div class="coin">
+      <span><img src="https://cryptologos.cc/logos/xrp-xrp-logo.png"> XRP</span>
+      <strong>$2.00</strong>
+    </div>
   </div>
 
   <!-- NEWS -->
@@ -163,44 +207,50 @@ header{
     <h3>📰 Crypto News</h3>
 
     <div class="news-item">
-      <h4>Bitcoin volatility rises ahead of market open</h4>
-      <span>2 minutes ago</span>
+      <strong>Bitcoin holds above $89K</strong>
+      <span>Institutional demand remains strong</span>
     </div>
 
     <div class="news-item">
-      <h4>Ethereum gas fees fall to monthly low</h4>
-      <span>15 minutes ago</span>
+      <strong>Ethereum ETF inflows rise</strong>
+      <span>ETH ecosystem gains momentum</span>
     </div>
 
     <div class="news-item">
-      <h4>BNB Chain announces major upgrade</h4>
-      <span>35 minutes ago</span>
+      <strong>BNB Chain activity surges</strong>
+      <span>DeFi volume hits monthly high</span>
     </div>
 
     <div class="news-item">
-      <h4>Altcoins show mixed momentum</h4>
-      <span>1 hour ago</span>
+      <strong>Altcoins show recovery</strong>
+      <span>Market sentiment turns bullish</span>
     </div>
   </div>
 
 </section>
 
-<!-- JS -->
-<script>
-// LIVE PRICE SIMULATION
-function rand(min,max){return (Math.random()*(max-min)+min).toFixed(2);}
-setInterval(()=>{
-  document.getElementById("btc").innerText="$"+rand(89000,90000);
-  document.getElementById("eth").innerText="$"+rand(3100,3200);
-  document.getElementById("bnb").innerText="$"+rand(880,900);
-  document.getElementById("xrp").innerText="$"+rand(1.95,2.05);
-},5000);
+<!-- SOCIAL PROOF (D) -->
+<section class="trust">
+  <div>
+    <strong id="users">1,240,000+</strong><br>
+    <span>Trusted Users</span>
+  </div>
+  <div>
+    <strong>$9.8B</strong><br>
+    <span>Assets Secured</span>
+  </div>
+  <div>
+    <strong>120+</strong><br>
+    <span>Countries Supported</span>
+  </div>
+</section>
 
-// TRUST COUNTER
-let users=1250000;
+<script>
+/* AUTO INCREASE USER TRUST NUMBER */
 setInterval(()=>{
-  users+=Math.floor(Math.random()*20);
-  document.getElementById("users").innerText=users.toLocaleString();
+  const el=document.getElementById("users");
+  let n=parseInt(el.innerText.replace(/\D/g,''));
+  el.innerText=(n+Math.floor(Math.random()*3)+1).toLocaleString()+"+";
 },60000);
 </script>
 
