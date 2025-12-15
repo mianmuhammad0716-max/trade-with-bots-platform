@@ -4,53 +4,259 @@
 <meta charset="UTF-8">
 <title>Profile — Trade With Bots</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <style>
+/* ================= THEME VARIABLES ================= */
 :root{
   --bg:#000;
   --card:#0f1113;
+  --glass:rgba(255,255,255,0.04);
   --accent:#00ccff;
+  --text:#fff;
   --muted:#9aa;
-  --radius:12px;
+  --border:rgba(255,255,255,0.08);
 }
-html, body {margin:0;height:100%;font-family:Inter,sans-serif;background:var(--bg);color:#fff;}
-.app {display:grid;grid-template-columns:260px 1fr;min-height:100vh;gap:20px;}
-.sidebar {background:linear-gradient(180deg,var(--card),#0b0b0b);padding:18px;border-radius:var(--radius);}
-.sidebar h2 {color:var(--accent);margin-bottom:20px;}
-.sidebar a {display:block;color:#cfeff6;text-decoration:none;padding:10px;border-radius:10px;margin-bottom:6px;}
-.sidebar a.active {background: rgba(0,204,255,0.12);color:#fff;}
-.sidebar a:hover {background: rgba(0,204,255,0.06);}
-.main {padding:18px;}
-.topbar {margin-bottom:18px;font-size:18px;color:var(--accent);font-weight:700;}
-.card {background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:20px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.6);}
-button {background:linear-gradient(90deg,var(--accent),#00a8e6);color:#000;padding:10px 14px;border-radius:10px;border:none;font-weight:700;cursor:pointer;}
+
+.light{
+  --bg:#f4f6f8;
+  --card:#ffffff;
+  --glass:#ffffff;
+  --accent:#0066ff;
+  --text:#111;
+  --muted:#666;
+  --border:#ddd;
+}
+
+/* ================= BASE ================= */
+html,body{
+  margin:0;
+  min-height:100%;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,Segoe UI,Arial,sans-serif;
+  transition:background .3s,color .3s;
+}
+
+/* ================= LAYOUT ================= */
+.app{
+  display:grid;
+  grid-template-columns:260px 1fr;
+  gap:20px;
+  padding:20px;
+}
+
+/* ================= SIDEBAR ================= */
+.sidebar{
+  background:var(--card);
+  padding:18px;
+  border-radius:14px;
+}
+.sidebar h2{
+  color:var(--accent);
+  margin-bottom:20px;
+}
+.sidebar a{
+  display:block;
+  padding:12px;
+  border-radius:10px;
+  text-decoration:none;
+  color:var(--text);
+  margin-bottom:6px;
+  font-weight:600;
+}
+.sidebar a.active{
+  background:rgba(0,102,255,0.15);
+}
+.sidebar a:hover{
+  background:rgba(0,0,0,0.06);
+}
+
+/* ================= MAIN ================= */
+.main{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+/* ================= HEADER ================= */
+.profile-header{
+  background:var(--glass);
+  padding:22px;
+  border-radius:14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border:1px solid var(--border);
+}
+
+.profile-left{
+  display:flex;
+  gap:18px;
+  align-items:center;
+}
+
+.avatar{
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),#00c6ff);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:30px;
+  font-weight:800;
+  color:#fff;
+}
+
+.profile-info h2{
+  margin:0;
+}
+.profile-info p{
+  margin:4px 0;
+  color:var(--muted);
+}
+
+/* ================= TOGGLE ================= */
+.toggle{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:600;
+}
+.toggle input{
+  appearance:none;
+  width:44px;
+  height:24px;
+  background:#ccc;
+  border-radius:20px;
+  position:relative;
+  cursor:pointer;
+}
+.toggle input:checked{
+  background:var(--accent);
+}
+.toggle input::before{
+  content:"";
+  position:absolute;
+  width:18px;
+  height:18px;
+  background:#fff;
+  border-radius:50%;
+  top:3px;
+  left:3px;
+  transition:.25s;
+}
+.toggle input:checked::before{
+  transform:translateX(20px);
+}
+
+/* ================= CARD ================= */
+.card{
+  background:var(--glass);
+  padding:22px;
+  border-radius:14px;
+  border:1px solid var(--border);
+}
+
+.detail{
+  display:flex;
+  justify-content:space-between;
+  padding:12px 0;
+  border-bottom:1px solid var(--border);
+}
+.detail:last-child{
+  border-bottom:none;
+}
+
+button{
+  margin-top:18px;
+  padding:12px 18px;
+  border:none;
+  border-radius:12px;
+  background:var(--accent);
+  color:#fff;
+  font-weight:700;
+  cursor:pointer;
+}
+
+/* ================= MOBILE ================= */
+@media(max-width:850px){
+  .app{
+    grid-template-columns:1fr;
+  }
+  .profile-header{
+    flex-direction:column;
+    gap:14px;
+  }
+}
 </style>
 </head>
-<body>
 
+<body>
 <div class="app">
+
+  <!-- SIDEBAR -->
   <aside class="sidebar">
     <h2>⚡ TWB</h2>
     <a href="dashboard.html">Dashboard</a>
     <a href="bots.html">Bots</a>
     <a href="signals.html">Signals</a>
-    <a href="profile.html" class="active">Profile</a>
+    <a class="active">Profile</a>
     <a href="settings.html">Settings</a>
     <a href="payment.html">Payments</a>
     <a href="withdraw.html">Withdraw</a>
     <a href="login.html">Logout</a>
   </aside>
 
+  <!-- MAIN -->
   <main class="main">
-    <div class="topbar">Your Profile</div>
 
-    <div class="card">
-      <h2>User</h2>
-      <p>Email: user@example.com</p>
-      <p>Member since: 2024</p>
-      <button onclick="window.location.href='settings.html'">Edit Profile</button>
+    <!-- HEADER -->
+    <div class="profile-header">
+      <div class="profile-left">
+        <div class="avatar">U</div>
+        <div class="profile-info">
+          <h2>User Name</h2>
+          <p>user@example.com</p>
+        </div>
+      </div>
+
+      <!-- THEME TOGGLE -->
+      <div class="toggle">
+        🌙 / ☀
+        <input type="checkbox" id="themeToggle">
+      </div>
     </div>
+
+    <!-- DETAILS -->
+    <div class="card">
+      <div class="detail"><span>Full Name</span><strong>User Name</strong></div>
+      <div class="detail"><span>Email</span><strong>user@example.com</strong></div>
+      <div class="detail"><span>Member Since</span><strong>2024</strong></div>
+      <div class="detail"><span>Account Type</span><strong>Standard</strong></div>
+
+      <button onclick="location.href='settings.html'">Edit Profile</button>
+    </div>
+
   </main>
 </div>
+
+<script>
+const toggle = document.getElementById("themeToggle");
+const body = document.body;
+
+// Load saved theme
+if(localStorage.getItem("theme")==="light"){
+  body.classList.add("light");
+  toggle.checked = true;
+}
+
+// Toggle theme
+toggle.addEventListener("change",()=>{
+  body.classList.toggle("light");
+  localStorage.setItem("theme", body.classList.contains("light") ? "light" : "dark");
+});
+</script>
 
 </body>
 </html>
