@@ -10,7 +10,7 @@
   --card:#0f1113;
   --accent:#00ccff;
   --muted:#9aa;
-  --radius:12px;
+  --radius:14px;
 }
 html,body{
   margin:0;
@@ -58,6 +58,7 @@ html,body{
   font-size:14px;
   color:#cfeff6;
   text-decoration:none;
+  transition:0.2s;
 }
 .nav a:hover{background: rgba(0,204,255,0.06);}
 .nav a.active{background: rgba(0,204,255,0.12);color:#fff;}
@@ -68,7 +69,7 @@ html,body{
   padding:18px;
   display:flex;
   flex-direction:column;
-  gap:18px;
+  gap:20px;
 }
 .topbar{
   display:flex;
@@ -84,27 +85,28 @@ html,body{
   background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
   padding:20px;
   border-radius:var(--radius);
-  box-shadow:0 6px 20px rgba(0,0,0,0.6);
+  box-shadow:0 6px 25px rgba(0,0,0,0.6);
   display:flex;
   flex-direction:column;
   gap:15px;
 }
-
-/* Inputs & buttons */
 .card input[type="text"], .card input[type="number"]{
   padding:12px;
-  border-radius:8px;
+  border-radius:10px;
   border:none;
   background:#111;
   color:#fff;
   width:100%;
+  box-sizing:border-box;
 }
 .card input[type="file"]{
   display:none;
 }
+
+/* File & Withdraw Buttons */
 .file-btn{
   padding:10px 14px;
-  border-radius:8px;
+  border-radius:10px;
   border:none;
   background:linear-gradient(90deg,#00ffcc,#00ccff);
   color:#000;
@@ -112,7 +114,9 @@ html,body{
   cursor:pointer;
   width:150px;
   text-align:center;
+  transition:0.2s;
 }
+.file-btn:hover{transform:translateY(-2px); box-shadow:0 4px 15px rgba(0,204,255,0.4);}
 .btn-withdraw{
   background:linear-gradient(90deg,#ff4b4b,#ff2d2d);
   color:#fff;
@@ -120,13 +124,39 @@ html,body{
   border:none;
   border-radius:10px;
   font-weight:700;
-  width:auto;
   cursor:pointer;
+  width:auto;
+  transition:0.2s;
 }
+.btn-withdraw:hover{transform:translateY(-2px); box-shadow:0 4px 15px rgba(255,75,75,0.5);}
 .note{
   font-size:13px;
   color:#aaa;
 }
+
+/* Bank Cards */
+.bank-card{
+  background:linear-gradient(135deg,#0a0a0a,#111111);
+  padding:20px;
+  border-radius:14px;
+  margin-top:10px;
+  text-align:center;
+  border:1px solid rgba(255,255,255,0.05);
+  box-shadow:0 4px 20px rgba(0,0,0,0.4);
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  transition:0.3s;
+}
+.bank-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 6px 25px rgba(0,204,255,0.5);
+}
+.bank-card img{
+  max-width:80px;
+  margin:0 auto;
+}
+.bank-card input[type="text"]{margin-bottom:5px;}
 
 /* MOBILE */
 .menu-btn{
@@ -140,9 +170,7 @@ html,body{
   cursor:pointer;
 }
 @media(max-width:900px){
-  .app{
-    grid-template-columns:1fr;
-  }
+  .app{grid-template-columns:1fr;}
   .sidebar{
     position:fixed;
     left:-260px;
@@ -152,13 +180,11 @@ html,body{
     transition:left .3s ease;
     z-index:99;
   }
-  .sidebar.show{
-    left:0;
-  }
-  .menu-btn{
-    display:block;
-    margin-bottom:10px;
-  }
+  .sidebar.show{left:0;}
+  .menu-btn{display:block; margin-bottom:10px;}
+  .main{padding:15px;}
+  .bank-card{flex-direction:column;gap:10px;}
+  .file-btn,.btn-withdraw{width:100%;}
 }
 </style>
 </head>
@@ -184,15 +210,13 @@ html,body{
 
   <!-- MAIN CONTENT -->
   <main class="main">
-
     <button class="menu-btn" onclick="toggleMenu()">☰ Menu</button>
-
     <div class="topbar">
       <div class="top-title">Withdraw</div>
     </div>
 
     <div class="card">
-      <div>Available Balance: <strong id="balanceVal">$0</strong></div>
+      <div>Available Balance: <strong id="balanceVal">$124.30</strong></div>
 
       <input type="number" id="withdrawAmt" placeholder="Amount $">
       <button class="btn-withdraw" onclick="withdrawBalance()">Withdraw</button>
@@ -200,6 +224,7 @@ html,body{
 
       <!-- JazzCash -->
       <div class="bank-card">
+        <img src="images/jazzcash.png" alt="JazzCash Logo">
         <h3>JazzCash</h3>
         <input type="text" id="jazzcashNum" placeholder="Enter your JazzCash number">
         <label class="file-btn" for="jazzcashScreenshot">Upload Screenshot</label>
@@ -209,6 +234,7 @@ html,body{
 
       <!-- Easypaisa -->
       <div class="bank-card">
+        <img src="images/easypaisa.png" alt="Easypaisa Logo">
         <h3>Easypaisa</h3>
         <input type="text" id="easypaisaNum" placeholder="Enter your Easypaisa number">
         <label class="file-btn" for="easypaisaScreenshot">Upload Screenshot</label>
@@ -255,3 +281,4 @@ function toggleMenu(){
 </script>
 </body>
 </html>
+
