@@ -4,168 +4,310 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trade With Bots</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        /* Basic Reset */
+        * {
             margin: 0;
             padding: 0;
-            background-color: #0A0A0A;
-            color: #fff;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
         }
 
-        .flex {
+        body {
+            background-color: #0a1b2c;
+            color: #f8f8f8;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Navbar */
+        .navbar {
             display: flex;
-        }
-
-        .justify-between {
             justify-content: space-between;
-        }
-
-        .justify-center {
-            justify-content: center;
-        }
-
-        .items-center {
             align-items: center;
+            padding: 15px 50px;
+            background-color: #061221;
         }
 
-        .gap-6xl {
-            gap: 3rem;
+        .navbar .logo {
+            font-weight: 700;
+            font-size: 24px;
+            color: #00b0f4;
         }
 
-        .mobile\:gap-xl {
-            gap: 1rem;
-        }
-
-        .mobile\:justify-center {
-            justify-content: center;
-        }
-
-        .mobile\:flex-shrink-0 {
-            flex-shrink: 0;
-        }
-
-        .text-PrimaryYellow {
-            color: #F8D33A;
-        }
-
-        .flip-card-container {
-            perspective: 1000px;
-            height: 47px;
-            width: 160px;
-        }
-
-        .flip-card {
-            position: relative;
-            height: 100%;
-            width: 100%;
-            transition: transform 0.7s ease-out;
-            transform-style: preserve-3d;
-        }
-
-        .flip-card:hover {
-            transform: rotateY(180deg);
-        }
-
-        .flip-card-front, .flip-card-back {
-            position: absolute;
-            height: 100%;
-            width: 100%;
-            backface-visibility: hidden;
+        .navbar ul {
             display: flex;
+            list-style: none;
+        }
+
+        .navbar ul li {
+            margin-left: 25px;
+        }
+
+        .navbar ul li a {
+            color: #f8f8f8;
+            font-weight: 500;
+        }
+
+        .navbar ul li a:hover {
+            color: #00b0f4;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
+            padding: 120px 20px 80px 20px;
+            background: linear-gradient(135deg, #0a1b2c 0%, #061221 100%);
         }
 
-        .flip-card-back {
-            transform: rotateY(180deg);
-        }
-
-        .flip-card-front div, .flip-card-back div {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .flip-card-front div div:first-child,
-        .flip-card-back div div:first-child {
+        .hero h1 {
+            font-size: 48px;
             font-weight: 700;
-            font-size: 28px;
-            line-height: 100%;
+            color: #00b0f4;
+            margin-bottom: 20px;
         }
 
-        .flip-card-front div div:last-child,
-        .flip-card-back div div:last-child {
+        .hero p {
+            font-size: 20px;
+            color: #cfd8dc;
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+
+        .hero .btn {
+            background-color: #00b0f4;
+            color: #fff;
+            padding: 15px 35px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .hero .btn:hover {
+            background-color: #0085b8;
+        }
+
+        /* Stats Section */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        .stat-box {
+            text-align: center;
+        }
+
+        .stat-box h2 {
+            font-size: 36px;
+            color: #00b0f4;
+            margin-bottom: 10px;
+        }
+
+        .stat-box p {
+            color: #cfd8dc;
             font-weight: 500;
-            font-size: 16px;
         }
 
-        svg {
-            display: block;
+        /* Features Section */
+        .features {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            padding: 80px 50px;
+            background-color: #061221;
         }
 
-        .vertical-line {
-            height: 47px;
-            width: 20px;
+        .feature-box {
+            flex: 1 1 250px;
+            background-color: #0a1b2c;
+            margin: 15px;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            transition: 0.3s;
         }
 
-        @media(max-width:768px){
-            .flex {
+        .feature-box:hover {
+            background-color: #0f2a44;
+        }
+
+        .feature-box h3 {
+            margin-bottom: 15px;
+            color: #00b0f4;
+        }
+
+        .feature-box p {
+            color: #cfd8dc;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #061221;
+            padding: 50px 20px;
+            text-align: center;
+            color: #cfd8dc;
+        }
+
+        footer h3 {
+            margin-bottom: 15px;
+            color: #00b0f4;
+        }
+
+        footer p {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Responsive */
+        @media(max-width: 768px) {
+            .navbar {
                 flex-direction: column;
+            }
+
+            .navbar ul {
+                flex-direction: column;
+                margin-top: 10px;
+            }
+
+            .features {
+                flex-direction: column;
+                padding: 50px 20px;
+            }
+
+            .feature-box {
+                margin: 20px 0;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .stats {
+                gap: 40px;
+            }
+
+            .stat-box h2 {
+                font-size: 28px;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="flex gap-6xl justify-between mobile:gap-xl mobile:justify-center">
-        <div class="flex items-center mobile:flex-shrink-0" style="height:47px">
-            <div class="flex-shrink-0 flex items-center justify-center" style="transform:unset">
-                <!-- Left SVG -->
-                <svg class="vertical-line" width="20" height="47" viewBox="0 0 20 47" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0.975667 16.9955C0.937581 17.1298 ... fill="url(#paint0_linear_207_8791)"></path>
-                    <defs>
-                        <linearGradient id="paint0_linear_207_8791" x1="10" y1="0" x2="10" y2="47" gradientUnits="userSpaceOnUse">
-                            <stop stop-color="#F8D33A"></stop>
-                            <stop offset="1" stop-color="#B27F07"></stop>
-                        </linearGradient>
-                    </defs>
-                </svg>
-            </div>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">Trade With Bots</div>
+        <ul>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#signup">Sign Up</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
 
-            <div class="flip-card-container">
-                <div class="flip-card text-PrimaryYellow">
-                    <div class="flip-card-front">
-                        <div>
-                            <div>No.1</div>
-                            <div>Trade With Bots</div>
-                        </div>
-                    </div>
-                    <div class="flip-card-back">
-                        <div>
-                            <div>Assets</div>
-                            <div>$162,788,517,875</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Trade With Confidence</h1>
+        <p>Experience the next-generation trading platform with powerful bots, real-time analytics, and a smooth, user-friendly interface.</p>
+        <a href="#signup" class="btn">Get Started</a>
 
-            <div class="flex-shrink-0 flex items-center justify-center">
-                <!-- Right SVG (flipped) -->
-                <div style="transform:rotate(180deg) scaleY(-1)">
-                    <svg class="vertical-line" width="20" height="47" viewBox="0 0 20 47" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M0.975667 16.9955C0.937581 17.1298 ... fill="url(#paint0_linear_207_8791)"></path>
-                        <defs>
-                            <linearGradient id="paint0_linear_207_8791" x1="10" y1="0" x2="10" y2="47" gradientUnits="userSpaceOnUse">
-                                <stop stop-color="#F8D33A"></stop>
-                                <stop offset="1" stop-color="#B27F07"></stop>
-                            </linearGradient>
-                        </defs>
-                    </svg>
-                </div>
+        <!-- Animated Stats -->
+        <div class="stats">
+            <div class="stat-box">
+                <h2 class="counter" data-target="500000">0</h2>
+                <p>Active Users</p>
+            </div>
+            <div class="stat-box">
+                <h2 class="counter" data-target="10000000">0</h2>
+                <p>Daily Volume ($)</p>
+            </div>
+            <div class="stat-box">
+                <h2 class="counter" data-target="250000000">0</h2>
+                <p>Assets Managed ($)</p>
             </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="feature-box">
+            <h3>Automated Bots</h3>
+            <p>Run trading bots 24/7 and maximize your profits effortlessly.</p>
+        </div>
+        <div class="feature-box">
+            <h3>Real-Time Analytics</h3>
+            <p>Make smarter trades with up-to-date market insights and charts.</p>
+        </div>
+        <div class="feature-box">
+            <h3>Secure & Reliable</h3>
+            <p>Our platform ensures top-notch security for your assets and data.</p>
+        </div>
+    </section>
+
+    <!-- Signup Section -->
+    <section class="hero" id="signup">
+        <h1>Start Trading Today</h1>
+        <p>Sign up and start using your personal trading bots within minutes.</p>
+        <a href="#" class="btn">Create Account</a>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <h3>Trade With Bots</h3>
+        <p>© 2025 Trade With Bots. All rights reserved. Designed to give you a clean and professional trading experience.</p>
+    </footer>
+
+    <!-- Counter Animation Script -->
+    <script>
+        const counters = document.querySelectorAll('.counter');
+        const speed = 200; // speed of counting
+
+        const animateCounters = () => {
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target');
+                    const count = +counter.innerText.replace(/,/g, '');
+                    const increment = Math.ceil(target / speed);
+
+                    if(count < target){
+                        counter.innerText = (count + increment).toLocaleString();
+                        setTimeout(updateCount, 20);
+                    } else {
+                        counter.innerText = target.toLocaleString();
+                    }
+                };
+                updateCount();
+            });
+        }
+
+        // Animate when stats are in viewport
+        const statsSection = document.querySelector('.stats');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting){
+                    animateCounters();
+                    observer.unobserve(statsSection);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        observer.observe(statsSection);
+    </script>
 
 </body>
 </html>
