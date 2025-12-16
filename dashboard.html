@@ -139,7 +139,6 @@ html,body{
 .status-paused { background:#ffd166; }
 .status-off { background:var(--danger); color:#fff; }
 
-/* ================= MOBILE STYLES ================= */
 @media(max-width:900px){
   .app { grid-template-columns:1fr; gap:0; }
   .hamburger { display:block; }
@@ -163,21 +162,21 @@ html,body{
   .card button { display:none; }
 }
 
-/* WhatsApp floating button (always visible on mobile and PC) */
+/* WhatsApp floating button - mobile and PC */
 .whatsapp-float {
   position: fixed;
-  bottom: 18px;
-  right: 18px;
   width: 56px;
   height: 56px;
   background: #25D366;
   border-radius: 50%;
-  display: flex; /* visible everywhere */
+  display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 8px 25px rgba(37,211,102,0.45);
-  z-index:10000; /* on top of everything */
+  z-index:10000;
   animation: pulse 2s infinite;
+  bottom: 18px;
+  right: 18px;
 }
 .whatsapp-float img {
   width:28px;
@@ -187,6 +186,14 @@ html,body{
   0% { box-shadow:0 0 0 0 rgba(37,211,102,0.6); }
   70% { box-shadow:0 0 0 18px rgba(37,211,102,0); }
   100% { box-shadow:0 0 0 0 rgba(37,211,102,0); }
+}
+
+/* Professional positioning for PC */
+@media(min-width:901px){
+  .whatsapp-float {
+    bottom: 30px;
+    right: 30px;
+  }
 }
 </style>
 </head>
